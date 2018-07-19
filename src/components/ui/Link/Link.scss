@@ -1,0 +1,16 @@
+.link {
+  display: block;
+  border-bottom: 1px solid #ccc;
+  padding: 1em 1.5em;
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  pointer-events: none;
+  color: red;
+}
+
+.icon {
+  margin-right: 0.5em;
+}

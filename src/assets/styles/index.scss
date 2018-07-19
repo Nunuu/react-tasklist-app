@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,600');
+
+html, body {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Other general styles */
+a {
+  text-decoration: none;
+  transition: color 0.3s ease-out;
+}
+
+main {
+  padding-left: 10em;
+  min-height: 100vh;
+}
+
+button {
+  background: none;
+  cursor: pointer;
+  border: none;
+}

@@ -1,0 +1,42 @@
+.taskBlock {
+  padding: 0 0 0 1.5em;
+  flex: 1;
+  flex-basis: 20%;
+  max-width: 20%;
+  h2 {
+    text-transform: uppercase;
+    color: red;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  button {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    background: #f0f0f0;
+    padding: 1em;
+    border: none;
+    transition: background 0.3s ease-out;
+    &:hover {
+      background: #ccc;
+    }
+  }
+
+  @media all and (max-width: 1440px) {
+    flex-basis: 25%;
+    max-width: 25%;
+  }
+  @media all and (max-width: 1200px) {
+    flex-basis: 33.33%;
+    max-width: 33.33%;
+  }
+  @media all and (max-width: 1024px) {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+  @media all and (max-width: 768px) {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}

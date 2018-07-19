@@ -1,0 +1,3 @@
+export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK_COMPLETE = "ADD_TASK_COMPLETE";
+export const ADD_TASK_FAILED = "ADD_TASK_FAILED";

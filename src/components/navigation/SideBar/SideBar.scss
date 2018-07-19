@@ -1,0 +1,12 @@
+.sidebar {
+  position: fixed;
+  backface-visibility: hidden;
+  width: 10em;
+  height: 100vh;
+  background: #f0f0f0;
+}
+
+.heading {
+  padding: 1em 1.5em;
+  background: #ccc;
+}
