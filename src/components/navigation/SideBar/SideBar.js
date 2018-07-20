@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import styles from './SideBar.scss';
 
@@ -6,7 +7,7 @@ import Link from '../../ui/Link/Link';
 
 const sideBar = (props) => {
   return (
-    <aside className={styles.sidebar}>
+    <aside className={classNames(styles.sidebar, props.shrinkHeader ? styles.high : '')}>
       <div className={styles.heading}>Sort</div>
       <Link link="/" icon="lnr-alarm2" exact>Days</Link>
       <Link link="/categories" icon="lnr-folder">Categories</Link>

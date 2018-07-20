@@ -7,7 +7,7 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 const topBar = (props) => {
   return (
-    <header className={styles.topbar}>
+    <header className={classNames(styles.topbar, props.shrinkHeader ? styles.small : '')}>
       <div className={styles.user}>
         <img src={avatarImage} alt="User Avatar" />
         <div>

@@ -5,6 +5,11 @@
   height: 100vh;
   background: #f0f0f0;
   margin-top: 7.7em;
+  transition: all 0.3s ease-out;
+}
+
+.high {
+  margin-top: 5.7em;
 }
 
 .heading {

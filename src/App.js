@@ -14,7 +14,42 @@ const asyncCategoryList = asyncComponent(() => {
   return import('./containers/CategoryList/CategoryList');
 });
 
+let lastScrollY = 0;
+let ticking = false;
+
 class App extends Component {
+
+  state = {
+    shrinkHeader: false
+  }
+
+  constructor(props) {
+    super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+  
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (lastScrollY >= 100) {
+          this.setState({shrinkHeader: true});
+        } else {
+          this.setState({shrinkHeader: false});
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
 
   addTaskHandler = () => {
     const title = "testing 123";
@@ -27,9 +62,11 @@ class App extends Component {
     return (
       <Aux>
         <TopBar
+          shrinkHeader={this.state.shrinkHeader}
           numTasks={this.props.numTasks} 
           addTask={this.addTaskHandler} />
-        <SideBar />
+        <SideBar
+          shrinkHeader={this.state.shrinkHeader} />
         <main>
           <Switch>
             <Route path="/categories" component={asyncCategoryList} />
