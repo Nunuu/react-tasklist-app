@@ -1,3 +1,9 @@
 export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK_START = "ADD_TASK_START";
 export const ADD_TASK_COMPLETE = "ADD_TASK_COMPLETE";
 export const ADD_TASK_FAILED = "ADD_TASK_FAILED";
+
+export const GET_TASKS = "GET_TASKS";
+export const GET_TASKS_START = "GET_TASKS_START";
+export const GET_TASKS_COMPLETE = "GET_TASKS_COMPLETE";
+export const GET_TASKS_FAILED = "GET_TASKS_FAILED";

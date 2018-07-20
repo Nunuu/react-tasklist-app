@@ -5,6 +5,7 @@
   line-height: 1.5;
   font-size: 0.9em;
   position: relative;
+  display: flex;
   &:before {
     content: '';
     background: orange;
@@ -22,4 +23,21 @@
 
 .low:before {
   background: green;
+}
+
+.title {
+  text-align: left;
+  flex: 1;
+}
+
+.buttons {
+  margin-left: 1em;
+  button {
+    width: 3em;
+    height: 3em;
+    margin-bottom: 2px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

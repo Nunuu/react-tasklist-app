@@ -1,16 +1,31 @@
+$blue: #589aca;
+
 .link {
   display: block;
   border-bottom: 1px solid #ccc;
   padding: 1em 1.5em;
   display: flex;
   align-items: center;
+  color: rgb(90, 90, 90);
+  transition: background 0.3s ease-out, color 0.3s ease-out;
+
+  .icon {
+    margin-right: 0.5em;
+    color: $blue;
+    transition: color 0.3s ease-out;
+  }
+  
+  &:hover {
+    background: $blue;
+    color: white;
+    .icon {
+      color: white;
+    }
+  }
 }
 
 .active {
   pointer-events: none;
-  color: red;
-}
-
-.icon {
-  margin-right: 0.5em;
+  background: white;
+  color: black;
 }

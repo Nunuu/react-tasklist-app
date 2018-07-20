@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import styles from './Task.scss';
+import icons from '../../../../assets/styles/linearicons.scss';
 
 const task = (props) => {
   
@@ -14,7 +15,17 @@ const task = (props) => {
 
   return (
     <div className={classNames(styles.task, priorityStyle)}>
-      {props.title}
+      <div className={styles.title}>
+        {props.title}
+      </div>
+      <div className={styles.buttons}>
+        <button>
+          <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
+        </button>
+        <button>
+          <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
+        </button>
+      </div>
     </div>
   );
 }
