@@ -15,14 +15,17 @@ const task = (props) => {
 
   return (
     <div className={classNames(styles.task, priorityStyle)}>
-      <div className={styles.title}>
+      <div className={classNames(styles.title, props.completed ? styles.completed : '')}>
         {props.title}
       </div>
       <div className={styles.buttons}>
-        <button>
+        <button onClick={props.completeTask} disabled={props.completed}>
+          <span className={classNames(icons.lnr, icons['lnr-file-check'])}></span>
+        </button>
+        <button onClick={props.editTask}>
           <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
         </button>
-        <button>
+        <button onClick={props.deleteTask}>
           <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
         </button>
       </div>

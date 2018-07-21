@@ -35,3 +35,23 @@ export function* getTasksSaga(action) {
     yield put(actions.getTasksFailed(error));
   }
 }
+
+export function* deleteTaskSaga(action) {
+  yield put(actions.deleteTaskStart());
+  try {
+    yield axios.post(`/tasks/${action.id}.json?x-http-method-override=DELETE`);
+    yield put(actions.deleteTaskComplete(action.id));
+  } catch (error) {
+    yield put(actions.deleteTaskFailed(error));
+  }
+}
+
+export function* editTaskSaga(action) {
+  yield put(actions.editTaskStart());
+  try {
+    const response = yield(axios.put(`/tasks/${action.id}.json`, action.data));
+    yield put(actions.editTaskComplete(action.id, response.data));
+  } catch (error) {
+    yield put(actions.editTaskFailed(error));
+  }
+}

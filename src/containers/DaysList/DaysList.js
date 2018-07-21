@@ -54,11 +54,23 @@ class DaysList extends Component {
 
     return (
       <div className={styles.dayslist}>
-        <Tasks title="Overdue" tasks={sampleTasks} color="rgb(255, 72, 0)" />
-        <Tasks title="Today" tasks={this.props.tasks} color="#ff6600" />
-        <Tasks title="Tomorrow" color="#ffc000" />
-        <Tasks title="Upcoming" color="#00c30e" />
-        <Tasks title="Whenever" color="#589aca" />
+        <Tasks 
+          title="Overdue" 
+          tasks={sampleTasks} 
+          color="rgb(255, 72, 0)" />
+        <Tasks 
+          title="Today" 
+          tasks={this.props.tasks} 
+          color="#ff6600" />
+        <Tasks 
+          title="Tomorrow" 
+          color="#ffc000" />
+        <Tasks 
+          title="Upcoming" 
+          color="#00c30e" />
+        <Tasks 
+          title="Whenever" 
+          color="#589aca" />
       </div>
     );
   }

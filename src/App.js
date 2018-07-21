@@ -9,9 +9,10 @@ import SideBar from './components/navigation/SideBar/SideBar';
 import TopBar from './components/navigation/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
 import * as actions from './store/actions/';
+import Popup from './components/ui/Popup/Popup';
 
-const asyncCategoryList = asyncComponent(() => {
-  return import('./containers/CategoryList/CategoryList');
+const asyncProjectList = asyncComponent(() => {
+  return import('./containers/ProjectList/ProjectList');
 });
 
 let lastScrollY = 0;
@@ -20,7 +21,8 @@ let ticking = false;
 class App extends Component {
 
   state = {
-    shrinkHeader: false
+    shrinkHeader: false,
+    showPopup: false
   }
 
   constructor(props) {
@@ -40,7 +42,7 @@ class App extends Component {
     lastScrollY = window.scrollY;
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        if (lastScrollY >= 100) {
+        if (lastScrollY >= 10) {
           this.setState({shrinkHeader: true});
         } else {
           this.setState({shrinkHeader: false});
@@ -52,13 +54,28 @@ class App extends Component {
   }
 
   addTaskHandler = () => {
-    const title = "testing 123";
-    const priority = 0;
+    const title = "testing " + Math.floor(Math.random() * 1000);
+    const priority = Math.floor(Math.random() * 2);
     const dueDate = new Date();
     this.props.onAddTask(title, priority, dueDate);
   }
 
+  onPopupProceed = () => {
+    
+  }
+
+  onPopupCancel = () => {
+    this.setState({showPopup: false});
+  }
+
   render() {
+    let popup = null;
+    if (this.state.showPopup) {
+      popup = <Popup 
+        text="Are you sure you want to delete the task? It cannot be undone O_O"
+        proceed={this.onPopupProceed}
+        cancel={this.onPopupCancel} />;
+    }
     return (
       <Aux>
         <TopBar
@@ -69,11 +86,12 @@ class App extends Component {
           shrinkHeader={this.state.shrinkHeader} />
         <main>
           <Switch>
-            <Route path="/categories" component={asyncCategoryList} />
+            <Route path="/projects" component={asyncProjectList} />
             <Route path="/" exact component={DaysList} />
             <Redirect to="/" />
           </Switch>
         </main>
+        {popup}
       </Aux>
     );
   }

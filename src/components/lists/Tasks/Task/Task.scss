@@ -28,6 +28,9 @@
 .title {
   text-align: left;
   flex: 1;
+  &.completed {
+    text-decoration: line-through;
+  }
 }
 
 .buttons {
@@ -38,6 +41,10 @@
     margin-bottom: 2px;
     &:last-child {
       margin-bottom: 0;
+    }
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
     }
   }
 }

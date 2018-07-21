@@ -1,0 +1,6 @@
+.projectlist {
+  display: flex;
+  flex-flow: row wrap;
+  width: calc(100% - 1.5em);
+  padding: 2.5em 2em;
+}

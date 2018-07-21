@@ -1,33 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import styles from './Tasks.scss';
 import icons from '../../../assets/styles/linearicons.scss';
 
 import Task from './Task/Task';
+import * as actions from '../../../store/actions/';
 
-const tasks = (props) => {
-  let tasks = null;
-  if (props.tasks) {
-    tasks = props.tasks.map(task => {
-      return <Task 
-        key={task.id} 
-        title={task.title}
-        priority={task.priority} />
-    });
-  }
+class Tasks extends Component {
   
-  return (
-    <div className={styles.taskBlock}>
-      <h2 style={{color: props.color}}>{props.title}</h2>
-      <button>
-        <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
-      </button>
-      <div className="tasks">
-        {tasks}
+  onDeleteTask(id) {
+    this.props.onDeleteTask(id);
+  }
+
+  onEditTask(id) {
+    console.log('edit task id:', id);
+  }
+
+  onCompleteTask(task) {
+    task.completed = true;
+    const {id, ...taskData} = task;
+    this.props.onEditTask(task.id, taskData);
+  }
+
+  render() {
+    let tasks = null;
+    if (this.props.tasks) {
+      tasks = this.props.tasks.map(task => {
+        return <Task 
+          key={task.id} 
+          title={task.title}
+          priority={task.priority}
+          completed={task.completed}
+          completeTask={() => this.onCompleteTask(task)}
+          deleteTask={() => this.onDeleteTask(task.id)}
+          editTask={() => this.onEditTask(task.id)} />
+      });
+    }
+    
+    return (
+      <div className={styles.taskBlock}>
+        <h2 style={{color: this.props.color}}>{this.props.title}</h2>
+        <button>
+          <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
+        </button>
+        <div className="tasks">
+          {tasks}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default tasks;
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeleteTask: (id) => dispatch(actions.deleteTask(id)),
+    onEditTask: (id, data) => dispatch(actions.editTask(id, data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Tasks);

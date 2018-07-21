@@ -31,6 +31,65 @@ export const addTaskFailed = (error) => {
   }
 }
 
+// Delete Task
+export const deleteTask = (id) => {
+  return {
+    type: actionTypes.DELETE_TASK,
+    id
+  }
+}
+
+export const deleteTaskStart = () => {
+  return {
+    type: actionTypes.DELETE_TASK_START
+  }
+}
+
+export const deleteTaskComplete = (id) => {
+  return {
+    type: actionTypes.DELETE_TASK_COMPLETE,
+    id
+  }
+}
+
+export const deleteTaskFailed = (error) => {
+  return {
+    type: actionTypes.DELETE_TASK_FAILED,
+    error
+  }
+}
+
+// Edit Task
+export const editTask = (id, data) => {
+  return {
+    type: actionTypes.EDIT_TASK,
+    id,
+    data
+  }
+}
+
+export const editTaskStart = () => {
+  return {
+    type: actionTypes.EDIT_TASK_START
+  }
+}
+
+export const editTaskComplete = (id, data) => {
+  return {
+    type: actionTypes.EDIT_TASK_COMPLETE,
+    id,
+    data
+  }
+}
+
+export const editTaskFailed = (error) => {
+  return {
+    type: actionTypes.EDIT_TASK_FAILED,
+    error
+  }
+}
+
+
 // Get Tasks
 export const getTasks = () => {
   return {
