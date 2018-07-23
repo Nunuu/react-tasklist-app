@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './DaysList.scss';
 
-import Tasks from '../../components/lists/Tasks/Tasks';
+import Tasks from '../Tasks/Tasks';
 import * as actions from '../../store/actions/';
 
 class DaysList extends Component {
@@ -52,6 +52,9 @@ class DaysList extends Component {
       }
     ];
 
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     return (
       <div className={styles.dayslist}>
         <Tasks 
@@ -61,7 +64,8 @@ class DaysList extends Component {
         <Tasks 
           title="Today" 
           tasks={this.props.tasks} 
-          color="#ff6600" />
+          color="#ff6600"
+          initDay={today} />
         <Tasks 
           title="Tomorrow" 
           color="#ffc000" />
@@ -78,7 +82,7 @@ class DaysList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasks.tasks
   }
 }
 

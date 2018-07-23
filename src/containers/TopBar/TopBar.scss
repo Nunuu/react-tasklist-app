@@ -41,14 +41,8 @@
   align-items: center;
   button {
     margin-right: 1em;
-    color: white;
-    font-size: 1.4em;
-    transition: color 0.3s ease-out;
     &:last-child {
       margin-right: 0;
-    }
-    &:hover {
-      color: #ccc;
     }
   }
 }

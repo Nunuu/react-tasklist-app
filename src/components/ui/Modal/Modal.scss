@@ -1,0 +1,18 @@
+.Modal {
+  box-shadow: 16px 16px 38px rgba(black, 0.2);
+  padding: 5em 6em 4em;
+  max-width: 540px;
+  width: calc(80% - 12em);
+  position: fixed;
+  backface-visibility: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  background: white;
+  z-index: 101;
+
+  h2 {
+    text-align: center;
+    margin: 0 0 2em;
+  }
+}

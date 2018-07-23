@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import styles from './Tasks.scss';
-import icons from '../../../assets/styles/linearicons.scss';
+import icons from '../../assets/styles/linearicons.scss';
 
-import Task from './Task/Task';
-import * as actions from '../../../store/actions/';
+import Task from '../../components/lists/Task/Task';
+import * as actions from '../../store/actions/';
 
 class Tasks extends Component {
   
@@ -42,7 +42,7 @@ class Tasks extends Component {
     return (
       <div className={styles.taskBlock}>
         <h2 style={{color: this.props.color}}>{this.props.title}</h2>
-        <button>
+        <button onClick={() => this.props.onShowAddForm(this.props.initDay)}>
           <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
         </button>
         <div className="tasks">
@@ -56,7 +56,8 @@ class Tasks extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onDeleteTask: (id) => dispatch(actions.deleteTask(id)),
-    onEditTask: (id, data) => dispatch(actions.editTask(id, data))
+    onEditTask: (id, data) => dispatch(actions.editTask(id, data)),
+    onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay))
   }
 }
 

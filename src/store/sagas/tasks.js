@@ -39,7 +39,7 @@ export function* getTasksSaga(action) {
 export function* deleteTaskSaga(action) {
   yield put(actions.deleteTaskStart());
   try {
-    yield axios.post(`/tasks/${action.id}.json?x-http-method-override=DELETE`);
+    yield axios.delete(`/tasks/${action.id}.json`);
     yield put(actions.deleteTaskComplete(action.id));
   } catch (error) {
     yield put(actions.deleteTaskFailed(error));
