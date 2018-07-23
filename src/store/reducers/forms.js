@@ -3,38 +3,34 @@ import { updateObject } from '../../shared/helpers';
 
 const initialState = {
   showAdd: false,
-  initDay: '',
-  initProject: '',
+  initDate: '',
   showEdit: false,
-  id: ''
+  taskId: ''
 }
 
 const showAddForm = (state, action) => {
   return updateObject(state, {
-    initDay: action.date,
-    initProject: action.project,
-    showAdd: true
+    showAdd: true,
+    initDate: action.initDate
   });
 }
 
 const hideAddForm = (state, action) => {
   return updateObject(state, {
-    initDay: '',
-    initProject: '',
-    showAdd: false
-  })
+    showAdd: false,
+  });
 }
 
 const showEditForm = (state, action) => {
   return updateObject(state, {
-    id: action.id,
-    showEdit: true
+    taskId: action.taskId,
+    showEdit: true,
   })
 }
 
 const hideEditForm = (state, action) => {
   return updateObject(state, {
-    id: '',
+    taskId: action.reset ? '': state.taskId,
     showEdit: false
   });
 }

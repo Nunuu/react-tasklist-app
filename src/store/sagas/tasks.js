@@ -14,6 +14,7 @@ export function* addTaskSaga(action) {
   try {
     const response = yield axios.post('/tasks.json', newTask);
     yield put(actions.addTaskComplete(response.data.name, newTask));
+    yield put(actions.hideAddForm(true));
   } catch (error) {
     yield put(actions.addTaskFailed(error));
   }
@@ -51,6 +52,7 @@ export function* editTaskSaga(action) {
   try {
     const response = yield(axios.put(`/tasks/${action.id}.json`, action.data));
     yield put(actions.editTaskComplete(action.id, response.data));
+    yield put(actions.hideEditForm(true));
   } catch (error) {
     yield put(actions.editTaskFailed(error));
   }

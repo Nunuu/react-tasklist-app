@@ -8,21 +8,23 @@ export const showAddForm = (date = "", project = "") => {
   }
 }
 
-export const hideAddForm = () => {
+export const hideAddForm = (reset = false) => {
   return {
-    type: actionTypes.HIDE_ADD_FORM
+    type: actionTypes.HIDE_ADD_FORM,
+    reset
   }
 }
 
-export const showEditForm = (id) => {
+export const showEditForm = (taskId) => {
   return {
     type: actionTypes.SHOW_EDIT_FORM,
-    id
+    taskId
   }
 }
 
-export const hideEditForm = () => {
+export const hideEditForm = (reset = false) => {
   return {
-    type: actionTypes.HIDE_EDIT_FORM
+    type: actionTypes.HIDE_EDIT_FORM,
+    reset
   }
 }

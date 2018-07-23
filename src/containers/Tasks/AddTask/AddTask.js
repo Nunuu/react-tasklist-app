@@ -9,6 +9,7 @@ import Aux from '../../../hoc/reactAux/reactAux';
 import Button from '../../../components/ui/Button/Button';
 
 class AddTask extends Component {
+  
   state = {
     fields: {
       title: {
@@ -56,10 +57,10 @@ class AddTask extends Component {
     isValid: false
   }
 
-  inputChangedHandler = (event, inputIdentifier) => {
+  inputChangedHandler = (e, inputIdentifier) => {
     const updatedFormElement = updateObject(this.state.fields[inputIdentifier], {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, this.state.fields[inputIdentifier].validation),
+      value: e.target.value,
+      valid: checkValidity(e.target.value, this.state.fields[inputIdentifier].validation),
       touched: true
     });
     const updatedForm = updateObject(this.state.fields, {
@@ -76,13 +77,11 @@ class AddTask extends Component {
 
   addTaskHandler = (e) => {
     e.preventDefault();
-    
-    const title = "testing " + Math.floor(Math.random() * 1000);
-    const priority = Math.floor(Math.random() * 2);
+
+    const title = this.state.fields.title.value;
+    const priority = +this.state.fields.priority.value;
     const dueDate = new Date();
     this.props.onAddTask(title, priority, dueDate);
-    
-    // this.props.onCloseForm();
   }
 
   render() {
@@ -111,13 +110,14 @@ class AddTask extends Component {
               shouldValidate={field.config.validation}
               touched={field.config.touched}
               valueType={field.config.valueType}
-              changed={(event) => this.inputChangedHandler(event, field.id)} />
+              changed={(e) => this.inputChangedHandler(e, field.id)} />
             })}
           <Button 
             btnClass="form" 
             type="submit"
             disabled={!this.state.isValid}
             clicked={(e) => this.addTaskHandler(e)}>ADD TASK</Button>
+          <div>{this.props.taskUpdateError}</div>
         </form>
       </Modal>
     }
@@ -134,7 +134,8 @@ const mapStateToProps = state => {
   return {
     showAddForm: state.forms.showAdd,
     initDay: state.forms.initDay,
-    initProject: state.forms.initProject
+    initProject: state.forms.initProject,
+    taskUpdateError: state.tasks.error
   }
 }
 
