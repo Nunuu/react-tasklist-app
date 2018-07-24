@@ -134,9 +134,9 @@ class AddTask extends Component {
 
 const mapStateToProps = state => {
   return {
-    showAddForm: state.forms.showAdd,
-    initDay: state.forms.initDay,
-    initProject: state.forms.initProject,
+    showAddForm: state.tasks.showAdd,
+    initDay: state.tasks.initDay,
+    initProject: state.tasks.initProject,
     taskUpdateError: state.tasks.error,
     totalTasks: state.tasks.count
   }

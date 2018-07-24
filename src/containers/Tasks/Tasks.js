@@ -10,32 +10,19 @@ import * as actions from '../../store/actions/';
 
 class Tasks extends Component {
   
-  onDeleteTask(id) {
-    this.props.onDeleteTask(id);
-  }
-
-  onEditTask(id) {
-    this.props.onShowEditForm(id);
-  }
-
-  onCompleteTask(task) {
-    task.completed = true;
-    const {id, ...taskData} = task;
-    this.props.onEditTask(task.id, taskData);
-  }
-
   render() {
-    let tasks = null;
-    if (this.props.tasks) {
-      tasks = this.props.tasks.map(task => {
+    const tasks = this.props.tasks;
+    let taskList = null;
+    if (tasks) {
+      taskList = Object.keys(tasks).map(key => {
         return <Task 
-          key={task.id} 
-          title={task.title}
-          priority={task.priority}
-          completed={task.completed}
-          completeTask={() => this.onCompleteTask(task)}
-          deleteTask={() => this.onDeleteTask(task.id)}
-          editTask={() => this.onEditTask(task.id)} />
+          key={key} 
+          title={tasks[key].title}
+          priority={tasks[key].priority}
+          completed={tasks[key].completed}
+          completeTask={() => this.props.onCompleteTask(key)}
+          deleteTask={() => this.props.onDeleteTask(key)}
+          editTask={() => this.props.onShowEditForm(key)} />
       });
     }
     
@@ -46,7 +33,7 @@ class Tasks extends Component {
           <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
         </button>
         <div className="tasks">
-          {tasks}
+          {taskList}
         </div>
       </div>
     );
@@ -56,9 +43,9 @@ class Tasks extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onDeleteTask: (id) => dispatch(actions.deleteTask(id)),
-    onEditTask: (id, data) => dispatch(actions.editTask(id, data)),
     onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
-    onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay))
+    onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay)),
+    onCompleteTask: (id) => dispatch(actions.completeTask(id))
   }
 }
 

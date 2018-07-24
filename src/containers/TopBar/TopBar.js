@@ -37,7 +37,7 @@ class TopBar extends Component {
 const mapStateToProps = state => {
   return {
     numTasks: state.tasks.count,
-    showAddForm: state.forms.showAdd
+    showAddForm: state.tasks.showAdd
   }
 }
 

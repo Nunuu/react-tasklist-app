@@ -8,17 +8,17 @@ export const addTask = (data) => {
   }
 }
 
-export const addTaskStart = () => {
-  return {
-    type: actionTypes.ADD_TASK_START
-  }
-}
+// export const addTaskStart = () => {
+//   return {
+//     type: actionTypes.ADD_TASK_START
+//   }
+// }
 
-export const addTaskComplete = (id, task) => {
+export const addTaskComplete = (id, data) => {
   return {
     type: actionTypes.ADD_TASK_COMPLETE,
     id,
-    task
+    data
   }
 }
 
@@ -37,11 +37,11 @@ export const deleteTask = (id) => {
   }
 }
 
-export const deleteTaskStart = () => {
-  return {
-    type: actionTypes.DELETE_TASK_START
-  }
-}
+// export const deleteTaskStart = () => {
+//   return {
+//     type: actionTypes.DELETE_TASK_START
+//   }
+// }
 
 export const deleteTaskComplete = (id) => {
   return {
@@ -57,6 +57,29 @@ export const deleteTaskFailed = (error) => {
   }
 }
 
+// Complete Task
+export const completeTask = (id) => {
+  return {
+    type: actionTypes.COMPLETE_TASK,
+    id
+  }
+}
+
+// export const completeTaskComplete = (id, data) => {
+//   return {
+//     type: actionTypes.COMPLETE_TASK_COMPLETE,
+//     id,
+//     data
+//   }
+// }
+
+// export const completeTaskFailed = (error) => {
+//   return {
+//     type: actionTypes.COMPLETE_TASK_FAILED,
+//     error
+//   }
+// }
+
 // Edit Task
 export const editTask = (id, data) => {
   return {
@@ -66,11 +89,11 @@ export const editTask = (id, data) => {
   }
 }
 
-export const editTaskStart = () => {
-  return {
-    type: actionTypes.EDIT_TASK_START
-  }
-}
+// export const editTaskStart = () => {
+//   return {
+//     type: actionTypes.EDIT_TASK_START
+//   }
+// }
 
 export const editTaskComplete = (id, data) => {
   return {
@@ -112,5 +135,36 @@ export const getTasksFailed = (error) => {
   return {
     type: actionTypes.GET_TASKS_FAILED,
     error
+  }
+}
+
+
+// Forms
+export const showAddForm = (date = "", project = "") => {
+  return {
+    type: actionTypes.SHOW_ADD_FORM,
+    date,
+    project
+  }
+}
+
+export const hideAddForm = (reset = false) => {
+  return {
+    type: actionTypes.HIDE_ADD_FORM,
+    reset
+  }
+}
+
+export const showEditForm = (taskId) => {
+  return {
+    type: actionTypes.SHOW_EDIT_FORM,
+    taskId
+  }
+}
+
+export const hideEditForm = (reset = false) => {
+  return {
+    type: actionTypes.HIDE_EDIT_FORM,
+    reset
   }
 }

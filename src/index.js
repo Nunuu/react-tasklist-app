@@ -11,13 +11,11 @@ import './assets/styles/index.scss';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import tasksReducer from './store/reducers/tasks';
-import formsReducer from './store/reducers/forms';
 import { watchTasks } from './store/sagas';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-  forms: formsReducer,
   tasks: tasksReducer,
   form: formReducer
 });

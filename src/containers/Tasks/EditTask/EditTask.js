@@ -9,6 +9,7 @@ import * as actions from '../../../store/actions/';
 class EditTask extends Component {
   
   submit = (values) => {
+    console.log(this.props.taskId);
     console.log(values);
   }
 
@@ -19,7 +20,6 @@ class EditTask extends Component {
         show={this.props.showEditForm} 
         modalClosed={this.props.onCloseForm} 
         title="Edit Task" >
-        <h4>Task ID:{this.props.taskId}</h4>
         <EditTaskForm onSubmit={this.submit} />
       </Modal>
     }
@@ -33,8 +33,8 @@ class EditTask extends Component {
 
 const mapStateToProps = state => {
   return {
-    showEditForm: state.forms.showEdit,
-    taskId: state.forms.taskId
+    showEditForm: state.tasks.showEdit,
+    taskId: state.tasks.taskId
   }
 }
 

@@ -4,7 +4,7 @@ import axios from '../../axios-firebase';
 import * as actions from '../actions/';
 
 export function* addTaskSaga(action) {
-  yield put(actions.addTaskStart());
+  // yield put(actions.addTaskStart());
   const newTask = {
     ...action.data,
     completed: false
@@ -21,22 +21,15 @@ export function* addTaskSaga(action) {
 export function* getTasksSaga(action) {
   yield put(actions.getTasksStart());
   try {
-    const response = yield axios.get('/tasks.json?orderByChild="order"');
-    const data = response.data;
-    const tasks = Object.keys(data).map(key => {
-      return {
-        "id": key,
-        ...data[key]
-      }
-    });
-    yield put(actions.getTasksComplete(tasks));
+    const response = yield axios.get('/tasks.json?');
+    yield put(actions.getTasksComplete(response.data));
   } catch (error) {
     yield put(actions.getTasksFailed(error));
   }
 }
 
 export function* deleteTaskSaga(action) {
-  yield put(actions.deleteTaskStart());
+  // yield put(actions.deleteTaskStart());
   try {
     yield axios.delete(`/tasks/${action.id}.json`);
     yield put(actions.deleteTaskComplete(action.id));
@@ -46,11 +39,21 @@ export function* deleteTaskSaga(action) {
 }
 
 export function* editTaskSaga(action) {
-  yield put(actions.editTaskStart());
+  // yield put(actions.editTaskStart());
   try {
     const response = yield(axios.put(`/tasks/${action.id}.json`, action.data));
     yield put(actions.editTaskComplete(action.id, response.data));
     yield put(actions.hideEditForm(true));
+  } catch (error) {
+    yield put(actions.editTaskFailed(error));
+  }
+}
+
+export function* completeTaskSaga(action) {
+  const updateData = {"completed": true};
+  try {
+    yield(axios.patch(`/tasks/${action.id}.json`, updateData));
+    yield put(actions.editTaskComplete(action.id, updateData));
   } catch (error) {
     yield put(actions.editTaskFailed(error));
   }

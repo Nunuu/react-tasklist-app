@@ -1,37 +1,54 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 import Button from '../../../components/ui/Button/Button';
 import styles from '../Forms.scss';
 
-const validate = values => {
-  const errors = {};
-  if (!values.title) {
-    errors.title = 'Required';
-  } else if (values.title.length < 5) {
-    errors.title = 'Must be 5 characters or more';
-  }
-  return errors;
+const required = value => {
+  return (value || typeof value === 'number' ? undefined : 'Required.');
 }
+const minLength = min => value => {
+  return value && value.length < min ? `Must be ${min} characters or more.` : undefined;
+}
+const minLength5 = minLength(5);
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) => (
   <div>
     <label>{label}</label>
-    <input {...input} placeholder={label} type={type}/>
-    {touched && ((error && <p>{error}</p>) || (warning && <p>{warning}</p>))}
+    <div>
+      <input {...input} placeholder={label} type={type} />
+      {touched &&
+        ((error && <p>{error}</p>) ||
+          (warning && <p>{warning}</p>))}
+    </div>
   </div>
 )
 
-const EditTaskForm = (props) => {
+let EditTaskForm = props => {
   const { handleSubmit, pristine, submitting } = props;
   return (
     <form className={styles.form}>
       <div className={styles.formRow}>
-        <Field name="title" type="text" component={renderField} label="Task Title"/>
+        <Field 
+          name="title" 
+          type="text" 
+          component={renderField} 
+          label="Task Title"
+          validate={[required, minLength5]} />
       </div>
       <div className={styles.formRow}>
         <label htmlFor="dueDate">Due Date</label>
-        <Field name="dueDate" component="input" type="text"/>
+        <Field 
+          name="dueDate" 
+          component="input" 
+          type="text" 
+          validate={[required]} />
       </div>
       <div className={styles.formRow}>
         <label>Priority</label>
@@ -52,8 +69,15 @@ const EditTaskForm = (props) => {
   );
 }
 
-export default reduxForm({
+EditTaskForm = reduxForm({
   form: 'edit-task',
-  initialValues: {priority: "1"},
-  validate
+  // initialValues: {priority: "1"}
 })(EditTaskForm);
+
+EditTaskForm = connect(
+  state => ({
+    initialValues: state.tasks.taskData
+  })
+)(EditTaskForm);
+
+export default EditTaskForm;
