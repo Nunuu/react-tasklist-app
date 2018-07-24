@@ -4,7 +4,6 @@ import axios from '../../axios-firebase';
 import * as actions from '../actions/';
 
 export function* addTaskSaga(action) {
-  // yield put(actions.addTaskStart());
   const newTask = {
     ...action.data,
     completed: false
@@ -29,7 +28,6 @@ export function* getTasksSaga(action) {
 }
 
 export function* deleteTaskSaga(action) {
-  // yield put(actions.deleteTaskStart());
   try {
     yield axios.delete(`/tasks/${action.id}.json`);
     yield put(actions.deleteTaskComplete(action.id));
@@ -39,7 +37,6 @@ export function* deleteTaskSaga(action) {
 }
 
 export function* editTaskSaga(action) {
-  // yield put(actions.editTaskStart());
   try {
     const response = yield(axios.put(`/tasks/${action.id}.json`, action.data));
     yield put(actions.editTaskComplete(action.id, response.data));

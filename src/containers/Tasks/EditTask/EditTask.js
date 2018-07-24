@@ -9,8 +9,7 @@ import * as actions from '../../../store/actions/';
 class EditTask extends Component {
   
   submit = (values) => {
-    console.log(this.props.taskId);
-    console.log(values);
+    this.props.onEditTask(this.props.taskId, values);
   }
 
   render() {
@@ -20,7 +19,7 @@ class EditTask extends Component {
         show={this.props.showEditForm} 
         modalClosed={this.props.onCloseForm} 
         title="Edit Task" >
-        <EditTaskForm onSubmit={this.submit} />
+        <EditTaskForm onSubmit={this.submit} formType="edit" />
       </Modal>
     }
     return (
@@ -41,7 +40,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseForm: () => dispatch(actions.hideEditForm()),
-    onEditTask: () => dispatch(actions.editTask())
+    onEditTask: (id, data) => dispatch(actions.editTask(id, data))
   }
 }
 

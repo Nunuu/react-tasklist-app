@@ -8,12 +8,6 @@ export const addTask = (data) => {
   }
 }
 
-// export const addTaskStart = () => {
-//   return {
-//     type: actionTypes.ADD_TASK_START
-//   }
-// }
-
 export const addTaskComplete = (id, data) => {
   return {
     type: actionTypes.ADD_TASK_COMPLETE,
@@ -37,12 +31,6 @@ export const deleteTask = (id) => {
   }
 }
 
-// export const deleteTaskStart = () => {
-//   return {
-//     type: actionTypes.DELETE_TASK_START
-//   }
-// }
-
 export const deleteTaskComplete = (id) => {
   return {
     type: actionTypes.DELETE_TASK_COMPLETE,
@@ -65,21 +53,6 @@ export const completeTask = (id) => {
   }
 }
 
-// export const completeTaskComplete = (id, data) => {
-//   return {
-//     type: actionTypes.COMPLETE_TASK_COMPLETE,
-//     id,
-//     data
-//   }
-// }
-
-// export const completeTaskFailed = (error) => {
-//   return {
-//     type: actionTypes.COMPLETE_TASK_FAILED,
-//     error
-//   }
-// }
-
 // Edit Task
 export const editTask = (id, data) => {
   return {
@@ -88,12 +61,6 @@ export const editTask = (id, data) => {
     data
   }
 }
-
-// export const editTaskStart = () => {
-//   return {
-//     type: actionTypes.EDIT_TASK_START
-//   }
-// }
 
 export const editTaskComplete = (id, data) => {
   return {

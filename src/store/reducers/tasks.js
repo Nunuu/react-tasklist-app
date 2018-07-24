@@ -14,13 +14,6 @@ const initialState = {
   taskData: null
 }
 
-// const addTaskStart = (state, action) => {
-//   return updateObject(state, {
-//     loading: true,
-//     error: null
-//   });
-// }
-
 const addTaskComplete = (state, action) => {
   const updatedTasks = updateObject(state.tasks, {
     [action.id]: action.data
@@ -61,13 +54,6 @@ const getTasksFailed = (state, action) => {
   });
 }
 
-// const deleteTaskStart = (state, action) => {
-//   return updateObject(state, {
-//     loading: true,
-//     error: null
-//   });
-// }
-
 const deleteTaskComplete = (state, action) => {
   const { [action.id]: deleted, ...updatedTasks } = state.tasks;
   return updateObject(state, {
@@ -82,13 +68,6 @@ const deleteTaskFailed = (state, action) => {
     error: action.error
   });
 }
-
-// const editTaskStart = (state, action) => {
-//   return updateObject(state, {
-//     loading: true,
-//     error: null
-//   });
-// }
 
 const editTaskComplete = (state, action) => {
   const updatedTasks = updateObject(state.tasks, {
@@ -111,7 +90,11 @@ const editTaskFailed = (state, action) => {
 const showAddForm = (state, action) => {
   return updateObject(state, {
     showAdd: true,
-    initDate: action.initDate
+    taskData: {
+      "priority": 1,
+      "completed": false,
+      "dueDate": action.initDate
+    }
   });
 }
 
@@ -142,17 +125,12 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_TASKS_START: return getTasksStart(state, action);
     case actionTypes.GET_TASKS_COMPLETE: return getTasksComplete(state, action);
     case actionTypes.GET_TASKS_FAILED: return getTasksFailed(state, action);
-    // case actionTypes.ADD_TASK_START: return addTaskStart(state, action);
     case actionTypes.ADD_TASK_COMPLETE: return addTaskComplete(state, action);
     case actionTypes.ADD_TASK_FAILED: return addTaskFailed(state, action);
-    // case actionTypes.DELETE_TASK_START: return deleteTaskStart(state, action);
     case actionTypes.DELETE_TASK_COMPLETE: return deleteTaskComplete(state, action);
     case actionTypes.DELETE_TASK_FAILED: return deleteTaskFailed(state, action);
-    // case actionTypes.EDIT_TASK_START: return editTaskStart(state, action);
     case actionTypes.EDIT_TASK_COMPLETE: return editTaskComplete(state, action);
     case actionTypes.EDIT_TASK_FAILED: return editTaskFailed(state, action);
-    // case actionTypes.COMPLETE_TASK_COMPLETE: return completeTaskComplete(state, action);
-    // case actionTypes.COMPLETE_TASK_FAILED: return completeTaskFailed(state, action);
     case actionTypes.SHOW_ADD_FORM: return showAddForm(state, action);
     case actionTypes.HIDE_ADD_FORM: return hideAddForm(state, action);
     case actionTypes.SHOW_EDIT_FORM: return showEditForm(state, action);

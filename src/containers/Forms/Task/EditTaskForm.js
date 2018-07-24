@@ -32,6 +32,20 @@ const renderField = ({
 
 let EditTaskForm = props => {
   const { handleSubmit, pristine, submitting } = props;
+
+  let completedField = null;
+  if (props.formType !== "add") {
+    completedField = <div className={styles.formRow}>
+      <label>Completed</label>
+      <div>
+        <Field name="completed" component="select">
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </Field>
+      </div>
+    </div>
+  }
+
   return (
     <form className={styles.form}>
       <div className={styles.formRow}>
@@ -60,18 +74,18 @@ let EditTaskForm = props => {
           </Field>
         </div>
       </div>
+      {completedField}
       <Button 
         btnClass="form" 
         type="submit"
         disabled={pristine || submitting}
-        clicked={handleSubmit}>EDIT TASK</Button>
+        clicked={handleSubmit}>Submit</Button>
     </form>
   );
 }
 
 EditTaskForm = reduxForm({
-  form: 'edit-task',
-  // initialValues: {priority: "1"}
+  form: 'edit-task'
 })(EditTaskForm);
 
 EditTaskForm = connect(
