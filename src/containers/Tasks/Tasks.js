@@ -15,7 +15,7 @@ class Tasks extends Component {
   }
 
   onEditTask(id) {
-    console.log('edit task id:', id);
+    this.props.onShowEditForm(id);
   }
 
   onCompleteTask(task) {
@@ -56,7 +56,8 @@ class Tasks extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onDeleteTask: (id) => dispatch(actions.deleteTask(id)),
-    onEditTask: (id, data) => dispatch(actions.editTask(id, data)),
+    // onEditTask: (id, data) => dispatch(actions.editTask(id, data)),
+    onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
     onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay))
   }
 }

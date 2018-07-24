@@ -1,4 +1,6 @@
-.Modal {
+$blue: #589aca;
+
+.modal {
   box-shadow: 16px 16px 38px rgba(black, 0.2);
   padding: 5em 6em 4em;
   max-width: 540px;
@@ -10,9 +12,43 @@
   transform: translate(-50%, -55%);
   background: white;
   z-index: 101;
+  border-top: 3px solid $blue;
+  text-align: center;
+  transition: all 1s ease-out;
 
   h2 {
-    text-align: center;
     margin: 0 0 2em;
+  }
+}
+
+.question {
+  font-size: 1.1em;
+  line-height: 2;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 2em;
+
+  button {
+    transition: color 0.3s ease-out;
+    font-size: 1.1em;
+    span {
+      margin-right: 0.5em;
+    }
+    &.yes {
+      color: green;
+      &:hover {
+        color: darken(green, 15%)
+      }
+    }
+    &.no {
+      color: red;
+      &:hover {
+        color: darken(red, 15%)
+      }
+    }
   }
 }

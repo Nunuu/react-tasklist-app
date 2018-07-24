@@ -6,9 +6,7 @@ import * as actions from '../actions/';
 export function* addTaskSaga(action) {
   yield put(actions.addTaskStart());
   const newTask = {
-    title: action.title,
-    priority: action.priority,
-    dueDate: action.dueDate,
+    ...action.data,
     completed: false
   }
   try {
@@ -23,7 +21,7 @@ export function* addTaskSaga(action) {
 export function* getTasksSaga(action) {
   yield put(actions.getTasksStart());
   try {
-    const response = yield axios.get('/tasks.json');
+    const response = yield axios.get('/tasks.json?orderByChild="order"');
     const data = response.data;
     const tasks = Object.keys(data).map(key => {
       return {

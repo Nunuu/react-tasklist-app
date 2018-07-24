@@ -24,7 +24,7 @@ const hideAddForm = (state, action) => {
 const showEditForm = (state, action) => {
   return updateObject(state, {
     taskId: action.taskId,
-    showEdit: true,
+    showEdit: true
   })
 }
 

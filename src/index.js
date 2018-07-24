@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import { reducer as formReducer } from 'redux-form'
 
 import './assets/styles/index.scss';
 
@@ -17,7 +18,8 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 
 const rootReducer = combineReducers({
   forms: formsReducer,
-  tasks: tasksReducer
+  tasks: tasksReducer,
+  form: formReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

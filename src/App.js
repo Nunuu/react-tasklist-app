@@ -8,6 +8,7 @@ import SideBar from './components/navigation/SideBar/SideBar';
 import TopBar from './containers/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
 import AddTask from './containers/Tasks/AddTask/AddTask';
+import EditTask from './containers/Tasks/EditTask/EditTask';
 
 const asyncProjectList = asyncComponent(() => {
   return import('./containers/ProjectList/ProjectList');
@@ -63,6 +64,7 @@ class App extends Component {
           </Switch>
         </main>
         <AddTask />
+        <EditTask />
       </Aux>
     );
   }

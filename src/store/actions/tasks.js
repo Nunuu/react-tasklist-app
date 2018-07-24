@@ -1,12 +1,10 @@
 import * as actionTypes from './actionTypes';
 
 // Add Tasks
-export const addTask = (title, priority, dueDate) => {
+export const addTask = (data) => {
   return {
     type: actionTypes.ADD_TASK,
-    title,
-    priority,
-    dueDate
+    data
   }
 }
 

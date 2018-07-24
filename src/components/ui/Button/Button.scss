@@ -23,3 +23,15 @@
     color: #ccc;
   }
 }
+
+.close {
+  font-size: 1.2em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  transition: color 0.3s ease-out;
+  
+  &:hover {
+    color: #589aca;
+  }
+}

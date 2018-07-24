@@ -78,10 +78,12 @@ class AddTask extends Component {
   addTaskHandler = (e) => {
     e.preventDefault();
 
-    const title = this.state.fields.title.value;
-    const priority = +this.state.fields.priority.value;
-    const dueDate = new Date();
-    this.props.onAddTask(title, priority, dueDate);
+    this.props.onAddTask({
+      title: this.state.fields.title.value,
+      priority: +this.state.fields.priority.value,
+      dueDate: new Date(),
+      order: this.props.totalTasks
+    });
   }
 
   render() {
@@ -135,14 +137,15 @@ const mapStateToProps = state => {
     showAddForm: state.forms.showAdd,
     initDay: state.forms.initDay,
     initProject: state.forms.initProject,
-    taskUpdateError: state.tasks.error
+    taskUpdateError: state.tasks.error,
+    totalTasks: state.tasks.count
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onCloseForm: () => dispatch(actions.hideAddForm()),
-    onAddTask: (title, priority, dueDate) => dispatch(actions.addTask(title, priority, dueDate))
+    onAddTask: (data) => dispatch(actions.addTask(data))
   }
 }
 
