@@ -20,6 +20,11 @@ input, select {
   padding: 0.5em;
   display: block;
   width: 100%;
+  transition: background 0.3s ease-out;
+  border: 1px solid #ccc;
+  &:focus {
+    background: #e4e4e4;
+  }
 }
 
 label {
