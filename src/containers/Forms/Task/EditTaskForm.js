@@ -61,16 +61,15 @@ let EditTaskForm = props => {
         <Field 
           name="dueDate" 
           component="input" 
-          type="text" 
-          validate={[required]} />
+          type="text" />
       </div>
       <div className={styles.formRow}>
         <label>Priority</label>
         <div>
           <Field name="priority" component="select">
-            <option value="0">Low</option>
-            <option value="1">Normal</option>
-            <option value="2">High</option>
+            <option value="low">Low</option>
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
           </Field>
         </div>
       </div>

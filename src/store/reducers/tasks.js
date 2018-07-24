@@ -2,13 +2,12 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/helpers';
 
 const initialState = {
-  tasks: [],
+  tasks: {},
   count: 0,
   loadingData: false,
   error: null,
 
   showAdd: false,
-  initDate: '',
   showEdit: false,
   taskId: '',
   taskData: null
@@ -41,7 +40,7 @@ const getTasksComplete = (state, action) => {
   const allTasks = action.tasks;
   return updateObject(state, {
     tasks: allTasks,
-    count: allTasks.length,
+    count: allTasks ? Object.keys(allTasks).length : 0,
     loadingData: false,
     error: null
   });
@@ -92,7 +91,6 @@ const showAddForm = (state, action) => {
     showAdd: true,
     taskData: {
       "priority": 1,
-      "completed": false,
       "dueDate": action.initDate
     }
   });

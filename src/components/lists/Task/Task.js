@@ -6,20 +6,15 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 const task = (props) => {
   
-  let priorityStyle = "";
-  if (props.priority === 2) {
-    priorityStyle = styles.high;
-  } else if (props.priority === 0) {
-    priorityStyle = styles.low;
-  }
+  const isComplete = String(props.completed) === 'true';
 
   return (
-    <div className={classNames(styles.task, priorityStyle)}>
-      <div className={classNames(styles.title, props.completed ? styles.completed : '')}>
+    <div className={classNames(styles.task, styles[props.priority])}>
+      <div className={classNames(styles.title, isComplete ? styles.completed : '')}>
         {props.title}
       </div>
       <div className={styles.buttons}>
-        <button onClick={props.completeTask} disabled={props.completed}>
+        <button onClick={props.completeTask} disabled={isComplete}>
           <span className={classNames(icons.lnr, icons['lnr-file-check'])}></span>
         </button>
         <button onClick={props.editTask}>

@@ -30,10 +30,12 @@ class DaysList extends Component {
           initDay={today} />
         <Tasks 
           title="Tomorrow" 
-          color="#ffc000" />
+          color="#ffc000"
+          initDay={today} />
         <Tasks 
           title="Upcoming" 
-          color="#00c30e" />
+          color="#00c30e"
+          initDay={today} />
         <Tasks 
           title="Whenever" 
           color="#589aca" />
