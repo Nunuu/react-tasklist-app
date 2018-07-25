@@ -8,6 +8,9 @@ $blue: #589aca;
     pointer-events: none;
     opacity: 0.7;
   }
+  span {
+    text-transform: capitalize;
+  }
 }
 
 .form {

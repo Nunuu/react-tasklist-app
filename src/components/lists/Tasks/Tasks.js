@@ -20,21 +20,26 @@ const tasks = props => {
         title={tasks[key].title}
         priority={tasks[key].priority}
         completed={tasks[key].completed}
+        completionDate={tasks[key].completionDate}
         completeTask={() => props.onCompleteTask(key)}
         deleteTask={() => props.onDeleteTask(key)}
         editTask={() => props.onShowEditForm(key)} />
     });
   }
+
+  let addButton = null;
+  if (!props.hideAdd) {
+    addButton = <Button 
+      clicked={() => props.onShowAddForm(props.initDay)}>
+      <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
+    </Button>
+  }
     
   return (
     <div className={styles.taskBlock}>
       <h2 style={{color: props.color}}>{props.title}</h2>
-      <Button 
-        disabled={props.disableAdd}
-        clicked={() => props.onShowAddForm(props.initDay)}>
-        <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
-      </Button>
-      <div className="tasks">
+      {addButton}
+      <div>
         {taskList}
       </div>
     </div>

@@ -14,24 +14,8 @@ const minLength = min => value => (
 );
 const minLength5 = minLength(5);
 
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type} />
-      {touched &&
-        ((error && <p>{error}</p>) ||
-          (warning && <p>{warning}</p>))}
-    </div>
-  </div>
-);
-
 let editTaskForm = props => {
+  
   const { handleSubmit, pristine, submitting } = props;
 
   let completedField = null;
@@ -63,6 +47,30 @@ let editTaskForm = props => {
       options={datePickerOptions} />
   );
   
+  const renderField = ({
+    input,
+    label,
+    type,
+    meta: { touched, error, warning }
+  }) => {
+    let inputField = <input 
+      {...input} 
+      placeholder={label} 
+      type={type}
+      autoFocus={label === "Task Title" && props.formType === "add"} />;
+    return (
+      <div>
+        <label>{label}</label>
+        <div>
+          {inputField}
+          {touched &&
+            ((error && <p>{error}</p>) ||
+              (warning && <p>{warning}</p>))}
+        </div>
+      </div>
+    )
+  };
+
   return (
     <form className={styles.form}>
       <div className={styles.formRow}>
@@ -92,7 +100,9 @@ let editTaskForm = props => {
         btnClass="form" 
         type="submit"
         disabled={pristine || submitting}
-        clicked={handleSubmit}>Submit</Button>
+        clicked={handleSubmit}>
+        <span>{props.formType}</span> Task
+      </Button>
     </form>
   );
 }

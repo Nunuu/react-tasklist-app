@@ -9,7 +9,6 @@ import * as actions from '../../store/actions/';
 import Aux from '../../hoc/reactAux/reactAux';
 import Loader from '../../components/ui/Loader/Loader';
 
-// const dayFormat = "YYYY-MM-DD HH:mm";
 const today = moment().startOf('day');
 const tomorrow = moment().startOf('day').add(1, 'd');
 const upcoming = moment().startOf('day').add(2, 'd');
@@ -27,44 +26,64 @@ class DaysList extends Component {
   // }
 
   render() {
-
-    const allTasks = this.props.tasks;
-    let tasks = <Loader />;
-    if (allTasks) {
-      // sort all tasks
+    let tasks = null;
+    if (this.props.loading) {
+      tasks = <Loader />;
+    } else {
+      const allTasks = this.props.tasks;
+      // sort all tasks into proper objects
       const noDate = {};
       const overdueTasks = {};
+      const todayTasks = {};
+      const tmrTasks = {};
+      const upcomingTasks = {};
       Object.keys(allTasks).map(key => {
         const task = allTasks[key];
         if (task.dueDate) {
-          overdueTasks[key] = task;
-          const diff = today.diff(task.dueDate, 'days');
-          console.log('diff:', diff);
+          const diff = today.diff(task.dueDate[0], 'days');
+          if (diff === 0) {
+            todayTasks[key] = task;
+          } else if (diff === -1) {
+            tmrTasks[key] = task;
+          } else if (diff > 0) {
+            overdueTasks[key] = task;
+          } else {
+            upcomingTasks[key] = task;
+          }
         } else {
           noDate[key] = task;
         }
         return task;
       });
 
-      // display tasks
-      tasks = <div className={styles.dayslist}>
-        <Tasks 
+      // check if there are any overdue tasks
+      let overdueTaskList = null;
+      if (Object.keys(overdueTasks).length > 0) {
+        overdueTaskList = <Tasks 
           title="Overdue" 
           color="rgb(255, 72, 0)"
           tasks={overdueTasks}
-          disableAdd="true" />
+          hideAdd="true" />
+      }
+
+      // display tasks
+      tasks = <div className={styles.dayslist}>
+        {overdueTaskList}
         <Tasks 
           title="Today" 
           color="#ff6600"
-          initDay={today} />
+          initDay={today}
+          tasks={todayTasks} />
         <Tasks 
           title="Tomorrow" 
           color="#ffc000"
-          initDay={tomorrow} />
+          initDay={tomorrow}
+          tasks={tmrTasks} />
         <Tasks 
           title="Upcoming" 
           color="#00c30e"
-          initDay={upcoming} />
+          initDay={upcoming}
+          tasks={upcomingTasks} />
         <Tasks 
           title="Whenever" 
           tasks={noDate}
@@ -82,7 +101,8 @@ class DaysList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks.tasks
+    tasks: state.tasks.tasks,
+    loading: state.tasks.loadingData
   }
 }
 

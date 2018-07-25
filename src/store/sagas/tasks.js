@@ -16,7 +16,7 @@ export function* getTasksSaga(action) {
 export function* getCompletedTasksSaga(action) {
   yield put(actions.getTasksStart());
   try {
-    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo=true');
+    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo="true"');
     yield put(actions.getTasksComplete(response.data));
   } catch (error) {
     yield put(actions.getTasksFailed(error));
@@ -57,7 +57,10 @@ export function* editTaskSaga(action) {
 }
 
 export function* completeTaskSaga(action) {
-  const updateData = {"completed": true};
+  const updateData = {
+    "completed": "true",
+    "completionDate": new Date()
+  };
   try {
     yield(axios.patch(`/tasks/${action.id}.json`, updateData));
     yield put(actions.editTaskComplete(action.id, updateData));
