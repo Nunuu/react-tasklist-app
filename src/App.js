@@ -5,7 +5,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Aux from './hoc/reactAux/reactAux';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import SideBar from './components/navigation/SideBar/SideBar';
-import TopBar from './containers/TopBar/TopBar';
+import TopBar from './components/navigation/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
 import AddTask from './containers/Tasks/AddTask/AddTask';
 import EditTask from './containers/Tasks/EditTask/EditTask';
@@ -14,51 +14,20 @@ const asyncProjectList = asyncComponent(() => {
   return import('./containers/ProjectList/ProjectList');
 });
 
-let lastScrollY = 0;
-let ticking = false;
+const asyncCompletedList = asyncComponent(() => {
+  return import('./containers/CompletedList/CompletedList');
+});
 
 class App extends Component {
-
-  state = {
-    shrinkHeader: false
-  }
-
-  constructor(props) {
-    super(props);
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-  
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    lastScrollY = window.scrollY;
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        if (lastScrollY >= 10) {
-          this.setState({shrinkHeader: true});
-        } else {
-          this.setState({shrinkHeader: false});
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
-
   render() {
     return (
       <Aux>
-        <TopBar shrinkHeader={this.state.shrinkHeader} />
-        <SideBar shrinkHeader={this.state.shrinkHeader} />
+        <TopBar />
+        <SideBar />
         <main>
           <Switch>
             <Route path="/projects" component={asyncProjectList} />
+            <Route path="/completed" component={asyncCompletedList} />
             <Route path="/" exact component={DaysList} />
             <Redirect to="/" />
           </Switch>

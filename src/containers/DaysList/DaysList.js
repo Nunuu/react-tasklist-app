@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import styles from './DaysList.scss';
 
 import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
+import Aux from '../../hoc/reactAux/reactAux';
+import Loader from '../../components/ui/Loader/Loader';
+
+// const dayFormat = "YYYY-MM-DD HH:mm";
+const today = moment().startOf('day');
+const tomorrow = moment().startOf('day').add(1, 'd');
+const upcoming = moment().startOf('day').add(2, 'd');
 
 class DaysList extends Component {
   
@@ -12,18 +20,39 @@ class DaysList extends Component {
     this.props.onGetTasks();
   }
 
-  render() {
-    
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevProps.tasks !== this.props.tasks ) {
+  //     console.log('component did update!');
+  //   }
+  // }
 
-    return (
-      <div className={styles.dayslist}>
+  render() {
+
+    const allTasks = this.props.tasks;
+    let tasks = <Loader />;
+    if (allTasks) {
+      // sort all tasks
+      const noDate = {};
+      const overdueTasks = {};
+      Object.keys(allTasks).map(key => {
+        const task = allTasks[key];
+        if (task.dueDate) {
+          overdueTasks[key] = task;
+          const diff = today.diff(task.dueDate, 'days');
+          console.log('diff:', diff);
+        } else {
+          noDate[key] = task;
+        }
+        return task;
+      });
+
+      // display tasks
+      tasks = <div className={styles.dayslist}>
         <Tasks 
           title="Overdue" 
           color="rgb(255, 72, 0)"
-          tasks={this.props.tasks}
-          initDay={today} />
+          tasks={overdueTasks}
+          disableAdd="true" />
         <Tasks 
           title="Today" 
           color="#ff6600"
@@ -31,15 +60,22 @@ class DaysList extends Component {
         <Tasks 
           title="Tomorrow" 
           color="#ffc000"
-          initDay={today} />
+          initDay={tomorrow} />
         <Tasks 
           title="Upcoming" 
           color="#00c30e"
-          initDay={today} />
+          initDay={upcoming} />
         <Tasks 
           title="Whenever" 
+          tasks={noDate}
           color="#589aca" />
       </div>
+    }
+    
+    return (
+      <Aux>
+        {tasks}
+      </Aux>
     );
   }
 }

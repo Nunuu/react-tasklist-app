@@ -7,6 +7,7 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 import Task from './Task/Task';
 import * as actions from '../../../store/actions/';
+import Button from '../../ui/Button/Button';
 
 const tasks = props => {
   
@@ -28,9 +29,11 @@ const tasks = props => {
   return (
     <div className={styles.taskBlock}>
       <h2 style={{color: props.color}}>{props.title}</h2>
-      <button onClick={() => props.onShowAddForm(props.initDay)}>
+      <Button 
+        disabled={props.disableAdd}
+        clicked={() => props.onShowAddForm(props.initDay)}>
         <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
-      </button>
+      </Button>
       <div className="tasks">
         {taskList}
       </div>

@@ -88,7 +88,7 @@ const editTaskFailed = (state, action) => {
 
 //Forms
 const showAddForm = (state, action) => {
-  if (state.newTaskData) {
+  if (state.newTaskData && action.date === state.dueDate) {
     return updateObject(state, {
       showAdd: true
     });
@@ -97,7 +97,7 @@ const showAddForm = (state, action) => {
       showAdd: true,
       newTaskData: {
         "priority": "normal",
-        "dueDate": action.initDate
+        "dueDate": [action.date]
       }
     });
   }

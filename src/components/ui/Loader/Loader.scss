@@ -1,0 +1,76 @@
+$loader-animation-duration: 1.15s;
+$loader-color: rgb(255, 72, 0);
+$loader-size: 2em;
+
+.loader, .graphic {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.loader {
+  overflow: visible;
+  padding-top: $loader-size;
+  width: $loader-size;
+  height: 0;
+
+  p {
+    float: left;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin: 1em 0 0 50%;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.5em;
+    white-space: nowrap;
+    animation: fadeInOut $loader-animation-duration infinite ease-out;
+  }
+}
+
+.graphic {
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border: 0 solid $loader-color;
+  border-radius: 50%;
+  animation: scaleInOut $loader-animation-duration infinite ease-out;
+}
+
+@keyframes scaleInOut {
+  0% {
+    width: 0;
+    height: 0;
+    background-color: $loader-color;
+  }
+  29% {
+    background-color: $loader-color;
+  }
+  30% {
+    width: $loader-size;
+    height: $loader-size;
+    background-color: transparent;
+    border-width: $loader-size/2;
+    opacity: 1;
+  }
+  100% {
+    width: $loader-size;
+    height: $loader-size;
+    border-width: 0;
+    opacity: 0;
+    background-color: transparent;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

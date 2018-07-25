@@ -1,13 +1,15 @@
 // tasks
-export const ADD_TASK = "ADD_TASK";
-export const ADD_TASK_START = "ADD_TASK_START";
-export const ADD_TASK_COMPLETE = "ADD_TASK_COMPLETE";
-export const ADD_TASK_FAILED = "ADD_TASK_FAILED";
-
 export const GET_TASKS = "GET_TASKS";
 export const GET_TASKS_START = "GET_TASKS_START";
 export const GET_TASKS_COMPLETE = "GET_TASKS_COMPLETE";
 export const GET_TASKS_FAILED = "GET_TASKS_FAILED";
+
+export const GET_COMPLETED_TASKS = "GET_COMPLETED_TASKS";
+
+export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK_START = "ADD_TASK_START";
+export const ADD_TASK_COMPLETE = "ADD_TASK_COMPLETE";
+export const ADD_TASK_FAILED = "ADD_TASK_FAILED";
 
 export const DELETE_TASK = "DELETE_TASK";
 export const DELETE_TASK_START = "DELETE_TASK_START";

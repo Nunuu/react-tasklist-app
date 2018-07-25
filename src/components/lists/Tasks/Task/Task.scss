@@ -5,7 +5,6 @@
   line-height: 1.5;
   font-size: 0.9em;
   position: relative;
-  display: flex;
   &:before {
     content: '';
     background: orange;
@@ -34,17 +33,15 @@
 }
 
 .buttons {
-  margin-left: 1em;
+  margin-top: 2em;
+  display: flex;
+  justify-content: flex-end;
   button {
     width: 3em;
     height: 3em;
-    margin-bottom: 2px;
+    margin-left: 2px;
     &:last-child {
       margin-bottom: 0;
-    }
-    &:disabled {
-      pointer-events: none;
-      opacity: 0.5;
     }
   }
 }

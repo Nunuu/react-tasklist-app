@@ -105,13 +105,17 @@ export const getTasksFailed = (error) => {
   }
 }
 
+export const getCompletedTasks = () => {
+  return {
+    type: actionTypes.GET_COMPLETED_TASKS
+  }
+}
 
 // Forms
-export const showAddForm = (date = "", project = "") => {
+export const showAddForm = (date = null) => {
   return {
     type: actionTypes.SHOW_ADD_FORM,
-    date,
-    project
+    date
   }
 }
 

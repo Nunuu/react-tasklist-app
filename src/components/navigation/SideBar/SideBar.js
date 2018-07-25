@@ -4,8 +4,9 @@ import classNames from 'classnames';
 import styles from './SideBar.scss';
 
 import Link from '../../ui/Link/Link';
+import stickyComponent from '../../../hoc/stickyComponent/stickyComponent';
 
-const sideBar = (props) => {
+const sideBar = props => {
   return (
     <aside className={classNames(styles.sidebar, props.shrinkHeader ? styles.high : '')}>
       <div className={styles.heading}>Sort</div>
@@ -19,4 +20,4 @@ const sideBar = (props) => {
   );
 }
 
-export default sideBar;
+export default stickyComponent(sideBar);

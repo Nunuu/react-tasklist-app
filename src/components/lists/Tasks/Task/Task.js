@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import styles from './Task.scss';
 import icons from '../../../../assets/styles/linearicons.scss';
+import Button from '../../../ui/Button/Button';
 
 const task = (props) => {
   
@@ -14,15 +15,15 @@ const task = (props) => {
         {props.title}
       </div>
       <div className={styles.buttons}>
-        <button onClick={props.completeTask} disabled={isComplete}>
+        <Button clicked={props.completeTask} disabled={isComplete}>
           <span className={classNames(icons.lnr, icons['lnr-file-check'])}></span>
-        </button>
-        <button onClick={props.editTask}>
+        </Button>
+        <Button clicked={props.editTask}>
           <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
-        </button>
-        <button onClick={props.deleteTask}>
+        </Button>
+        <Button clicked={props.deleteTask}>
           <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
-        </button>
+        </Button>
       </div>
     </div>
   );

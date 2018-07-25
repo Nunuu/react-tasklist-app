@@ -3,10 +3,30 @@ import { put } from 'redux-saga/effects';
 import axios from '../../axios-firebase';
 import * as actions from '../actions/';
 
+export function* getTasksSaga(action) {
+  yield put(actions.getTasksStart());
+  try {
+    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo="false"');
+    yield put(actions.getTasksComplete(response.data));
+  } catch (error) {
+    yield put(actions.getTasksFailed(error));
+  }
+}
+
+export function* getCompletedTasksSaga(action) {
+  yield put(actions.getTasksStart());
+  try {
+    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo=true');
+    yield put(actions.getTasksComplete(response.data));
+  } catch (error) {
+    yield put(actions.getTasksFailed(error));
+  }
+}
+
 export function* addTaskSaga(action) {
   const newTask = {
     ...action.data,
-    completed: false
+    completed: "false"
   }
   try {
     const response = yield axios.post('/tasks.json', newTask);
@@ -14,16 +34,6 @@ export function* addTaskSaga(action) {
     yield put(actions.hideAddForm());
   } catch (error) {
     yield put(actions.addTaskFailed(error));
-  }
-}
-
-export function* getTasksSaga(action) {
-  yield put(actions.getTasksStart());
-  try {
-    const response = yield axios.get('/tasks.json?');
-    yield put(actions.getTasksComplete(response.data));
-  } catch (error) {
-    yield put(actions.getTasksFailed(error));
   }
 }
 

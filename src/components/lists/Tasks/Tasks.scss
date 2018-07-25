@@ -2,7 +2,7 @@
   padding: 0 0 0 1.5em;
   flex: 1;
   flex-basis: 20%;
-  max-width: 20%;
+  max-width: 400px;
   margin-top: 1em;
   h2 {
     text-transform: uppercase;
@@ -26,18 +26,14 @@
 
   @media all and (max-width: 1440px) {
     flex-basis: 25%;
-    max-width: 25%;
   }
   @media all and (max-width: 1200px) {
     flex-basis: 33.33%;
-    max-width: 33.33%;
   }
   @media all and (max-width: 1024px) {
     flex-basis: 50%;
-    max-width: 50%;
   }
   @media all and (max-width: 768px) {
     flex-basis: 100%;
-    max-width: 100%;
   }
 }
