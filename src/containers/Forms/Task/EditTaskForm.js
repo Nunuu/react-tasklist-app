@@ -1,16 +1,17 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import Flatpickr from 'react-flatpickr';
 
 import Button from '../../../components/ui/Button/Button';
 import styles from '../Forms.scss';
 
-const required = value => {
-  return (value || typeof value === 'number' ? undefined : 'Required.');
-}
-const minLength = min => value => {
-  return value && value.length < min ? `Must be ${min} characters or more.` : undefined;
-}
+const required = value => (
+  value || typeof value === 'number' ? undefined : 'The field is required.'
+);
+const minLength = min => value => (
+  value && value.length < min ? `Must be ${min} characters or more.` : undefined
+);
 const minLength5 = minLength(5);
 
 const renderField = ({
@@ -28,12 +29,18 @@ const renderField = ({
           (warning && <p>{warning}</p>))}
     </div>
   </div>
-)
+);
 
-let EditTaskForm = props => {
+let editTaskForm = props => {
   const { handleSubmit, pristine, submitting } = props;
 
   let completedField = null;
+  let datePickerOptions = {
+    altFormat: "F j, Y h:i K",
+    altInput: true,
+    dateFormat: "Y-m-d H:i"
+  }
+
   if (props.formType !== "add") {
     completedField = <div className={styles.formRow}>
       <label>Completed</label>
@@ -44,8 +51,18 @@ let EditTaskForm = props => {
         </Field>
       </div>
     </div>
+  } else {
+    datePickerOptions.minDate = new Date(new Date().setHours(0, 0, 0, 0));
   }
-
+  
+  const renderDateTimePicker = ({ input: { onChange, value } }) => (
+    <Flatpickr 
+      data-enable-time
+      onChange={onChange}
+      value={!value ? null : new Date(value)}
+      options={datePickerOptions} />
+  );
+  
   return (
     <form className={styles.form}>
       <div className={styles.formRow}>
@@ -60,18 +77,15 @@ let EditTaskForm = props => {
         <label htmlFor="dueDate">Due Date</label>
         <Field 
           name="dueDate" 
-          component="input" 
-          type="text" />
+          component={renderDateTimePicker} />
       </div>
       <div className={styles.formRow}>
         <label>Priority</label>
-        <div>
-          <Field name="priority" component="select">
-            <option value="low">Low</option>
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-          </Field>
-        </div>
+        <Field name="priority" component="select">
+          <option value="low">Low</option>
+          <option value="normal">Normal</option>
+          <option value="high">High</option>
+        </Field>
       </div>
       {completedField}
       <Button 
@@ -83,14 +97,14 @@ let EditTaskForm = props => {
   );
 }
 
-EditTaskForm = reduxForm({
+const mapStateToProps = state => {
+  return {
+    initialValues: state.tasks.showAdd ? state.tasks.newTaskData : state.tasks.taskData
+  }
+}
+
+editTaskForm = reduxForm({
   form: 'edit-task'
-})(EditTaskForm);
+})(editTaskForm);
 
-EditTaskForm = connect(
-  state => ({
-    initialValues: state.tasks.taskData
-  })
-)(EditTaskForm);
-
-export default EditTaskForm;
+export default connect(mapStateToProps)(editTaskForm);

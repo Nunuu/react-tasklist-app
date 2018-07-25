@@ -115,10 +115,10 @@ export const showAddForm = (date = "", project = "") => {
   }
 }
 
-export const hideAddForm = (reset = false) => {
+export const hideAddForm = (data = null) => {
   return {
     type: actionTypes.HIDE_ADD_FORM,
-    reset
+    data
   }
 }
 

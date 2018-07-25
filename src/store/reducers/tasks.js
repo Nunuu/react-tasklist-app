@@ -10,7 +10,8 @@ const initialState = {
   showAdd: false,
   showEdit: false,
   taskId: '',
-  taskData: null
+  taskData: null,
+  newTaskData: null,
 }
 
 const addTaskComplete = (state, action) => {
@@ -87,35 +88,48 @@ const editTaskFailed = (state, action) => {
 
 //Forms
 const showAddForm = (state, action) => {
-  return updateObject(state, {
-    showAdd: true,
-    taskData: {
-      "priority": 1,
-      "dueDate": action.initDate
-    }
-  });
+  if (state.newTaskData) {
+    return updateObject(state, {
+      showAdd: true
+    });
+  } else {
+    return updateObject(state, {
+      showAdd: true,
+      newTaskData: {
+        "priority": "normal",
+        "dueDate": action.initDate
+      }
+    });
+  }
 }
 
 const hideAddForm = (state, action) => {
+  let newTaskData = null;
+  if (action.data) {
+    newTaskData = updateObject(state.newTaskData, action.data);
+  }
   return updateObject(state, {
     showAdd: false,
+    newTaskData
   });
 }
 
 const showEditForm = (state, action) => {
-  return updateObject(state, {
-    taskId: action.taskId,
-    taskData: state.tasks[action.taskId],
-    showEdit: true
-  })
+  let updatedState = {showEdit: true};
+  if (state.taskId !== action.taskId) {
+    updatedState.taskId = action.taskId;
+    updatedState.taskData = state.tasks[action.taskId];
+  }
+  return updateObject(state, updatedState);
 }
 
 const hideEditForm = (state, action) => {
-  return updateObject(state, {
-    taskId: action.reset ? '' : state.taskId,
-    taskData: action.reset ? null : state.taskData,
-    showEdit: false
-  });
+  let updatedState = {showEdit: false};
+  if (action.reset) {
+    updatedState.taskId = '';
+    updatedState.taskData = null;
+  }
+  return updateObject(state, updatedState);
 }
 
 const reducer = (state = initialState, action) => {

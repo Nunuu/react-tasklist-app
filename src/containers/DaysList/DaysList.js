@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './DaysList.scss';
 
-import Tasks from '../Tasks/Tasks';
+import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
 
 class DaysList extends Component {

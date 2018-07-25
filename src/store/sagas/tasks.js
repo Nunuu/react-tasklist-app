@@ -11,7 +11,7 @@ export function* addTaskSaga(action) {
   try {
     const response = yield axios.post('/tasks.json', newTask);
     yield put(actions.addTaskComplete(response.data.name, newTask));
-    yield put(actions.hideAddForm(true));
+    yield put(actions.hideAddForm());
   } catch (error) {
     yield put(actions.addTaskFailed(error));
   }

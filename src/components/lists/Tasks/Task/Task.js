@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import styles from './Task.scss';
-import icons from '../../../assets/styles/linearicons.scss';
+import icons from '../../../../assets/styles/linearicons.scss';
 
 const task = (props) => {
   

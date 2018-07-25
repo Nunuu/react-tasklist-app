@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { getFormValues } from 'redux-form';
 
 import EditTaskForm from '../../Forms/Task/EditTaskForm';
 import Modal from '../../../components/ui/Modal/Modal';
@@ -12,12 +13,16 @@ class AddTask extends Component {
     this.props.onAddTask(values);
   }
 
+  onModalClose = () => {
+    this.props.onCloseForm(this.props.formValues);
+  }
+
   render() {
     let modal = null;
     if (this.props.showAddForm) {
       modal = <Modal 
         show={this.props.showAddForm} 
-        modalClosed={this.props.onCloseForm} 
+        modalClosed={this.onModalClose} 
         title="Add Task" >
         <EditTaskForm onSubmit={this.submit} formType="add" />
       </Modal>
@@ -32,13 +37,14 @@ class AddTask extends Component {
 
 const mapStateToProps = state => {
   return {
-    showAddForm: state.tasks.showAdd
+    showAddForm: state.tasks.showAdd,
+    formValues: getFormValues('edit-task')(state)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCloseForm: () => dispatch(actions.hideAddForm()),
+    onCloseForm: (data) => dispatch(actions.hideAddForm(data)),
     onAddTask: (data) => dispatch(actions.addTask(data))
   }
 }
