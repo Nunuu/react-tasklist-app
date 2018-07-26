@@ -23,10 +23,20 @@ export function* getCompletedTasksSaga(action) {
   }
 }
 
+export function* getTotalCountSaga(action) {
+  try {
+    const response = yield axios.get('/tasks.json?shallow=true');
+    yield put(actions.getTotalCountComplete(response.data));
+  } catch (error) {
+    yield put(actions.getTotalCountFailed(error));
+  }
+}
+
 export function* addTaskSaga(action) {
   const newTask = {
     ...action.data,
-    completed: "false"
+    completed: "false",
+    order: action.order
   }
   try {
     const response = yield axios.post('/tasks.json', newTask);

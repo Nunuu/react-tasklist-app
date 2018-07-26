@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
 // Add Tasks
-export const addTask = (data) => {
+export const addTask = (data, order) => {
   return {
     type: actionTypes.ADD_TASK,
-    data
+    data,
+    order
   }
 }
 
@@ -108,6 +109,26 @@ export const getTasksFailed = (error) => {
 export const getCompletedTasks = () => {
   return {
     type: actionTypes.GET_COMPLETED_TASKS
+  }
+}
+
+export const getTotalCount = () => {
+  return {
+    type: actionTypes.GET_TOTAL_COUNT
+  }
+}
+
+export const getTotalCountComplete = (tasks) => {
+  return {
+    type: actionTypes.GET_TOTAL_COUNT_COMPLETE,
+    tasks
+  }
+}
+
+export const getTotalCountFailed = (error) => {
+  return {
+    type: actionTypes.GET_TOTAL_COUNT_FAILED,
+    error
   }
 }
 

@@ -41,9 +41,22 @@ const getTasksComplete = (state, action) => {
   const allTasks = action.tasks;
   return updateObject(state, {
     tasks: allTasks,
-    count: allTasks ? Object.keys(allTasks).length : 0,
     loadingData: false,
     error: null
+  });
+}
+
+const getTotalCountComplete = (state, action) => {
+  const allTasks = action.tasks;
+  return updateObject(state, {
+    count: allTasks ? Object.keys(allTasks).length : 0
+  });
+}
+
+const getTotalCountFailed = (state, action) => {
+  return updateObject(state, {
+    count: 0,
+    error: action.error
   });
 }
 
@@ -137,6 +150,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_TASKS_START: return getTasksStart(state, action);
     case actionTypes.GET_TASKS_COMPLETE: return getTasksComplete(state, action);
     case actionTypes.GET_TASKS_FAILED: return getTasksFailed(state, action);
+    case actionTypes.GET_TOTAL_COUNT_COMPLETE: return getTotalCountComplete(state, action);
+    case actionTypes.GET_TOTAL_COUNT_FAILED: return getTotalCountFailed(state, action);
     case actionTypes.ADD_TASK_COMPLETE: return addTaskComplete(state, action);
     case actionTypes.ADD_TASK_FAILED: return addTaskFailed(state, action);
     case actionTypes.DELETE_TASK_COMPLETE: return deleteTaskComplete(state, action);

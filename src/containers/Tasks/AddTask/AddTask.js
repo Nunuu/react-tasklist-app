@@ -10,7 +10,7 @@ import * as actions from '../../../store/actions/';
 class AddTask extends Component {
   
   submit = (values) => {
-    this.props.onAddTask(values);
+    this.props.onAddTask(values, this.props.count);
   }
 
   onModalClose = () => {
@@ -38,14 +38,15 @@ class AddTask extends Component {
 const mapStateToProps = state => {
   return {
     showAddForm: state.tasks.showAdd,
-    formValues: getFormValues('edit-task')(state)
+    formValues: getFormValues('edit-task')(state),
+    count: state.tasks.count
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onCloseForm: (data) => dispatch(actions.hideAddForm(data)),
-    onAddTask: (data) => dispatch(actions.addTask(data))
+    onAddTask: (data, order) => dispatch(actions.addTask(data, order))
   }
 }
 
