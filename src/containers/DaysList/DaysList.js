@@ -37,24 +37,26 @@ class DaysList extends Component {
       const todayTasks = {};
       const tmrTasks = {};
       const upcomingTasks = {};
-      Object.keys(allTasks).map(key => {
-        const task = allTasks[key];
-        if (task.dueDate) {
-          const diff = today.diff(task.dueDate[0], 'days');
-          if (diff === 0) {
-            todayTasks[key] = task;
-          } else if (diff === -1) {
-            tmrTasks[key] = task;
-          } else if (diff > 0) {
-            overdueTasks[key] = task;
+      Object.keys(allTasks)
+        .sort((a, b) => allTasks[a].order - allTasks[b].order)
+        .map(key => {
+          const task = allTasks[key];
+          if (task.dueDate && task.dueDate.length) {
+            const diff = today.diff(task.dueDate[0], 'days');
+            if (diff === 0) {
+              todayTasks[key] = task;
+            } else if (diff === -1) {
+              tmrTasks[key] = task;
+            } else if (diff > 0) {
+              overdueTasks[key] = task;
+            } else {
+              upcomingTasks[key] = task;
+            }
           } else {
-            upcomingTasks[key] = task;
+            noDate[key] = task;
           }
-        } else {
-          noDate[key] = task;
-        }
-        return task;
-      });
+          return task;
+        });
 
       // check if there are any overdue tasks
       let overdueTaskList = null;

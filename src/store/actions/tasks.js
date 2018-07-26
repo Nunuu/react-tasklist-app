@@ -1,11 +1,10 @@
 import * as actionTypes from './actionTypes';
 
 // Add Tasks
-export const addTask = (data, order) => {
+export const addTask = (data) => {
   return {
     type: actionTypes.ADD_TASK,
-    data,
-    order
+    data
   }
 }
 
@@ -50,7 +49,11 @@ export const deleteTaskFailed = (error) => {
 export const completeTask = (id) => {
   return {
     type: actionTypes.COMPLETE_TASK,
-    id
+    id,
+    data: {
+      "completed": "true",
+      "completionDate": new Date()
+    }
   }
 }
 
@@ -131,6 +134,37 @@ export const getTotalCountFailed = (error) => {
     error
   }
 }
+
+export const rearrangeTask = (id, order) => {
+  return {
+    type: actionTypes.REARRANGE_TASK,
+    id,
+    data: {
+      order
+    }
+  }
+}
+
+// export const rearrangeTasks = (tasks) => {
+//   return {
+//     type: actionTypes.REARRANGE_TASKS,
+//     tasks
+//   }
+// }
+
+// export const rearrangeTasksComplete = (tasks) => {
+//   return {
+//     type: actionTypes.REARRANGE_TASKS_COMPLETE,
+//     tasks
+//   }
+// }
+
+// export const rearrangeTasksFailed = (error) => {
+//   return {
+//     type: actionTypes.REARRANGE_TASKS_FAILED,
+//     error
+//   }
+// }
 
 // Forms
 export const showAddForm = (date = null) => {

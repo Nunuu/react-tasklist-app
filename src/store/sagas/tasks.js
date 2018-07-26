@@ -36,7 +36,7 @@ export function* addTaskSaga(action) {
   const newTask = {
     ...action.data,
     completed: "false",
-    order: action.order
+    order: 0
   }
   try {
     const response = yield axios.post('/tasks.json', newTask);
@@ -66,15 +66,20 @@ export function* editTaskSaga(action) {
   }
 }
 
-export function* completeTaskSaga(action) {
-  const updateData = {
-    "completed": "true",
-    "completionDate": new Date()
-  };
+export function* patchTaskSaga(action) {
   try {
-    yield(axios.patch(`/tasks/${action.id}.json`, updateData));
-    yield put(actions.editTaskComplete(action.id, updateData));
+    yield(axios.patch(`/tasks/${action.id}.json`, action.data));
+    yield put(actions.editTaskComplete(action.id, action.data));
   } catch (error) {
     yield put(actions.editTaskFailed(error));
   }
 }
+
+// export function* rearrangeTasksSaga(action) {
+//   try {
+//     yield(axios.put(`/tasks.json`, action.tasks));
+//     yield put(actions.rearrangeTasksComplete(action.tasks));
+//   } catch (error) {
+//     yield put(actions.rearrangeTasksFailed(error));
+//   }
+// }

@@ -39,8 +39,15 @@ const getTasksStart = (state, action) => {
 
 const getTasksComplete = (state, action) => {
   const allTasks = action.tasks;
+  const sortedTasks = Object.keys(allTasks)
+    .sort((a, b) => allTasks[a].order - allTasks[b].order)
+    .reduce((sortedObj, key) => ({
+      ...sortedObj, 
+      [key]: allTasks[key]
+    }), {});
+
   return updateObject(state, {
-    tasks: allTasks,
+    tasks: sortedTasks,
     loadingData: false,
     error: null
   });
@@ -98,6 +105,18 @@ const editTaskFailed = (state, action) => {
   });
 }
 
+// const rearrangeTasksComplete = (state, action) => {
+//   return updateObject(state, {
+//     tasks: action.tasks,
+//     error: null
+//   });
+// }
+
+// const rearrangeTasksFailed = (state, action) => {
+//   return updateObject(state, {
+//     error: action.error
+//   });
+// }
 
 //Forms
 const showAddForm = (state, action) => {
@@ -145,6 +164,7 @@ const hideEditForm = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_TASKS_START: return getTasksStart(state, action);
@@ -158,6 +178,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_TASK_FAILED: return deleteTaskFailed(state, action);
     case actionTypes.EDIT_TASK_COMPLETE: return editTaskComplete(state, action);
     case actionTypes.EDIT_TASK_FAILED: return editTaskFailed(state, action);
+    // case actionTypes.REARRANGE_TASKS_COMPLETE: return rearrangeTasksComplete(state, action);
+    // case actionTypes.REARRANGE_TASKS_FAILED: return rearrangeTasksFailed(state, action);
     case actionTypes.SHOW_ADD_FORM: return showAddForm(state, action);
     case actionTypes.HIDE_ADD_FORM: return hideAddForm(state, action);
     case actionTypes.SHOW_EDIT_FORM: return showEditForm(state, action);

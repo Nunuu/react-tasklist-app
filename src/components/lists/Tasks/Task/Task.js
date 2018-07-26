@@ -20,7 +20,7 @@ const task = (props) => {
   return (
     <div className={classNames(styles.task, styles[props.priority])}>
       <div className={classNames(styles.title, isComplete ? styles.completed : '')}>
-        {props.title}
+        {props.order}: {props.title}
       </div>
       {completionDate}
       <div className={styles.buttons}>

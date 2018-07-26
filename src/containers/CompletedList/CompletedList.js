@@ -19,22 +19,22 @@ class CompletedList extends Component {
     if (this.props.loading) {
       tasks = <Loader />;
     } else {
-      const allTasks = this.props.tasks;
-      // sort all tasks by completion date
-      const sortedTasks = Object.keys(allTasks)
-        .sort((a, b) => {
-          return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
-        })
-        .reduce((sortedObj, key) => ({
-          ...sortedObj, 
-          [key]: allTasks[key]
-        }), {});
+      // const allTasks = this.props.tasks;
+      // // sort all tasks by completion date
+      // const sortedTasks = Object.keys(allTasks)
+      //   .sort((a, b) => {
+      //     return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
+      //   })
+      //   .reduce((sortedObj, key) => ({
+      //     ...sortedObj, 
+      //     [key]: allTasks[key]
+      //   }), {});
       // display the tasks
       tasks = <div className={styles.completedlist}>
         <Tasks 
           title="Completed" 
           color="#00c30e"
-          tasks={sortedTasks}
+          tasks={this.props.tasks}
           hideAdd="true"
           extraStyle="true" />
         {tasks}
