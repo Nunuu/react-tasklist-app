@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import classNames from 'classnames';
+import Transition from 'react-transition-group/Transition';
 
 import styles from "./Modal.scss";
 import icons from '../../../assets/styles/linearicons.scss';
@@ -8,35 +9,28 @@ import Aux from '../../../hoc/reactAux/reactAux';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
-class Modal extends Component {
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
-  }
-
-  render() {
-    let title = null;
-    if (this.props.title) {
-      title = <h2>{this.props.title}</h2>;
-    }
-    return (
+const modal = props => (
+  <Transition 
+    in={props.show} 
+    timeout={300} 
+    mountOnEnter 
+    unmountOnExit>
+    {state => (
       <Aux>
-        <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
-        <div 
-          className={classNames(
-            styles.modal, 
-            this.props.show === 'entered' ? styles.entered : ''
-          )}
-          ref={this.wrapper}>
-          {title}
-          {this.props.children}
-          <Button btnClass="close" clicked={this.props.modalClosed}>
+        <Backdrop show={state} clicked={props.modalClosed} />
+        <div className={classNames(
+          styles.modal, 
+          state === 'entered' ? styles.entered : ''
+        )}>
+          {props.title ? <h2>{props.title}</h2> : null}
+          {props.children}
+          <Button btnClass="close" clicked={props.modalClosed}>
             <span className={classNames(icons.lnr, icons['lnr-cross2'])}></span>
           </Button>
         </div>
       </Aux>
-    )
-  }
-}
+    )}
+  </Transition>
+);
 
-export default Modal;
+export default modal;

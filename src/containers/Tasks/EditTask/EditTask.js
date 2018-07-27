@@ -13,18 +13,14 @@ class EditTask extends Component {
   }
 
   render() {
-    let modal = null;
-    if (this.props.showEditForm) {
-      modal = <Modal 
-        show={this.props.showEditForm} 
-        modalClosed={this.props.onCloseForm} 
-        title="Edit Task" >
-        <EditTaskForm onSubmit={this.submit} formType="edit" />
-      </Modal>
-    }
     return (
       <Aux>
-        {modal}
+        <Modal 
+          show={this.props.showEditForm} 
+          modalClosed={this.props.onCloseForm} 
+          title="Edit Task" >
+          <EditTaskForm onSubmit={this.submit} formType="edit" />
+        </Modal>
       </Aux>
     );
   }
