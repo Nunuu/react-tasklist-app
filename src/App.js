@@ -10,6 +10,14 @@ import DaysList from './containers/DaysList/DaysList';
 import AddTask from './containers/Tasks/AddTask/AddTask';
 import EditTask from './containers/Tasks/EditTask/EditTask';
 
+const asyncAnalytics = asyncComponent(() => {
+  return import('./containers/Analytics/Analytics');
+});
+
+const asyncSettings = asyncComponent(() => {
+  return import('./containers/Settings/Settings');
+});
+
 const asyncProjectList = asyncComponent(() => {
   return import('./containers/ProjectList/ProjectList');
 });
@@ -26,6 +34,8 @@ class App extends Component {
         <SideBar />
         <main>
           <Switch>
+            <Route path="/analytics" component={asyncAnalytics} />
+            <Route path="/settings" component={asyncSettings} />
             <Route path="/projects" component={asyncProjectList} />
             <Route path="/completed" component={asyncCompletedList} />
             <Route path="/" exact component={DaysList} />
