@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 
 import axios from '../../axios-firebase';
 import * as actions from '../actions/';
@@ -75,14 +75,15 @@ export function* patchTaskSaga(action) {
   }
 }
 
-// export function* rearrangeTasksSaga(action) {
-//   const tasksArray = action.tasksArray;
+export const getTasks = (state) => state.tasks;
 
-//   yield put(actions.rearrangeTasksStart());
-//   try {
-//     yield(axios.put(`/tasks.json`, action.tasks));
-//     yield put(actions.rearrangeTasksComplete(action.tasks));
-//   } catch (error) {
-//     yield put(actions.rearrangeTasksFailed(error));
-//   }
-// }
+export function* rearrangeTasksSaga(action) {
+  yield put(actions.rearrangeTasksStart(action.tasksArray));
+  const newTasks = yield select(getTasks);
+  try {
+    yield(axios.put(`/tasks.json`, newTasks.tasks));
+    yield put(actions.rearrangeTasksComplete());
+  } catch (error) {
+    yield put(actions.rearrangeTasksFailed(error));
+  }
+}

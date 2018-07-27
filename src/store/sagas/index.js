@@ -1,7 +1,7 @@
 import { takeEvery, all, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
-import { addTaskSaga, getTasksSaga, deleteTaskSaga, editTaskSaga, getCompletedTasksSaga, getTotalCountSaga, patchTaskSaga } from './tasks';
+import { addTaskSaga, getTasksSaga, deleteTaskSaga, editTaskSaga, getCompletedTasksSaga, getTotalCountSaga, patchTaskSaga, rearrangeTasksSaga } from './tasks';
 
 export function* watchTasks() {
   yield all([
@@ -12,6 +12,6 @@ export function* watchTasks() {
     takeLatest(actionTypes.DELETE_TASK, deleteTaskSaga),
     takeEvery(actionTypes.EDIT_TASK, editTaskSaga),
     takeLatest(actionTypes.COMPLETE_TASK, patchTaskSaga),
-    takeEvery(actionTypes.REARRANGE_TASK, patchTaskSaga)
+    takeLatest(actionTypes.REARRANGE_TASKS, rearrangeTasksSaga)
   ]);
 }

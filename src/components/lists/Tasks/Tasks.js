@@ -46,10 +46,8 @@ class Tasks extends Component {
       result.source.index,
       result.destination.index
     );
-    
-    tasks.forEach((task, index) => {
-      this.props.onReorderList(task.id, index);
-    });
+
+    this.props.onReorderList(tasks);
   }
 
   render() {
@@ -69,7 +67,6 @@ class Tasks extends Component {
               )}
             >
             <Task 
-              order={task.order}
               title={task.title}
               priority={task.priority}
               completed={task.completed}
@@ -118,7 +115,7 @@ const mapDispatchToProps = dispatch => {
     onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
     onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay)),
     onCompleteTask: (id) => dispatch(actions.completeTask(id)),
-    onReorderList: (id, order) => dispatch(actions.rearrangeTask(id, order))
+    onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray))
   }
 }
 

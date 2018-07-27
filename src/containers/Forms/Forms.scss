@@ -8,16 +8,23 @@
     font-size: 0.9em;
   }
 
-  input, select {
+  input, select, textarea {
     font-size: 1em;
     padding: 0.5em;
     display: block;
     width: 100%;
     transition: background 0.3s ease-out;
     border: 1px solid #ccc;
+    font-family: 'Raleway', sans-serif;
     &:focus {
       background: #e4e4e4;
     }
+  }
+
+  textarea {
+    line-height: 1.5;
+    resize: none;
+    height: 6em;
   }
 
   label {

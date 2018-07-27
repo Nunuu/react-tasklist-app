@@ -135,36 +135,32 @@ export const getTotalCountFailed = (error) => {
   }
 }
 
-export const rearrangeTask = (id, order) => {
+export const rearrangeTasks = (tasksArray) => {
   return {
-    type: actionTypes.REARRANGE_TASK,
-    id,
-    data: {
-      order
-    }
+    type: actionTypes.REARRANGE_TASKS,
+    tasksArray
   }
 }
 
-// export const rearrangeTasks = (tasks) => {
-//   return {
-//     type: actionTypes.REARRANGE_TASKS,
-//     tasks
-//   }
-// }
+export const rearrangeTasksStart = (tasksArray) => {
+  return {
+    type: actionTypes.REARRANGE_TASKS_START,
+    tasksArray
+  }
+}
 
-// export const rearrangeTasksComplete = (tasks) => {
-//   return {
-//     type: actionTypes.REARRANGE_TASKS_COMPLETE,
-//     tasks
-//   }
-// }
+export const rearrangeTasksComplete = () => {
+  return {
+    type: actionTypes.REARRANGE_TASKS_COMPLETE
+  }
+}
 
-// export const rearrangeTasksFailed = (error) => {
-//   return {
-//     type: actionTypes.REARRANGE_TASKS_FAILED,
-//     error
-//   }
-// }
+export const rearrangeTasksFailed = (error) => {
+  return {
+    type: actionTypes.REARRANGE_TASKS_FAILED,
+    error
+  }
+}
 
 // Forms
 export const showAddForm = (date = null) => {

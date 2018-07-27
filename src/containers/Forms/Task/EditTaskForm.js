@@ -56,8 +56,13 @@ let editTaskForm = props => {
     let inputField = <input 
       {...input} 
       placeholder={label} 
-      type={type}
-      autoFocus={label === "Task Title" && props.formType === "add"} />;
+      type={type} />;
+    if (type === "textarea") {
+      inputField = <textarea 
+        {...input} 
+        placeholder={label}
+        autoFocus />
+    }
     return (
       <div>
         <label>{label}</label>
@@ -76,7 +81,7 @@ let editTaskForm = props => {
       <div className={styles.formRow}>
         <Field 
           name="title" 
-          type="text" 
+          type="textarea" 
           component={renderField} 
           label="Task Title"
           validate={[required, minLength5]} />
