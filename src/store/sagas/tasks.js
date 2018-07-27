@@ -76,6 +76,9 @@ export function* patchTaskSaga(action) {
 }
 
 // export function* rearrangeTasksSaga(action) {
+//   const tasksArray = action.tasksArray;
+
+//   yield put(actions.rearrangeTasksStart());
 //   try {
 //     yield(axios.put(`/tasks.json`, action.tasks));
 //     yield put(actions.rearrangeTasksComplete(action.tasks));

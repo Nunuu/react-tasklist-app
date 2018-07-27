@@ -31,36 +31,40 @@ class DaysList extends Component {
       tasks = <Loader />;
     } else {
       const allTasks = this.props.tasks;
-      // sort all tasks into proper objects
-      const noDate = {};
-      const overdueTasks = {};
-      const todayTasks = {};
-      const tmrTasks = {};
-      const upcomingTasks = {};
+      // sort all tasks into proper arrays
+      const noDate = [];
+      const overdueTasks = [];
+      const todayTasks = [];
+      const tmrTasks = [];
+      const upcomingTasks = [];
       Object.keys(allTasks)
         .sort((a, b) => allTasks[a].order - allTasks[b].order)
         .map(key => {
           const task = allTasks[key];
+          const newTaskObject = {
+            id: key,
+            ...task
+          }
           if (task.dueDate && task.dueDate.length) {
             const diff = today.diff(task.dueDate[0], 'days');
             if (diff === 0) {
-              todayTasks[key] = task;
+              todayTasks.push(newTaskObject);
             } else if (diff === -1) {
-              tmrTasks[key] = task;
+              tmrTasks.push(newTaskObject);
             } else if (diff > 0) {
-              overdueTasks[key] = task;
+              overdueTasks.push(newTaskObject);
             } else {
-              upcomingTasks[key] = task;
+              upcomingTasks.push(newTaskObject);
             }
           } else {
-            noDate[key] = task;
+            noDate.push(newTaskObject);
           }
           return task;
         });
 
       // check if there are any overdue tasks
       let overdueTaskList = null;
-      if (Object.keys(overdueTasks).length > 0) {
+      if (overdueTasks.length > 0) {
         overdueTaskList = <Tasks 
           title="Overdue" 
           color="rgb(255, 72, 0)"

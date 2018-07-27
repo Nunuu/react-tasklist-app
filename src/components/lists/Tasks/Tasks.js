@@ -22,6 +22,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 });
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 class Tasks extends Component {
 
   constructor(props) {
@@ -33,29 +41,23 @@ class Tasks extends Component {
   onDragEnd(result) {
     if (!result.destination) { return; }
 
-    // const id = result.draggableId;
-    // const endIndex = result.destination.index;
+    const tasks = reorder(
+      this.props.tasks,
+      result.source.index,
+      result.destination.index
+    );
     
-    // const tasks = this.props.tasks;
-    // const newTasks = {};
-    // Object.keys(tasks).map((key, index) => {
-    //   if (key !== id || index === endIndex) {
-    //     newTasks[key] = updateObject(tasks[key]
-    //   }
-    // });
-
-    // console.log("old", tasks);
-    // console.log("new", newTasks);
-    
-    this.props.onReorderList(result.draggableId, result.destination.index);
+    tasks.forEach((task, index) => {
+      this.props.onReorderList(task.id, index);
+    });
   }
 
   render() {
     const tasks = this.props.tasks;
     let taskList = null;
     if (tasks) {
-      taskList = Object.keys(tasks).map((key, index) => {
-        return <Draggable key={key} draggableId={key} index={index}>
+      taskList = tasks.map((task, index) => {
+        return <Draggable key={task.id} draggableId={task.id} index={index}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
@@ -67,14 +69,14 @@ class Tasks extends Component {
               )}
             >
             <Task 
-              order={tasks[key].order}
-              title={tasks[key].title}
-              priority={tasks[key].priority}
-              completed={tasks[key].completed}
-              completionDate={tasks[key].completionDate}
-              completeTask={() => this.props.onCompleteTask(key)}
-              deleteTask={() => this.props.onDeleteTask(key)}
-              editTask={() => this.props.onShowEditForm(key)} />
+              order={task.order}
+              title={task.title}
+              priority={task.priority}
+              completed={task.completed}
+              completionDate={task.completionDate}
+              completeTask={() => this.props.onCompleteTask(task.id)}
+              deleteTask={() => this.props.onDeleteTask(task.id)}
+              editTask={() => this.props.onShowEditForm(task.id)} />
             </div>
           )}
           </Draggable>
