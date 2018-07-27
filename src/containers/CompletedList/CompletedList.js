@@ -19,7 +19,7 @@ class CompletedList extends Component {
     if (this.props.loading) {
       tasks = <Loader />;
     } else {
-      // const allTasks = this.props.tasks;
+      const allTasks = this.props.tasks;
       // // sort all tasks by completion date
       // const sortedTasks = Object.keys(allTasks)
       //   .sort((a, b) => {
@@ -29,15 +29,27 @@ class CompletedList extends Component {
       //     ...sortedObj, 
       //     [key]: allTasks[key]
       //   }), {});
+
+      const tasksArray = [];
+      Object.keys(allTasks)
+        .sort((a, b) => {
+          return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
+        })
+        .map(key => {
+          tasksArray.push({
+            id: key,
+            ...allTasks[key]
+          })
+        });
+
       // display the tasks
       tasks = <div className={styles.completedlist}>
         <Tasks 
           title="Completed" 
           color="#00c30e"
-          tasks={this.props.tasks}
+          tasks={tasksArray}
           hideAdd="true"
           extraStyle="true" />
-        {tasks}
       </div>
     }
 
