@@ -19,12 +19,6 @@ class DaysList extends Component {
     this.props.onGetTasks();
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevProps.tasks !== this.props.tasks ) {
-  //     console.log('component did update!');
-  //   }
-  // }
-
   render() {
     let tasks = null;
     if (this.props.loading) {

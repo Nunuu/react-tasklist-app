@@ -13,7 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import tasksReducer from './store/reducers/tasks';
 import { watchTasks } from './store/sagas';
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : null;
+const composeEnhancers = process.env.NODE_ENV === 'development' ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : compose;
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,

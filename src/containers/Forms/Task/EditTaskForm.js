@@ -14,68 +14,61 @@ const minLength = min => value => (
 );
 const minLength5 = minLength(5);
 
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning },
+  formType
+}) => {
+  let inputField = <input 
+    {...input} 
+    placeholder={label} 
+    type={type} />;
+  if (type === "textarea") {
+    inputField = <textarea 
+      {...input} 
+      placeholder={label}
+      autoFocus={formType === 'add'} />
+  }
+  return (
+    <div>
+      <label>{label}</label>
+      {inputField}
+      {touched &&
+        ((error && <p>{error}</p>) ||
+          (warning && <p>{warning}</p>))}
+    </div>
+  )
+};
+
+const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
+  <Flatpickr 
+    onChange={onChange}
+    value={!value ? null : new Date(value)}
+    options={{
+      altFormat: "F j, Y",
+      altInput: true,
+      dateFormat: "Y-m-d",
+      minDate: formType === "add" ? new Date(new Date().setHours(0, 0, 0, 0)) : null
+    }} />
+);
+
 let editTaskForm = props => {
   
   const { handleSubmit, pristine, submitting } = props;
 
   let completedField = null;
-  let datePickerOptions = {
-    altFormat: "F j, Y h:i K",
-    altInput: true,
-    dateFormat: "Y-m-d H:i"
-  }
-
   if (props.formType !== "add") {
     completedField = <div className={styles.formRow}>
       <label>Completed</label>
-      <div>
-        <Field name="completed" component="select">
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </Field>
-      </div>
+      <Field name="completed" component="select">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </Field>
     </div>
-  } else {
-    datePickerOptions.minDate = new Date(new Date().setHours(0, 0, 0, 0));
   }
   
-  const renderDateTimePicker = ({ input: { onChange, value } }) => (
-    <Flatpickr 
-      data-enable-time
-      onChange={onChange}
-      value={!value ? null : new Date(value)}
-      options={datePickerOptions} />
-  );
-  
-  const renderField = ({
-    input,
-    label,
-    type,
-    meta: { touched, error, warning }
-  }) => {
-    let inputField = <input 
-      {...input} 
-      placeholder={label} 
-      type={type} />;
-    if (type === "textarea") {
-      inputField = <textarea 
-        {...input} 
-        placeholder={label}
-        autoFocus />
-    }
-    return (
-      <div>
-        <label>{label}</label>
-        <div>
-          {inputField}
-          {touched &&
-            ((error && <p>{error}</p>) ||
-              (warning && <p>{warning}</p>))}
-        </div>
-      </div>
-    )
-  };
-
   return (
     <form className={styles.form}>
       <div className={styles.formRow}>
@@ -84,13 +77,15 @@ let editTaskForm = props => {
           type="textarea" 
           component={renderField} 
           label="Task Title"
-          validate={[required, minLength5]} />
+          validate={[required, minLength5]}
+          formType={props.formType} />
       </div>
       <div className={styles.formRow}>
         <label htmlFor="dueDate">Due Date</label>
         <Field 
           name="dueDate" 
-          component={renderDateTimePicker} />
+          component={renderDateTimePicker}
+          formType={props.formType} />
       </div>
       <div className={styles.formRow}>
         <label>Priority</label>

@@ -20,22 +20,12 @@ class CompletedList extends Component {
       tasks = <Loader />;
     } else {
       const allTasks = this.props.tasks;
-      // // sort all tasks by completion date
-      // const sortedTasks = Object.keys(allTasks)
-      //   .sort((a, b) => {
-      //     return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
-      //   })
-      //   .reduce((sortedObj, key) => ({
-      //     ...sortedObj, 
-      //     [key]: allTasks[key]
-      //   }), {});
-
       const tasksArray = [];
       Object.keys(allTasks)
         .sort((a, b) => {
           return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
         })
-        .map(key => {
+        .forEach(key => {
           tasksArray.push({
             id: key,
             ...allTasks[key]
