@@ -23,11 +23,11 @@ class Modal extends Component {
       <Aux>
         <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
         <div 
-          className={styles.modal}
-          style={{
-            transform: this.props.show ? 'translateY(-50%, -55%)' : 'translateY(-100vh)',
-            opacity: this.props.show ? 1 : 0
-          }}>
+          className={classNames(
+            styles.modal, 
+            this.props.show === 'entered' ? styles.entered : ''
+          )}
+          ref={this.wrapper}>
           {title}
           {this.props.children}
           <Button btnClass="close" clicked={this.props.modalClosed}>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
+import Transition from 'react-transition-group/Transition';
 
 import EditTaskForm from '../../Forms/Task/EditTaskForm';
 import Modal from '../../../components/ui/Modal/Modal';
@@ -18,18 +19,22 @@ class AddTask extends Component {
   }
 
   render() {
-    let modal = null;
-    if (this.props.showAddForm) {
-      modal = <Modal 
-        show={this.props.showAddForm} 
-        modalClosed={this.onModalClose} 
-        title="Add Task" >
-        <EditTaskForm onSubmit={this.submit} formType="add" />
-      </Modal>
-    }
     return (
       <Aux>
-        {modal}
+        <Transition 
+          in={this.props.showAddForm} 
+          timeout={300} 
+          mountOnEnter 
+          unmountOnExit>
+          {state => (
+            <Modal 
+              modalClosed={this.onModalClose} 
+              title="Add Task"
+              show={state} >
+              <EditTaskForm onSubmit={this.submit} formType="add" />
+            </Modal>
+          )}
+        </Transition>
       </Aux>
     );
   }

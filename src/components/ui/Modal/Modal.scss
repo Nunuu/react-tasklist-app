@@ -13,12 +13,18 @@ $blue: #589aca;
   z-index: 101;
   border-top: 3px solid $blue;
   text-align: center;
-  transform: translate(-50%, -55%);
-  // transition: all 1s ease-out;
+  transform: translate(-50%, -35%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 
   h2 {
     margin: 0 0 2em;
   }
+}
+
+.entered {
+  opacity: 1;
+  transform: translate(-50%, -55%);
 }
 
 .question {
