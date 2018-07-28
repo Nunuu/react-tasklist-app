@@ -39,7 +39,7 @@ class CompletedList extends Component {
           color="#00c30e"
           tasks={tasksArray}
           hideAdd="true"
-          extraStyle="true" />
+          extraStyle="singleCol" />
       </div>
     }
 

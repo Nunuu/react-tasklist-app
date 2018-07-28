@@ -2,9 +2,12 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Flatpickr from 'react-flatpickr';
+import Dropdown from '../../../components/ui/Dropdown/Dropdown';
+
+import styles from '../Forms.scss';
+import icons from '../../../assets/styles/linearicons.scss';
 
 import Button from '../../../components/ui/Button/Button';
-import styles from '../Forms.scss';
 
 const required = value => (
   value || typeof value === 'number' ? undefined : 'The field is required.'
@@ -54,6 +57,21 @@ const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
     }} />
 );
 
+const renderDropdown = ({ input: {onChange, value} }) => {
+  const options = [
+    {value: 'low', label: 'Low'},
+    {value: 'normal', label: 'Normal'},
+    {value: 'high', label: 'High'}
+  ]
+  return <Dropdown 
+    options={options} 
+    onChange={(option) => onChange(option.value)} 
+    value={value ? value : ''} 
+    placeholder="Priority"
+    placeholderClassName={styles.dropdownPlaceholder}
+    arrowClassName={icons.lnr} />
+};
+
 let editTaskForm = props => {
   
   const { handleSubmit, pristine, submitting } = props;
@@ -61,11 +79,10 @@ let editTaskForm = props => {
   let completedField = null;
   if (props.formType !== "add") {
     completedField = <div className={styles.formRow}>
-      <label>Completed</label>
-      <Field name="completed" component="select">
-        <option value="true">True</option>
-        <option value="false">False</option>
-      </Field>
+      <label className={styles.checkboxLabel}>
+        <Field name="completed" component="input" type="checkbox" />
+        Completed
+      </label>
     </div>
   }
   
@@ -89,11 +106,9 @@ let editTaskForm = props => {
       </div>
       <div className={styles.formRow}>
         <label>Priority</label>
-        <Field name="priority" component="select">
-          <option value="low">Low</option>
-          <option value="normal">Normal</option>
-          <option value="high">High</option>
-        </Field>
+        <Field 
+          name="priority" 
+          component={renderDropdown} />
       </div>
       {completedField}
       <Button 

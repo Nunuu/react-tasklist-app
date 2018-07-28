@@ -4,6 +4,11 @@
   flex-basis: 20%;
   max-width: 20%;
   margin-top: 1em;
+  &.reducedCol {
+    flex-basis: 25%;
+    max-width: 25%;
+  }
+  
   h2 {
     text-transform: uppercase;
     color: red;
@@ -27,6 +32,10 @@
   @media all and (max-width: 1440px) {
     flex-basis: 25%;
     max-width: 25%;
+    &.reducedCol {
+      flex-basis: 33.33%;
+      max-width: 33.33%;
+    }
   }
   @media all and (max-width: 1200px) {
     flex-basis: 33.33%;
@@ -35,10 +44,18 @@
   @media all and (max-width: 1024px) {
     flex-basis: 50%;
     max-width: 50%;
+    &.reducedCol {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
   }
   @media all and (max-width: 768px) {
     flex-basis: 100%;
     max-width: 100%;
+    &.reducedCol {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
   }
 }
 

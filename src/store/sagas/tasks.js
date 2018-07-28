@@ -6,7 +6,7 @@ import * as actions from '../actions/';
 export function* getTasksSaga(action) {
   yield put(actions.getTasksStart());
   try {
-    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo="false"');
+    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo=false');
     yield put(actions.getTasksComplete(response.data));
   } catch (error) {
     yield put(actions.getTasksFailed(error));
@@ -16,7 +16,7 @@ export function* getTasksSaga(action) {
 export function* getCompletedTasksSaga(action) {
   yield put(actions.getTasksStart());
   try {
-    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo="true"');
+    const response = yield axios.get('/tasks.json?orderBy="completed"&equalTo=true');
     yield put(actions.getTasksComplete(response.data));
   } catch (error) {
     yield put(actions.getTasksFailed(error));
@@ -35,7 +35,7 @@ export function* getTotalCountSaga(action) {
 export function* addTaskSaga(action) {
   const newTask = {
     ...action.data,
-    completed: "false",
+    completed: false,
     order: 0
   }
   try {

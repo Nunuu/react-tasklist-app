@@ -89,7 +89,10 @@ class Tasks extends Component {
     }
       
     return (
-      <div className={classNames(styles.taskBlock, this.props.extraStyle ? styles.singleCol : '')}>
+      <div className={classNames(
+        styles.taskBlock, 
+        this.props.extraStyle ? styles[this.props.extraStyle] : ''
+      )}>
         <h2 style={{color: this.props.color}}>{this.props.title}</h2>
         {addButton}
         <DragDropContext onDragEnd={this.onDragEnd}>

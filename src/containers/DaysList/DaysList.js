@@ -58,12 +58,14 @@ class DaysList extends Component {
 
       // check if there are any overdue tasks
       let overdueTaskList = null;
+      let extraStyle = 'reducedCol';
       if (overdueTasks.length > 0) {
         overdueTaskList = <Tasks 
           title="Overdue" 
           color="rgb(255, 72, 0)"
           tasks={overdueTasks}
           hideAdd="true" />
+        extraStyle = '';
       }
 
       // display tasks
@@ -73,21 +75,25 @@ class DaysList extends Component {
           title="Today" 
           color="#ff6600"
           initDay={today}
-          tasks={todayTasks} />
+          tasks={todayTasks}
+          extraStyle={extraStyle} />
         <Tasks 
           title="Tomorrow" 
           color="#ffc000"
           initDay={tomorrow}
-          tasks={tmrTasks} />
+          tasks={tmrTasks}
+          extraStyle={extraStyle} />
         <Tasks 
           title="Upcoming" 
           color="#00c30e"
           initDay={upcoming}
-          tasks={upcomingTasks} />
+          tasks={upcomingTasks}
+          extraStyle={extraStyle} />
         <Tasks 
           title="Whenever" 
           tasks={noDate}
-          color="#589aca" />
+          color="#589aca"
+          extraStyle={extraStyle} />
       </div>
     }
     
