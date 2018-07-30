@@ -2,11 +2,12 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Flatpickr from 'react-flatpickr';
-import Dropdown from '../../../components/ui/Dropdown/Dropdown';
+import classNames from 'classnames';
 
 import styles from '../Forms.scss';
 import icons from '../../../assets/styles/linearicons.scss';
 
+import Dropdown from '../../../components/ui/Dropdown/Dropdown';
 import Button from '../../../components/ui/Button/Button';
 
 const required = value => (
@@ -78,11 +79,9 @@ let editTaskForm = props => {
 
   let completedField = null;
   if (props.formType !== "add") {
-    completedField = <div className={styles.formRow}>
-      <label className={styles.checkboxLabel}>
-        <Field name="completed" component="input" type="checkbox" />
-        Completed
-      </label>
+    completedField = <div className={classNames(styles.formRow, styles.centered)}>
+      <Field name="completed" component="input" type="checkbox" id="completed" />
+      <label className={styles.checkboxLabel} htmlFor="completed">Completed</label>
     </div>
   }
   

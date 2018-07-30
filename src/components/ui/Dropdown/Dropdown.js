@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
+import Transition from 'react-transition-group/Transition'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
 
-// Source: https://github.com/fraserxu/react-dropdown
+/*
+ * Original Source: 
+ * https://github.com/fraserxu/react-dropdown
+ */
 class Dropdown extends Component {
+  
   constructor (props) {
     super(props)
     this.state = {
@@ -18,6 +23,7 @@ class Dropdown extends Component {
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
+    this.buildMenu = this.buildMenu.bind(this)
   }
 
   componentWillReceiveProps (newProps) {
@@ -75,14 +81,17 @@ class Dropdown extends Component {
     }
   }
 
-  renderOption (option) {
+  renderOption (option, hasEntered) {
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
       'is-selected': option === this.state.selected
     }
 
-    const optionClass = classNames(classes)
+    const optionClass = classNames(
+      classes, 
+      hasEntered ? 'entered' : ''
+    )
 
     let value = option.value
     if (typeof value === 'undefined') {
@@ -101,21 +110,24 @@ class Dropdown extends Component {
     )
   }
 
-  buildMenu () {
+  buildMenu (hasEntered) {
     let { options, baseClassName } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
         let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
-        let _options = option.items.map((item) => this.renderOption(item))
+        let _options = option.items.map((item) => this.renderOption(item, hasEntered))
 
         return (
-          <div className={`${baseClassName}-group`} key={option.name}>
+          <div className={classNames(
+            `${baseClassName}-group`,
+            hasEntered === true ? 'entered' : ''
+            )} key={option.name}>
             {groupTitle}
             {_options}
           </div>
         )
       } else {
-        return this.renderOption(option)
+        return this.renderOption(option, hasEntered)
       }
     })
 
@@ -152,17 +164,12 @@ class Dropdown extends Component {
       [`${baseClassName}-placeholder`]: true,
       [placeholderClassName]: !!placeholderClassName
     })
-    const menuClass = classNames({
-      [`${baseClassName}-menu`]: true,
-      [menuClassName]: !!menuClassName
-    })
     const arrowClass = classNames({
       [`${baseClassName}-arrow`]: true,
       [arrowClassName]: !!arrowClassName
     })
 
     const value = (<div className={placeholderClass}>{placeHolderValue}</div>)
-    const menu = this.state.isOpen ? <div className={menuClass}>{this.buildMenu()}</div> : null
 
     return (
       <div className={dropdownClass}>
@@ -170,7 +177,20 @@ class Dropdown extends Component {
           {value}
           <span className={arrowClass} />
         </div>
-        {menu}
+        <Transition 
+          in={this.state.isOpen} 
+          timeout={300}
+          mountOnEnter
+          unmountOnExit>
+          {state => (
+            <div className={classNames({
+              [`${baseClassName}-menu`]: true,
+              [menuClassName]: !!menuClassName
+            }, state === 'entered' ? 'entered' : '')}>
+              {this.buildMenu(state === 'entered')}
+            </div>
+          )}
+        </Transition>
       </div>
     )
   }

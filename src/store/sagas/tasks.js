@@ -75,13 +75,13 @@ export function* patchTaskSaga(action) {
   }
 }
 
-export const getTasks = (state) => state.tasks;
+export const getTasks = (state) => state.tasks.tasks;
 
 export function* rearrangeTasksSaga(action) {
   yield put(actions.rearrangeTasksStart(action.tasksArray));
   const newTasks = yield select(getTasks);
   try {
-    yield(axios.patch(`/tasks.json`, newTasks.tasks));
+    yield(axios.patch(`/tasks.json`, newTasks));
     yield put(actions.rearrangeTasksComplete());
   } catch (error) {
     yield put(actions.rearrangeTasksFailed(error));

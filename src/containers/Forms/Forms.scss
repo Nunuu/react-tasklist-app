@@ -44,6 +44,30 @@
       overflow: visible;
       clip: none;
       position: relative;
+      cursor: pointer;
+      backface-visibility: hidden;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -23px;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #999;
+        border-radius: 100%;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: -20px;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        background: #999;
+        transform: scale(0);
+        transition: transform 0.3s ease-out;
+      }
     }
   }
 
@@ -51,11 +75,20 @@
     display: inline-block;
     width: auto;
     padding: 0;
-    margin: 0 0.5em 0 0;
+    margin: 0 0.6em 0 0;
+    opacity: 0;
+  }
+
+  input[type="checkbox"]:checked + label:after {
+    transform: scale(1);
   }
 }
 
 .dropdownPlaceholder {
   text-transform: capitalize;
   color: black;
+}
+
+.centered {
+  text-align: center;
 }
