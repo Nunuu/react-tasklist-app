@@ -119,27 +119,6 @@ const rearrangeTasksStart = (state, action) => {
   });
 }
 
-/*const updateTaskList = (state, list, updatedTasks) => {
-  list.forEach((task, index) => {
-    updatedTasks = updateObject(updatedTasks, {
-      [task.id]: updateObject(state.tasks[task.id], {
-        order: index,
-        dueDate: task.dueDate
-      })
-    });
-  });
-  return updatedTasks;
-}
-
-const rearrangeTaskListsStart = (state, action) => {
-  let updatedTasks = {...state.tasks};
-  updatedTasks = updateTaskList(state, action.taskLists[0], updatedTasks);
-  updatedTasks = updateTaskList(state, action.taskLists[1], updatedTasks);
-  return updateObject(state, {
-    tasks: updatedTasks
-  });
-}*/
-
 const rearrangeTasksComplete = (state, action) => {
   return updateObject(state, {
     error: null
@@ -213,7 +192,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.EDIT_TASK_COMPLETE: return editTaskComplete(state, action);
     case actionTypes.EDIT_TASK_FAILED: return editTaskFailed(state, action);
     case actionTypes.REARRANGE_TASKS_START: return rearrangeTasksStart(state, action);
-    //case actionTypes.REARRANGE_TASK_LISTS_START: return rearrangeTaskListsStart(state, action);
     case actionTypes.REARRANGE_TASKS_COMPLETE: return rearrangeTasksComplete(state, action);
     case actionTypes.REARRANGE_TASKS_FAILED: return rearrangeTasksFailed(state, action);
     case actionTypes.SHOW_ADD_FORM: return showAddForm(state, action);

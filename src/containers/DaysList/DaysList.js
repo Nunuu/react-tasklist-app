@@ -46,13 +46,8 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
   // move to destination
   destClone.splice(droppableDestination.index, 0, removed);
-  
-  // store new lists
-  const result = [];
-  result[0] = sourceClone;
-  result[1] = destClone;
 
-  return result;
+  return destClone;
 };
 
 class DaysList extends Component {
@@ -101,24 +96,22 @@ class DaysList extends Component {
 
     if (!destination) { return; }
 
+    let tasks = [];
     if (source.droppableId === destination.droppableId) {
-      const tasks = reorder(
+      tasks = reorder(
         this.getList(source.droppableId).tasks,
         result.source.index,
         result.destination.index
       );
-      this.props.onReorderList(tasks);
     } else {
-      const taskLists = move(
+      tasks = move(
         this.getList(source.droppableId).tasks,
         this.getList(destination.droppableId),
         source,
         destination
       );
-      // console.log(taskLists);
-      this.props.onReorderList(taskLists[1]);
-      // this.props.onReorderLists(taskLists);
     }
+    this.props.onReorderList(tasks);
   }
 
   render() {
@@ -229,8 +222,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onGetTasks: () => dispatch(actions.getTasks()),
-    onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray)),
-    //onReorderLists: (lists) => dispatch(actions.rearrangeTaskLists(lists))
+    onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray))
   }
 }
 

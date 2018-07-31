@@ -88,14 +88,3 @@ export function* rearrangeTasksSaga(action) {
     yield put(actions.rearrangeTasksFailed(error));
   }
 }
-
-/*export function* rearrangeTaskListsSaga(action) {
-  yield put(actions.rearrangeTaskListsStart(action.taskLists));
-  const newTasks = yield select(getTasks);
-  try {
-    yield(axios.patch(`/tasks.json`, newTasks));
-    yield put(actions.rearrangeTasksComplete());
-  } catch (error) {
-    yield put(actions.rearrangeTasksFailed(error));
-  }
-}*/
