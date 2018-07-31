@@ -12,6 +12,7 @@ export function* watchTasks() {
     takeLatest(actionTypes.DELETE_TASK, deleteTaskSaga),
     takeEvery(actionTypes.EDIT_TASK, editTaskSaga),
     takeLatest(actionTypes.COMPLETE_TASK, patchTaskSaga),
-    takeLatest(actionTypes.REARRANGE_TASKS, rearrangeTasksSaga)
+    takeLatest(actionTypes.REARRANGE_TASKS, rearrangeTasksSaga),
+    // takeLatest(actionTypes.REARRANGE_TASK_LISTS, rearrangeTaskListsSaga)
   ]);
 }

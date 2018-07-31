@@ -149,6 +149,20 @@ export const rearrangeTasksStart = (tasksArray) => {
   }
 }
 
+/*export const rearrangeTaskLists = (taskLists) => {
+  return {
+    type: actionTypes.REARRANGE_TASK_LISTS,
+    taskLists
+  }
+}
+
+export const rearrangeTaskListsStart = (taskLists) => {
+  return {
+    type: actionTypes.REARRANGE_TASK_LISTS_START,
+    taskLists
+  }
+}*/
+
 export const rearrangeTasksComplete = () => {
   return {
     type: actionTypes.REARRANGE_TASKS_COMPLETE
