@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 
 import styles from './Tasks.scss';
 import icons from '../../../assets/styles/linearicons.scss';
@@ -91,5 +92,19 @@ const mapDispatchToProps = dispatch => {
     onCompleteTask: (id) => dispatch(actions.completeTask(id))
   }
 }
+
+tasks.propTypes = {
+  onCompleteTask: PropTypes.func.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
+  onShowEditForm: PropTypes.func.isRequired,
+  tasks: PropTypes.array,
+  draggable: PropTypes.bool,
+  id: PropTypes.string,
+  extraStyle: PropTypes.string,
+  color: PropTypes.string,
+  title: PropTypes.string,
+  hideAdd: PropTypes.bool,
+  initDay: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.object])
+};
 
 export default connect(null, mapDispatchToProps)(tasks);

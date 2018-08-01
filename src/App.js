@@ -26,21 +26,34 @@ const asyncCompletedList = asyncComponent(() => {
   return import('./containers/CompletedList/CompletedList');
 });
 
+const asyncAuth = asyncComponent(() => {
+  return import('./containers/Auth/Auth');
+});
+
 class App extends Component {
   render() {
+    let routes = <Switch>
+      <Route path="/auth" exact component={asyncAuth} />
+      <Redirect to="/auth" />
+    </Switch>
+    
+    if (this.props.isLoggedIn) {
+      routes = <Switch>
+        <Route path="/analytics" component={asyncAnalytics} />
+        <Route path="/settings" component={asyncSettings} />
+        <Route path="/projects" component={asyncProjectList} />
+        <Route path="/completed" component={asyncCompletedList} />
+        <Route path="/" exact component={DaysList} />
+        <Redirect to="/" />
+      </Switch>
+    }
+    
     return (
       <Aux>
         <TopBar />
         <SideBar />
         <main>
-          <Switch>
-            <Route path="/analytics" component={asyncAnalytics} />
-            <Route path="/settings" component={asyncSettings} />
-            <Route path="/projects" component={asyncProjectList} />
-            <Route path="/completed" component={asyncCompletedList} />
-            <Route path="/" exact component={DaysList} />
-            <Redirect to="/" />
-          </Switch>
+          {routes}
         </main>
         <AddTask />
         <EditTask />

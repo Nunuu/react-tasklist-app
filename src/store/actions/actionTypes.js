@@ -38,3 +38,12 @@ export const HIDE_ADD_FORM = "HIDE_ADD_FORM";
 
 export const SHOW_EDIT_FORM = "SHOW_EDIT_FORM";
 export const HIDE_EDIT_FORM = "HIDE_EDIT_FORM";
+
+// authentication
+export const AUTH_USER = "AUTH_USER";
+export const AUTH_USER_START = "AUTH_START";
+export const AUTH_USER_COMPLETE = "AUTH_COMPLETE";
+export const AUTH_USER_FAILED = "AUTH_FAILED";
+
+export const AUTH_CHECK_TIMEOUT = "AUTH_CHECK_TIMEOUT";
+export const AUTH_LOGOUT = "AUTH_LOGOUT";

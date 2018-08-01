@@ -9,14 +9,7 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 import Dropdown from '../../../components/ui/Dropdown/Dropdown';
 import Button from '../../../components/ui/Button/Button';
-
-const required = value => (
-  value || typeof value === 'number' ? undefined : 'The field is required.'
-);
-const minLength = min => value => (
-  value && value.length < min ? `Must be ${min} characters or more.` : undefined
-);
-const minLength5 = minLength(5);
+import { required, minLength5 } from '../../../shared/helpers';
 
 const renderField = ({
   input,
@@ -86,7 +79,7 @@ let editTaskForm = props => {
   }
   
   return (
-    <form className={styles.form}>
+    <form>
       <div className={styles.formRow}>
         <Field 
           name="title" 

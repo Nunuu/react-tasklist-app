@@ -159,7 +159,7 @@ class DaysList extends Component {
           title="Overdue" 
           color="rgb(255, 72, 0)"
           tasks={overdueTasks}
-          hideAdd="true"
+          hideAdd
           id="overdueTasks"
           draggable />
         extraStyle = '';

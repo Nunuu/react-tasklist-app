@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import styles from './Task.scss';
 import icons from '../../../../assets/styles/linearicons.scss';
@@ -8,7 +9,7 @@ import Button from '../../../ui/Button/Button';
 
 const task = (props) => {
   
-  const isComplete = String(props.completed) === 'true';
+  const isComplete = props.completed === true;
   
   let completionDate = null;
   if (isComplete) {
@@ -37,5 +38,15 @@ const task = (props) => {
     </div>
   );
 }
+
+task.propTypes = {
+  completed: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  priority: PropTypes.string.isRequired,
+  completionDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.object]),
+  completeTask: PropTypes.func.isRequired,
+  editTask: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired
+};
 
 export default task;

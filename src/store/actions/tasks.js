@@ -51,7 +51,7 @@ export const completeTask = (id) => {
     type: actionTypes.COMPLETE_TASK,
     id,
     data: {
-      "completed": "true",
+      "completed": true,
       "completionDate": new Date()
     }
   }
