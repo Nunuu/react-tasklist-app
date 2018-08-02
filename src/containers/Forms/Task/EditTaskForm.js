@@ -13,6 +13,7 @@ import { renderField, required, minLength5 } from '../../../shared/helpers';
 
 const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
   <Flatpickr 
+    placeholder="Task Due Date"
     onChange={onChange}
     value={!value ? null : new Date(value)}
     options={{

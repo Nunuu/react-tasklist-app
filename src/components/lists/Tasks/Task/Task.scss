@@ -27,9 +27,9 @@
 .title {
   text-align: left;
   flex: 1;
-  &.completed {
-    text-decoration: line-through;
-  }
+  /*&.completed {
+    font-weight: bold;
+  }*/
 }
 
 .completion {

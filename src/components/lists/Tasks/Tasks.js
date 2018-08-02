@@ -14,7 +14,8 @@ import Button from '../../ui/Button/Button';
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? '#ecf7ff' : 'transparent',
   marginTop: '1em',
-  transition: 'background 0.3s ease-out'
+  transition: 'background 0.3s ease-out',
+  minHeight: '100px'
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -76,6 +77,7 @@ const tasks = props => {
     )}>
       <h2 style={{color: props.color}}>{props.title}</h2>
       {props.hideAdd ? null : <Button 
+        title="Add Task"
         clicked={() => props.onShowAddForm(props.initDay)}>
         <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
       </Button>}

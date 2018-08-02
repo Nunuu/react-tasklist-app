@@ -25,13 +25,13 @@ const task = (props) => {
       </div>
       {completionDate}
       <div className={styles.buttons}>
-        <Button clicked={props.completeTask} disabled={isComplete}>
+        <Button clicked={props.completeTask} disabled={isComplete} title="Complete">
           <span className={classNames(icons.lnr, icons['lnr-file-check'])}></span>
         </Button>
-        <Button clicked={props.editTask}>
+        <Button clicked={props.editTask} title="Edit">
           <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
         </Button>
-        <Button clicked={props.deleteTask}>
+        <Button clicked={props.deleteTask} title="Delete">
           <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
         </Button>
       </div>

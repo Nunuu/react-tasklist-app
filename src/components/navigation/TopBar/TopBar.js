@@ -33,13 +33,13 @@ const topBar = props => {
         </div>
       </div>
       <div className={styles.controls}>
-        <Button btnClass="plain">
+        <Button btnClass="plain" title="Search" disabled>
           <span className={classNames(icons.lnr, icons["lnr-magnifier"])}></span>
         </Button>
-        <Button btnClass="plain" clicked={props.onShowAddForm}>
+        <Button btnClass="plain" clicked={props.onShowAddForm} title="Add Task">
           <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
         </Button>
-        <Button btnClass="plain" clicked={props.onLogout}>
+        <Button btnClass="plain" clicked={props.onLogout} title="Logout">
           <span className={classNames(icons.lnr, icons["lnr-exit"])}></span>
         </Button>
       </div>
