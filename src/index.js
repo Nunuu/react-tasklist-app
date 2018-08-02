@@ -12,7 +12,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import tasksReducer from './store/reducers/tasks';
 import authReducer from './store/reducers/auth';
-import { watchTasks } from './store/sagas';
+import { watchTasks, watchAuth } from './store/sagas';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) : compose;
 
@@ -30,6 +30,7 @@ const store = createStore(
 );
 
 sagaMiddleware.run(watchTasks);
+sagaMiddleware.run(watchAuth);
 
 const app = (
   <Provider store={store}>

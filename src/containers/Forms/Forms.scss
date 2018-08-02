@@ -1,3 +1,5 @@
+$red: rgb(255, 72, 0);
+
 .authForm {
   margin: 2em 0;
   max-width: 300px;
@@ -12,7 +14,7 @@
   margin: 0 0 1em;
   
   p {
-    color: rgb(255, 72, 0);
+    color: $red;
     margin: 5px 0;
     font-size: 0.9em;
   }
@@ -91,6 +93,10 @@
   input[type="checkbox"]:checked + label:after {
     transform: scale(1);
   }
+}
+
+.formError {
+  color: $red;
 }
 
 .dropdownPlaceholder {

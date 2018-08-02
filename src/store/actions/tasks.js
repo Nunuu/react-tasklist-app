@@ -115,9 +115,10 @@ export const getCompletedTasks = () => {
   }
 }
 
-export const getTotalCount = () => {
+export const getTotalCount = (userId) => {
   return {
-    type: actionTypes.GET_TOTAL_COUNT
+    type: actionTypes.GET_TOTAL_COUNT,
+    userId
   }
 }
 

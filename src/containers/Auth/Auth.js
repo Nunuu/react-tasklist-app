@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import styles from './Auth.scss';
 
-import LoginForm from '../Forms/Auth/LoginForm';
 import * as actions from '../../store/actions/';
+import AuthForm from '../Forms/Auth/AuthForm';
 
 class Auth extends Component {
   
@@ -16,7 +16,7 @@ class Auth extends Component {
     return (
       <div className={styles.auth}>
         <h1>Please login to use the tool.</h1>
-        <LoginForm onSubmit={this.submit} />
+        <AuthForm onSubmit={this.submit} />
         <p>Users without an account can log in using <strong>test@test.com</strong> and password <strong>testing</strong></p>
       </div>
     );

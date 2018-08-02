@@ -9,35 +9,7 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 import Dropdown from '../../../components/ui/Dropdown/Dropdown';
 import Button from '../../../components/ui/Button/Button';
-import { required, minLength5 } from '../../../shared/helpers';
-
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning },
-  formType
-}) => {
-  let inputField = <input 
-    {...input} 
-    placeholder={label} 
-    type={type} />;
-  if (type === "textarea") {
-    inputField = <textarea 
-      {...input} 
-      placeholder={label}
-      autoFocus={formType === 'add'} />
-  }
-  return (
-    <div>
-      <label>{label}</label>
-      {inputField}
-      {touched &&
-        ((error && <p>{error}</p>) ||
-          (warning && <p>{warning}</p>))}
-    </div>
-  )
-};
+import { renderField, required, minLength5 } from '../../../shared/helpers';
 
 const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
   <Flatpickr 
@@ -82,23 +54,26 @@ let editTaskForm = props => {
     <form>
       <div className={styles.formRow}>
         <Field 
+          id="title"
           name="title" 
           type="textarea" 
           component={renderField} 
           label="Task Title"
           validate={[required, minLength5]}
-          formType={props.formType} />
+          autoFocus={props.formType === 'add'} />
       </div>
       <div className={styles.formRow}>
         <label htmlFor="dueDate">Due Date</label>
         <Field 
+          id="dueDate"
           name="dueDate" 
           component={renderDateTimePicker}
           formType={props.formType} />
       </div>
       <div className={styles.formRow}>
-        <label>Priority</label>
+        <label htmlFor="priority">Priority</label>
         <Field 
+          id="priority"
           name="priority" 
           component={renderDropdown} />
       </div>

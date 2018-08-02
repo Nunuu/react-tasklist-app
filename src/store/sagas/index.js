@@ -2,7 +2,7 @@ import { takeEvery, all, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { addTaskSaga, getTasksSaga, deleteTaskSaga, editTaskSaga, getCompletedTasksSaga, getTotalCountSaga, patchTaskSaga, rearrangeTasksSaga } from './tasks';
-import { authUserSaga } from './auth';
+import { authUserSaga, logoutSaga, checkAuthTimeoutSaga, authCheckStateSaga, getUserInfoSaga } from './auth';
 
 export function* watchTasks() {
   yield all([
@@ -18,5 +18,11 @@ export function* watchTasks() {
 }
 
 export function* watchAuth() {
-  yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield all([
+    takeEvery(actionTypes.AUTH_LOGOUT, logoutSaga),
+    takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga),
+    takeEvery(actionTypes.AUTH_USER, authUserSaga),
+    takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga),
+    takeEvery(actionTypes.GET_USER_INFO, getUserInfoSaga)
+  ]);
 }

@@ -1,6 +1,7 @@
 import 'what-input';
 import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Aux from './hoc/reactAux/reactAux';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
@@ -9,6 +10,7 @@ import TopBar from './components/navigation/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
 import AddTask from './containers/Tasks/AddTask/AddTask';
 import EditTask from './containers/Tasks/EditTask/EditTask';
+import * as actions from './store/actions/';
 
 const asyncAnalytics = asyncComponent(() => {
   return import('./containers/Analytics/Analytics');
@@ -31,6 +33,11 @@ const asyncAuth = asyncComponent(() => {
 });
 
 class App extends Component {
+  
+  componentDidMount() {
+    this.props.onAutoSignin();
+  }
+
   render() {
     let routes = <Switch>
       <Route path="/auth" exact component={asyncAuth} />
@@ -50,7 +57,7 @@ class App extends Component {
     
     return (
       <Aux>
-        <TopBar />
+        <TopBar isLoggedIn={this.props.isLoggedIn} />
         <SideBar />
         <main>
           {routes}
@@ -62,4 +69,16 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    isLoggedIn: state.auth.token !== null
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAutoSignin: () => dispatch(actions.authCheckState())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
