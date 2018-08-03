@@ -20,11 +20,12 @@ const modal = props => (
         <Backdrop show={state} clicked={props.modalClosed} />
         <div className={classNames(
           styles.modal, 
+          props.extraStyle ? styles[props.extraStyle] : '',
           state === 'entered' ? styles.entered : ''
         )}>
           {props.title ? <h2>{props.title}</h2> : null}
           {props.children}
-          <Button btnClass="close" clicked={props.modalClosed}>
+          <Button btnClass="close" clicked={props.modalClosed} hoverClass="warn">
             <span className={classNames(icons.lnr, icons['lnr-cross2'])}></span>
           </Button>
         </div>

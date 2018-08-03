@@ -20,27 +20,33 @@ class CompletedList extends Component {
       tasks = <Loader />;
     } else {
       const allTasks = this.props.tasks;
-      const tasksArray = [];
-      Object.keys(allTasks)
-        .sort((a, b) => {
-          return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
-        })
-        .forEach(key => {
-          tasksArray.push({
-            id: key,
-            ...allTasks[key]
+      if (Object.keys(allTasks).length === 0 && allTasks.constructor === Object) {
+        tasks = <div className={styles.completedlist}>
+            It's time to complete some tasks!
+          </div>
+      } else {
+        const tasksArray = [];
+        Object.keys(allTasks)
+          .sort((a, b) => {
+            return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
           })
-        });
+          .forEach(key => {
+            tasksArray.push({
+              id: key,
+              ...allTasks[key]
+            })
+          });
 
-      // display the tasks
-      tasks = <div className={styles.completedlist}>
-        <Tasks 
-          title="Completed" 
-          color="#00c30e"
-          tasks={tasksArray}
-          hideAdd
-          extraStyle="singleCol" />
-      </div>
+        // display the tasks
+        tasks = <div className={styles.completedlist}>
+          <Tasks 
+            title="Completed" 
+            color="#00c30e"
+            tasks={tasksArray}
+            hideAdd
+            extraStyle="singleCol" />
+        </div>
+      }
     }
 
     return (

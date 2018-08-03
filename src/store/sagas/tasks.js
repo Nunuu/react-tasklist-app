@@ -58,6 +58,7 @@ export function* deleteTaskSaga(action) {
     const userId = yield select(getUserId);
     yield axios.delete(`/users/${userId}/tasks/${action.id}.json`);
     yield put(actions.deleteTaskComplete(action.id));
+    yield put(actions.hideDeleteConfirm());
   } catch (error) {
     yield put(actions.deleteTaskFailed(error));
   }

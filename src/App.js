@@ -8,8 +8,9 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import SideBar from './components/navigation/SideBar/SideBar';
 import TopBar from './components/navigation/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
-import AddTask from './containers/Tasks/AddTask/AddTask';
-import EditTask from './containers/Tasks/EditTask/EditTask';
+import AddTask from './containers/Popups/AddTask/AddTask';
+import EditTask from './containers/Popups/EditTask/EditTask';
+import DeleteTask from './containers/Popups/DeleteTask/DeleteTask';
 import * as actions from './store/actions/';
 
 const asyncAnalytics = asyncComponent(() => {
@@ -64,6 +65,7 @@ class App extends Component {
         </main>
         <AddTask />
         <EditTask />
+        <DeleteTask />
       </Aux>
     );
   }

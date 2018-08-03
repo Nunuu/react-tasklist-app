@@ -6,7 +6,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
-  username: ""
+  userData: {}
 }
 
 const authUserStart = (state, action) => {
@@ -37,7 +37,7 @@ const authUserFailed = (state, action) => {
     case "TOO_MANY_ATTEMPTS_TRY_LATER":
       errorMessage = "Too many failed attempts. Please try again later.";
       break;
-    default: errorMessage = "Server error. Please try again later.";
+    default: errorMessage = "Unknown error. Please try again later or contact the admin.";
   }
   return updateObject(state, {
     error: errorMessage, 
@@ -54,7 +54,7 @@ const authLogoutComplete = (state, action) => {
 
 const getUserInfoComplete = (state, action) => {
   return updateObject(state, {
-    username: action.userData.username
+    userData: action.userData
   });
 }
 

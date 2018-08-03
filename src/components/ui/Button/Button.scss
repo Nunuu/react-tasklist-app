@@ -46,3 +46,24 @@ $blue: #589aca;
     color: $blue;
   }
 }
+
+.warn:hover {
+  color: #ff6600;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.confirm {
+  color: green;
+  &:hover {
+    color: darken(green, 15%)
+  }
+}
+.cancel {
+  color: red;
+  &:hover {
+    color: darken(red, 15%)
+  }
+}

@@ -25,8 +25,17 @@ const task = (props) => {
       </div>
       {completionDate}
       <div className={styles.buttons}>
-        <Button clicked={props.completeTask} disabled={isComplete} title="Complete">
-          <span className={classNames(icons.lnr, icons['lnr-file-check'])}></span>
+        <Button 
+          clicked={props.completeTask} 
+          isHidden={isComplete} 
+          title="Complete">
+          <span className={classNames(icons.lnr, icons['lnr-calendar-check'])}></span>
+        </Button>
+        <Button 
+          clicked={props.unCompleteTask} 
+          isHidden={!isComplete} 
+          title="Incomplete">
+          <span className={classNames(icons.lnr, icons['lnr-calendar-cross'])}></span>
         </Button>
         <Button clicked={props.editTask} title="Edit">
           <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
@@ -45,6 +54,7 @@ task.propTypes = {
   priority: PropTypes.string.isRequired,
   completionDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.object]),
   completeTask: PropTypes.func.isRequired,
+  unCompleteTask: PropTypes.func.isRequired,
   editTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired
 };

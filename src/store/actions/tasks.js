@@ -56,6 +56,16 @@ export const completeTask = (id) => {
     }
   }
 }
+export const uncompleteTask = (id) => {
+  return {
+    type: actionTypes.UNCOMPLETE_TASK,
+    id,
+    data: {
+      "completed": false,
+      "completionDate": null
+    }
+  }
+}
 
 // Edit Task
 export const editTask = (id, data) => {
@@ -163,7 +173,7 @@ export const rearrangeTasksFailed = (error) => {
   }
 }
 
-// Forms
+// Popups
 export const showAddForm = (date = null) => {
   return {
     type: actionTypes.SHOW_ADD_FORM,
@@ -189,5 +199,18 @@ export const hideEditForm = (reset = false) => {
   return {
     type: actionTypes.HIDE_EDIT_FORM,
     reset
+  }
+}
+
+export const showDeleteConfirm = (taskId) => {
+  return {
+    type: actionTypes.SHOW_DELETE_CONFIRM,
+    taskId
+  }
+}
+
+export const hideDeleteConfirm = () => {
+  return {
+    type: actionTypes.HIDE_DELETE_CONFIRM
   }
 }

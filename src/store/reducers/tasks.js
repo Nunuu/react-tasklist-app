@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   showAdd: false,
   showEdit: false,
+  showDelete: false,
   taskId: '',
   taskData: null,
   newTaskData: null
@@ -142,7 +143,7 @@ const showAddForm = (state, action) => {
       showAdd: true,
       newTaskData: {
         "priority": "normal",
-        "dueDate": [action.date]
+        "dueDate": action.date ? [action.date] : null
       }
     });
   }
@@ -177,6 +178,19 @@ const hideEditForm = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const showDeleteConfirm = (state, action) => {
+  return updateObject(state, {
+    taskId: action.taskId,
+    showDelete: true
+  });
+}
+
+const hideDeleteConfirm = (state, action) => {
+  return updateObject(state, {
+    taskId: "",
+    showDelete: false
+  });
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -198,6 +212,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.HIDE_ADD_FORM: return hideAddForm(state, action);
     case actionTypes.SHOW_EDIT_FORM: return showEditForm(state, action);
     case actionTypes.HIDE_EDIT_FORM: return hideEditForm(state, action);
+    case actionTypes.SHOW_DELETE_CONFIRM: return showDeleteConfirm(state, action);
+    case actionTypes.HIDE_DELETE_CONFIRM: return hideDeleteConfirm(state, action);
     default: return state;
   }
 };

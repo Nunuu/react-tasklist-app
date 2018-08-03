@@ -31,7 +31,8 @@ const getTask = (task, props) => (
     completed={task.completed}
     completionDate={task.completionDate}
     completeTask={() => props.onCompleteTask(task.id)}
-    deleteTask={() => props.onDeleteTask(task.id)}
+    unCompleteTask={() => props.onUncompleteTask(task.id)}
+    deleteTask={() => props.onShowDeleteConfirm(task.id)}
     editTask={() => props.onShowEditForm(task.id)} />
 );
 
@@ -88,16 +89,18 @@ const tasks = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteTask: (id) => dispatch(actions.deleteTask(id)),
+    onShowDeleteConfirm: (id) => dispatch(actions.showDeleteConfirm(id)),
     onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
     onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay)),
-    onCompleteTask: (id) => dispatch(actions.completeTask(id))
+    onCompleteTask: (id) => dispatch(actions.completeTask(id)),
+    onUncompleteTask: (id) => dispatch(actions.uncompleteTask(id))
   }
 }
 
 tasks.propTypes = {
   onCompleteTask: PropTypes.func.isRequired,
-  onDeleteTask: PropTypes.func.isRequired,
+  onUncompleteTask: PropTypes.func.isRequired,
+  onShowDeleteConfirm: PropTypes.func.isRequired,
   onShowEditForm: PropTypes.func.isRequired,
   tasks: PropTypes.array,
   draggable: PropTypes.bool,

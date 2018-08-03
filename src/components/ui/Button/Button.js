@@ -4,9 +4,17 @@ import className from 'classnames';
 import styles from './Button.scss';
 
 const button = (props) => {
+
+  const btnClasses = className(
+    styles.button, 
+    styles[props.btnClass],
+    props.isHidden ? styles.hidden : '',
+    props.hoverClass ? styles[props.hoverClass] : ''
+  );
+
   return (
     <button 
-      className={className(styles.button, styles[props.btnClass])}
+      className={btnClasses}
       type={props.type ? props.type : "button"}
       onClick={props.clicked}
       disabled={props.disabled}

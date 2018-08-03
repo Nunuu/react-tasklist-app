@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import styles from './TopBar.scss';
-import avatarImage from '../../../assets/images/avatar.jpg';
 import guestAvatarImage from '../../../assets/images/avatar_guest.jpg';
 import icons from '../../../assets/styles/linearicons.scss';
 
@@ -22,11 +21,12 @@ const topBar = props => {
     </div>
   
   if (props.isLoggedIn) {
+    const imageUrl = "/images/" + props.userData.avatar;
     userNav = <Aux>
       <div className={styles.user}>
-        <img src={avatarImage} alt="User Avatar" />
+        <img src={imageUrl} alt="User Avatar" />
         <div>
-          <span className={styles.username}>{props.username}</span>
+          <span className={styles.username}>{props.userData.username}</span>
           <span className={styles.usercount}>
             {props.numTasks} {props.numTasks === 1 ? "Task" : "Tasks"}
           </span>
@@ -63,7 +63,7 @@ const mapStateToProps = state => {
   return {
     numTasks: state.tasks.count,
     showAddForm: state.tasks.showAdd,
-    username: state.auth.username
+    userData: state.auth.userData
   }
 }
 

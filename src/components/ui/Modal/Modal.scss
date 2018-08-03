@@ -22,39 +22,11 @@ $blue: #589aca;
   }
 }
 
+.warn {
+  border-top-color: #ff6600;
+}
+
 .entered {
   opacity: 1;
   transform: translate(-50%, -55%) scale(1);
-}
-
-.question {
-  font-size: 1.1em;
-  line-height: 2;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 2em;
-
-  button {
-    transition: color 0.3s ease-out;
-    font-size: 1.1em;
-    span {
-      margin-right: 0.5em;
-    }
-    &.yes {
-      color: green;
-      &:hover {
-        color: darken(green, 15%)
-      }
-    }
-    &.no {
-      color: red;
-      &:hover {
-        color: darken(red, 15%)
-      }
-    }
-  }
 }
