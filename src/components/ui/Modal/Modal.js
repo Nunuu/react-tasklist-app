@@ -25,7 +25,10 @@ const modal = props => (
         )}>
           {props.title ? <h2>{props.title}</h2> : null}
           {props.children}
-          <Button btnClass="close" clicked={props.modalClosed} hoverClass="warn">
+          <Button 
+            btnClass="close" 
+            clicked={props.modalClosed} 
+            hoverClass={props.extraStyle ? props.extraStyle : ''}>
             <span className={classNames(icons.lnr, icons['lnr-cross2'])}></span>
           </Button>
         </div>

@@ -39,9 +39,6 @@ const topBar = props => {
         <Button btnClass="plain" clicked={props.onShowAddForm} title="Add Task">
           <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
         </Button>
-        <Button btnClass="plain" clicked={props.onLogout} title="Logout">
-          <span className={classNames(icons.lnr, icons["lnr-exit"])}></span>
-        </Button>
       </div>
     </Aux>
   };
@@ -69,8 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onShowAddForm: () => dispatch(actions.showAddForm()),
-    onLogout: () => dispatch(actions.logout())
+    onShowAddForm: () => dispatch(actions.showAddForm())
   }
 }
 

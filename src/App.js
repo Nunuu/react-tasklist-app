@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <Aux>
         <TopBar isLoggedIn={this.props.isLoggedIn} />
-        <SideBar />
+        <SideBar isLoggedIn={this.props.isLoggedIn} />
         <main>
           {routes}
         </main>
