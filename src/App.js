@@ -4,6 +4,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Aux from './hoc/reactAux/reactAux';
+import Auth from './containers/Auth/Auth';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import SideBar from './components/navigation/SideBar/SideBar';
 import TopBar from './components/navigation/TopBar/TopBar';
@@ -29,10 +30,6 @@ const asyncCompletedList = asyncComponent(() => {
   return import('./containers/CompletedList/CompletedList');
 });
 
-const asyncAuth = asyncComponent(() => {
-  return import('./containers/Auth/Auth');
-});
-
 class App extends Component {
   
   componentDidMount() {
@@ -40,7 +37,7 @@ class App extends Component {
   }
 
   render() {
-    let routes = <Route path="/" component={asyncAuth} />
+    let routes = <Route path="/" component={Auth} />
     
     if (this.props.isLoggedIn) {
       routes = <Switch>

@@ -14,7 +14,7 @@ import Aux from '../../../hoc/reactAux/reactAux';
 const topBar = props => {
 
   let userNav = <div className={styles.user}>
-      <img src={guestAvatarImage} alt="User Avatar" />
+      <img src={guestAvatarImage} alt="Guest Avatar" />
       <div>
         <span className={styles.username}>Guest</span>
       </div>
@@ -24,7 +24,7 @@ const topBar = props => {
     const imageUrl = "/images/" + props.userData.avatar;
     userNav = <Aux>
       <div className={styles.user}>
-        <img src={imageUrl} alt="User Avatar" width="60" height="60" />
+        <img src={imageUrl} alt={props.userData.username + "'s Avatar"} />
         <div>
           <span className={styles.username}>{props.userData.username}</span>
           <span className={styles.usercount}>
