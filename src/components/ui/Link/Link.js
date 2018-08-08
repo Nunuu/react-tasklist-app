@@ -7,8 +7,7 @@ import icons from '../../../assets/styles/linearicons.scss';
 
 const link = (props) => {
   return (
-    <NavLink 
-      to={props.link} 
+    <NavLink to={props.link} 
       exact={props.exact}
       className={styles.link} 
       activeClassName={styles.active}>

@@ -9,6 +9,7 @@ import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
 import Aux from '../../hoc/reactAux/reactAux';
 import Loader from '../../components/ui/Loader/Loader';
+import { reorder, move } from '../../shared/helpers';
 
 let noDateTasks = [];
 let overdueTasks = [];
@@ -20,35 +21,6 @@ const today = moment().startOf('day');
 const overdue = today.clone().subtract(2, 'd');
 const tomorrow = today.clone().add(1, 'd');
 const upcoming = today.clone().add(2, 'd');
-
-// Reorder task within a list
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
-
-// Move task from one list to another
-const move = (source, destination, droppableSource, droppableDestination) => {
-  // extract task from source
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination.tasks);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  // set new due date
-  const dueDate = destination.date;
-  if (dueDate) {
-    removed.dueDate = [dueDate.clone().endOf('day').format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")];
-  } else {
-    delete removed.dueDate;
-  }
-
-  // move to destination
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  return destClone;
-};
 
 class DaysList extends Component {
   

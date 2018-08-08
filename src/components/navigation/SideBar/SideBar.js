@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import styles from './SideBar.scss';
 import icons from '../../../assets/styles/linearicons.scss';
@@ -40,4 +41,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(stickyComponent(sideBar));
+export default withRouter(connect(null, mapDispatchToProps)(stickyComponent(sideBar)));

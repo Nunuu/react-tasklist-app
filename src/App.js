@@ -40,10 +40,7 @@ class App extends Component {
   }
 
   render() {
-    let routes = <Switch>
-      <Route path="/auth" exact component={asyncAuth} />
-      <Redirect to="/auth" />
-    </Switch>
+    let routes = <Route path="/" component={asyncAuth} />
     
     if (this.props.isLoggedIn) {
       routes = <Switch>

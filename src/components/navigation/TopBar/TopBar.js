@@ -24,7 +24,7 @@ const topBar = props => {
     const imageUrl = "/images/" + props.userData.avatar;
     userNav = <Aux>
       <div className={styles.user}>
-        <img src={imageUrl} alt="User Avatar" />
+        <img src={imageUrl} alt="User Avatar" width="60" height="60" />
         <div>
           <span className={styles.username}>{props.userData.username}</span>
           <span className={styles.usercount}>
