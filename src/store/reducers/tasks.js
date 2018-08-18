@@ -53,6 +53,13 @@ const getTasksComplete = (state, action) => {
   });
 }
 
+const getTasksFailed = (state, action) => {
+  return updateObject(state, {
+    loadingData: false,
+    error: action.error
+  });
+}
+
 const getTotalCountComplete = (state, action) => {
   const allTasks = action.tasks;
   return updateObject(state, {
@@ -63,13 +70,6 @@ const getTotalCountComplete = (state, action) => {
 const getTotalCountFailed = (state, action) => {
   return updateObject(state, {
     count: 0,
-    error: action.error
-  });
-}
-
-const getTasksFailed = (state, action) => {
-  return updateObject(state, {
-    loadingData: false,
     error: action.error
   });
 }

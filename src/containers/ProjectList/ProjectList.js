@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import styles from './ProjectList.scss';
 
@@ -7,6 +8,8 @@ import Aux from '../../hoc/reactAux/reactAux';
 import Loader from '../../components/ui/Loader/Loader';
 import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
+import icons from '../../assets/styles/linearicons.scss';
+import Button from '../../components/ui/Button/Button';
 
 class ProjectList extends Component {
   
@@ -26,16 +29,13 @@ class ProjectList extends Component {
       tasks = <Loader />;
     } else {
       const allTasks = this.props.tasks;
-      const noProjectTasks = [];
-      Object.keys(allTasks)
+      const noProjectTasks = Object.keys(allTasks)
         .sort((a, b) => allTasks[a].order - allTasks[b].order)
-        .forEach(key => {
-          const task = allTasks[key];
-          const newTaskObject = {
+        .map(key => {
+          return {
             id: key,
-            ...task
+            ...allTasks[key]
           }
-          noProjectTasks.push(newTaskObject);
         });
       tasks = <div className={styles.projectlist}>
         <Tasks 
@@ -48,6 +48,12 @@ class ProjectList extends Component {
 
     return (
       <Aux>
+        <h1>Projects</h1>
+        <div className="buttons">
+          <Button clicked={this.props.onAddProject} title="Add Project">
+            <span className={classNames(icons.lnr, icons['lnr-folder-plus'])}></span>
+          </Button>
+        </div>
         {tasks}
       </Aux>
     );
@@ -56,8 +62,8 @@ class ProjectList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks.tasks,
-    loading: state.tasks.loadingData
+    projects: state.projects.projects,
+    loading: state.projects.loading
   }
 }
 

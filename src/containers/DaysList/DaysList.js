@@ -100,7 +100,7 @@ class DaysList extends Component {
       // sort all tasks into proper arrays
       Object.keys(allTasks)
         .sort((a, b) => allTasks[a].order - allTasks[b].order)
-        .map(key => {
+        .forEach(key => {
           const task = allTasks[key];
           const newTaskObject = {
             id: key,
@@ -120,7 +120,6 @@ class DaysList extends Component {
           } else {
             noDateTasks.push(newTaskObject);
           }
-          return task;
         });
 
       // check if there are any overdue tasks

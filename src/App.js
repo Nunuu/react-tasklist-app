@@ -9,9 +9,9 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import SideBar from './components/navigation/SideBar/SideBar';
 import TopBar from './components/navigation/TopBar/TopBar';
 import DaysList from './containers/DaysList/DaysList';
-import AddTask from './containers/Popups/AddTask/AddTask';
-import EditTask from './containers/Popups/EditTask/EditTask';
-import DeleteTask from './containers/Popups/DeleteTask/DeleteTask';
+import AddTask from './containers/Popups/Tasks/AddTask';
+import EditTask from './containers/Popups/Tasks/EditTask';
+import DeleteTask from './containers/Popups/Tasks/DeleteTask';
 import * as actions from './store/actions/';
 
 const asyncAnalytics = asyncComponent(() => {

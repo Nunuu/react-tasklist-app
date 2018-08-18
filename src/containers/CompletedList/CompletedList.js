@@ -25,16 +25,15 @@ class CompletedList extends Component {
             It's time to complete some tasks!
           </div>
       } else {
-        const tasksArray = [];
-        Object.keys(allTasks)
+        const tasksArray = Object.keys(allTasks)
           .sort((a, b) => {
             return new Date(allTasks[a].completionDate) - new Date(allTasks[b].completionDate)
           })
-          .forEach(key => {
-            tasksArray.push({
+          .map(key => {
+            return {
               id: key,
               ...allTasks[key]
-            })
+            }
           });
 
         // display the tasks
