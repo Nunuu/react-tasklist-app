@@ -56,6 +56,14 @@ export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], "expirationDate");
   yield call([localStorage, 'removeItem'], "userId");
   yield put(actions.logoutComplete());
+
+  // Hide all the popups
+  yield put(actions.hideAddForm());
+  yield put(actions.hideEditForm());
+  yield put(actions.hideDeleteConfirm());
+  yield put(actions.hideProjectAddForm());
+  yield put(actions.hideProjectEditForm());
+  yield put(actions.hideProjectDeleteConfirm());
 }
 
 export function* checkAuthTimeoutSaga(action) {

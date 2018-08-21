@@ -10,6 +10,7 @@ import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
 import icons from '../../assets/styles/linearicons.scss';
 import Button from '../../components/ui/Button/Button';
+import AddProject from '../Popups/Projects/AddProject';
 
 class ProjectList extends Component {
   
@@ -50,11 +51,12 @@ class ProjectList extends Component {
       <Aux>
         <h1>Projects</h1>
         <div className="buttons">
-          <Button clicked={this.props.onAddProject} title="Add Project">
+          <Button clicked={this.props.onShowProjectAddForm} title="Add Project">
             <span className={classNames(icons.lnr, icons['lnr-folder-plus'])}></span>
           </Button>
         </div>
         {tasks}
+        <AddProject />
       </Aux>
     );
   }
@@ -62,14 +64,15 @@ class ProjectList extends Component {
 
 const mapStateToProps = state => {
   return {
-    projects: state.projects.projects,
+    tasks: state.tasks.tasks,
     loading: state.projects.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onGetTasks: () => dispatch(actions.getTasks())
+    onGetTasks: () => dispatch(actions.getTasks()),
+    onShowProjectAddForm: () => dispatch(actions.showProjectAddForm())
   }
 }
 

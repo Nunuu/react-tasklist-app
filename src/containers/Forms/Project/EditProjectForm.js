@@ -4,14 +4,20 @@ import { connect } from 'react-redux';
 
 import styles from '../Forms.scss';
 
+import Button from '../../../components/ui/Button/Button';
+import { renderField, required, minLength5 } from '../../../shared/helpers';
+
 let editProjectForm = props => {
+  
+  const { handleSubmit, pristine, submitting } = props;
+
   return (
     <form>
       <div className={styles.formRow}>
         <Field 
           id="title"
           name="title" 
-          type="textarea" 
+          type="text" 
           component={renderField} 
           label="Project Title"
           validate={[required, minLength5]}
@@ -22,7 +28,7 @@ let editProjectForm = props => {
         type="submit"
         disabled={pristine || submitting}
         clicked={handleSubmit}>
-        <span>{props.formType}</span> Task
+        <span>{props.formType}</span> Project
       </Button>
     </form>
   )

@@ -67,3 +67,45 @@ export const deleteProjectFailed = (error) => {
     error
   }
 }
+
+
+// Popups
+export const showProjectAddForm = () => {
+  return {
+    type: actionTypes.SHOW_PROJECT_ADD_FORM
+  }
+}
+
+export const hideProjectAddForm = (data = null) => {
+  return {
+    type: actionTypes.HIDE_PROJECT_ADD_FORM,
+    data
+  }
+}
+
+export const showProjectEditForm = (projectId) => {
+  return {
+    type: actionTypes.SHOW_PROJECT_EDIT_FORM,
+    projectId
+  }
+}
+
+export const hideProjectEditForm = (reset = false) => {
+  return {
+    type: actionTypes.HIDE_PROJECT_EDIT_FORM,
+    reset
+  }
+}
+
+export const showProjectDeleteConfirm = (projectId) => {
+  return {
+    type: actionTypes.SHOW_PROJECT_DELETE_CONFIRM,
+    projectId
+  }
+}
+
+export const hideProjectDeleteConfirm = () => {
+  return {
+    type: actionTypes.HIDE_PROJECT_DELETE_CONFIRM
+  }
+}

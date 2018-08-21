@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { getFormValues } from 'redux-form';
 
 import EditProjectForm from '../../Forms/Project/EditProjectForm';
 import Modal from '../../../components/ui/Modal/Modal';
@@ -13,7 +14,7 @@ class AddProject extends Component {
   }
 
   onModalClose = () => {
-    this.props.onCloseForm();
+    this.props.onCloseForm(this.props.formValues);
   }
 
   render() {
@@ -21,7 +22,7 @@ class AddProject extends Component {
       <Aux>
         <Modal 
           show={this.props.showAddForm}
-          modalClosed={this.onModalClose} 
+          modalClosed={this.props.onCloseForm} 
           title="Add Project">
           <EditProjectForm onSubmit={this.submit} formType="add" />
         </Modal>
@@ -32,13 +33,14 @@ class AddProject extends Component {
 
 const mapStateToProps = state => {
   return {
-    showAddForm: state.projects.showAdd
+    showAddForm: state.projects.showAdd,
+    formValues: getFormValues('edit-project')(state)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCloseForm: (data) => dispatch(actions.hideAddForm(data)),
+    onCloseForm: (data) => dispatch(actions.hideProjectAddForm(data)),
     onAddProject: (data) => dispatch(actions.addProject(data))
   }
 }

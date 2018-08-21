@@ -1,6 +1,6 @@
 import React from 'react';
 
-// updating an object immutability
+// updating an object immutably
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -65,7 +65,8 @@ export const renderField = ({
     {...input} 
     placeholder={label} 
     type={type}
-    id={id} />;
+    id={id}
+    autoFocus={autoFocus} />;
   if (type === "textarea") {
     inputField = <textarea 
       {...input} 
