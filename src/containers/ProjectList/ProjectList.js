@@ -21,6 +21,7 @@ class ProjectList extends Component {
   // }
 
   componentDidMount() {
+    this.props.onGetProjects();
     this.props.onGetTasks();
   }
 
@@ -29,21 +30,54 @@ class ProjectList extends Component {
     if (this.props.loading) {
       tasks = <Loader />;
     } else {
+      const allProjects = this.props.projects;
       const allTasks = this.props.tasks;
+      
+      const taskContainers = Object.keys(allProjects)
+        .sort((a, b) => allProjects[a].order - allProjects[b].order)
+        .map(projectKey => {
+          const sortedTasks = Object.keys(allTasks)
+            .filter(taskKey => projectKey === allTasks[taskKey].project)
+            .map(taskKey => {
+              return {
+                id: taskKey,
+                ...allTasks[taskKey]
+              }
+            });
+          
+          const projectName = allProjects[projectKey].title
+
+          return <Tasks 
+            key={projectKey}
+            // project={{
+            //   id: projectKey,
+            //   title: allProjects[projectKey].title
+            // }}
+            title={projectName}
+            color="#000000"
+            tasks={sortedTasks}
+            id={projectKey} />
+        });
+
       const noProjectTasks = Object.keys(allTasks)
-        .sort((a, b) => allTasks[a].order - allTasks[b].order)
-        .map(key => {
+        .filter(taskKey => !allTasks[taskKey].project)
+        .map(taskKey => {
           return {
-            id: key,
-            ...allTasks[key]
+            id: taskKey,
+            ...allTasks[taskKey]
           }
         });
-      tasks = <div className={styles.projectlist}>
+      taskContainers.push(
         <Tasks 
-          title="Uncategorized" 
-          color="#ff6600"
+          key="uncategorized"
+          title="Uncategorized"
+          color="#000000"
           tasks={noProjectTasks}
           id="uncategorized" />
+      );
+
+      tasks = <div className={styles.projectlist}>
+        {taskContainers}
       </div>
     }
 
@@ -64,13 +98,15 @@ class ProjectList extends Component {
 
 const mapStateToProps = state => {
   return {
+    projects: state.projects.projects,
     tasks: state.tasks.tasks,
-    loading: state.projects.loading
+    loading: state.projects.loading && state.tasks.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    onGetProjects: () => dispatch(actions.getProjects()),
     onGetTasks: () => dispatch(actions.getTasks()),
     onShowProjectAddForm: () => dispatch(actions.showProjectAddForm())
   }

@@ -13,6 +13,35 @@ const initialState = {
   newProjectData: null
 }
 
+const getProjectsStart = (state, action) => {
+  return updateObject(state, {
+    loading: true
+  });
+}
+
+const getProjectsComplete = (state, action) => {
+  const allProjects = action.projects;
+  const sortedProjects = Object.keys(allProjects)
+    // .sort((a, b) => allProjects[a].order - allProjects[b].order)
+    .reduce((sortedObj, key) => ({
+      ...sortedObj, 
+      [key]: allProjects[key]
+    }), {});
+
+  return updateObject(state, {
+    projects: sortedProjects,
+    loading: false,
+    error: null
+  });
+}
+
+const getProjectsFailed = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    error: action.error
+  });
+}
+
 const addProjectComplete = (state, action) => {
   const updatedProjects = updateObject(state.projects, {
     [action.id]: action.data
@@ -97,6 +126,9 @@ const hideProjectDeleteConfirm = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
+    case actionTypes.GET_PROJECTS_START: return getProjectsStart(state, action);
+    case actionTypes.GET_PROJECTS_COMPLETE: return getProjectsComplete(state, action);
+    case actionTypes.GET_PROJECTS_FAILED: return getProjectsFailed(state, action);
     case actionTypes.ADD_PROJECT_COMPLETE: return addProjectComplete(state, action);
     case actionTypes.ADD_PROJECT_FAILED: return addProjectFailed(state, action);
     case actionTypes.EDIT_PROJECT_COMPLETE: return editProjectComplete(state, action);

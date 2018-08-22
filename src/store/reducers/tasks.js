@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/helpers';
 const initialState = {
   tasks: {},
   count: 0,
-  loadingData: false,
+  loading: false,
   error: null,
   showAdd: false,
   showEdit: false,
@@ -33,14 +33,14 @@ const addTaskFailed = (state, action) => {
 
 const getTasksStart = (state, action) => {
   return updateObject(state, {
-    loadingData: true
+    loading: true
   });
 }
 
 const getTasksComplete = (state, action) => {
   const allTasks = action.tasks;
   const sortedTasks = Object.keys(allTasks)
-    .sort((a, b) => allTasks[a].order - allTasks[b].order)
+    // .sort((a, b) => allTasks[a].order - allTasks[b].order)
     .reduce((sortedObj, key) => ({
       ...sortedObj, 
       [key]: allTasks[key]
@@ -48,14 +48,14 @@ const getTasksComplete = (state, action) => {
 
   return updateObject(state, {
     tasks: sortedTasks,
-    loadingData: false,
+    loading: false,
     error: null
   });
 }
 
 const getTasksFailed = (state, action) => {
   return updateObject(state, {
-    loadingData: false,
+    loading: false,
     error: action.error
   });
 }
@@ -110,7 +110,7 @@ const rearrangeTasksStart = (state, action) => {
   action.tasksArray.forEach((task, index) => {
     updatedTasks = updateObject(updatedTasks, {
       [task.id]: updateObject(state.tasks[task.id], {
-        order: index,
+        order: index + 1,
         dueDate: task.dueDate
       })
     });

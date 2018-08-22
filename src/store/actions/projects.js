@@ -1,5 +1,32 @@
 import * as actionTypes from './actionTypes';
 
+// Get Projects
+export const getProjects = () => {
+  return {
+    type: actionTypes.GET_PROJECTS
+  }
+}
+
+export const getProjectsStart = () => {
+  return {
+    type: actionTypes.GET_PROJECTS_START
+  }
+}
+
+export const getProjectsComplete = (projects) => {
+  return {
+    type: actionTypes.GET_PROJECTS_COMPLETE,
+    projects
+  }
+}
+
+export const getProjectsFailed = (error) => {
+  return {
+    type: actionTypes.GET_PROJECTS_FAILED,
+    error
+  }
+}
+
 // Add Projects
 export const addProject = (data) => {
   return {

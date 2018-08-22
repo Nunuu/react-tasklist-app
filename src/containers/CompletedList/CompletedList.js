@@ -59,7 +59,7 @@ class CompletedList extends Component {
 const mapStateToProps = state => {
   return {
     tasks: state.tasks.tasks,
-    loading: state.tasks.loadingData
+    loading: state.tasks.loading
   }
 }
 
