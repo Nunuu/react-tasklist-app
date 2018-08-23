@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { DragDropContext } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 
 import styles from './DaysList.scss';
 
@@ -195,6 +196,13 @@ const mapDispatchToProps = dispatch => {
     onGetTasks: () => dispatch(actions.getTasks()),
     onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray))
   }
+}
+
+DaysList.propTypes = {
+  onGetTasks: PropTypes.func.isRequired,
+  onReorderList: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  tasks: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DaysList);

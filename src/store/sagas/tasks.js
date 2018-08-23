@@ -41,7 +41,9 @@ export function* addTaskSaga(action) {
   const newTask = {
     ...action.data,
     completed: false,
-    order: 0
+    order: 0,
+    project: action.project,
+    projectSort: 0
   }
   try {
     const userId = yield select(getUserId);

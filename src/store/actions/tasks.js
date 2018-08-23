@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
 // Add Tasks
-export const addTask = (data) => {
+export const addTask = (data, project = "") => {
   return {
     type: actionTypes.ADD_TASK,
-    data
+    data,
+    project
   }
 }
 
@@ -174,10 +175,11 @@ export const rearrangeTasksFailed = (error) => {
 }
 
 // Popups
-export const showAddForm = (date = null) => {
+export const showAddForm = (date = null, project = "") => {
   return {
     type: actionTypes.SHOW_ADD_FORM,
-    date
+    date,
+    project
   }
 }
 

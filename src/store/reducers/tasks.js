@@ -143,7 +143,8 @@ const showAddForm = (state, action) => {
       showAdd: true,
       newTaskData: {
         "priority": "normal",
-        "dueDate": action.date ? [action.date] : null
+        "dueDate": action.date ? [action.date] : null,
+        "project": action.project
       }
     });
   }

@@ -41,7 +41,7 @@ const tasks = props => {
   let taskList = null;
   if (tasks) {
     if (props.draggable) {
-      taskList = <Droppable droppableId={props.id}>
+      taskList = <Droppable droppableId={props.project ? props.project.id : props.id}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
@@ -76,10 +76,17 @@ const tasks = props => {
       styles.taskBlock, 
       props.extraStyle ? styles[props.extraStyle] : ''
     )}>
-      <h2 style={{color: props.color}}>{props.title}</h2>
+      <h2 style={{color: props.color}}>
+        {props.project ? props.project.title : props.title}
+      </h2>
+      {props.addProject ? <Button 
+        clicked={props.onShowProjectAddForm} 
+        title="Add Project">
+          <span className={classNames(icons.lnr, icons['lnr-folder-plus'])}></span>
+        </Button> : null}
       {props.hideAdd ? null : <Button 
         title="Add Task"
-        clicked={() => props.onShowAddForm(props.initDay)}>
+        clicked={() => props.onShowAddForm(props.initDay, props.project ? props.project.id : "")}>
         <span className={classNames(icons.lnr, icons["lnr-plus"])}></span>
       </Button>}
       {taskList}
@@ -91,7 +98,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onShowDeleteConfirm: (id) => dispatch(actions.showDeleteConfirm(id)),
     onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
-    onShowAddForm: (initDay) => dispatch(actions.showAddForm(initDay)),
+    onShowAddForm: (initDay, project) => dispatch(actions.showAddForm(initDay, project)),
     onCompleteTask: (id) => dispatch(actions.completeTask(id)),
     onUncompleteTask: (id) => dispatch(actions.uncompleteTask(id))
   }
