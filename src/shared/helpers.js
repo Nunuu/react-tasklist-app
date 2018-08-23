@@ -17,18 +17,22 @@ export const reorder = (list, startIndex, endIndex) => {
 };
 
 // Move task from one list to another
-export const move = (source, destination, droppableSource, droppableDestination) => {
+export const move = (source, destination, droppableSource, droppableDestination, projectId = null) => {
   // extract task from source
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination.tasks);
   const [removed] = sourceClone.splice(droppableSource.index, 1);
 
-  // set new due date
-  const dueDate = destination.date;
-  if (dueDate) {
-    removed.dueDate = [dueDate.clone().endOf('day').format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")];
+  // set new property
+  if (projectId) {
+    removed.project = projectId;
   } else {
-    delete removed.dueDate;
+    const dueDate = destination.date;
+    if (dueDate) {
+      removed.dueDate = [dueDate.clone().endOf('day').format("YYYY-MM-DD[T]HH:mm:ss.SSS[Z]")];
+    } else {
+      delete removed.dueDate;
+    }
   }
 
   // move to destination
@@ -61,17 +65,19 @@ export const renderField = ({
   id,
   autoFocus
 }) => {
-  let inputField = <input 
-    {...input} 
-    placeholder={label} 
-    type={type}
-    id={id}
-    autoFocus={autoFocus} />;
+  let inputField;
   if (type === "textarea") {
     inputField = <textarea 
       {...input} 
       placeholder={label}
       autoFocus={autoFocus} />
+  } else {
+    inputField = <input 
+      {...input} 
+      placeholder={label} 
+      type={type}
+      id={id}
+      autoFocus={autoFocus} />;
   }
   return (
     <div>

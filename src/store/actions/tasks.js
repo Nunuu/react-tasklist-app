@@ -147,17 +147,19 @@ export const getTotalCountFailed = (error) => {
   }
 }
 
-export const rearrangeTasks = (tasksArray) => {
+export const rearrangeTasks = (tasksArray, sortProject = false) => {
   return {
     type: actionTypes.REARRANGE_TASKS,
-    tasksArray
+    tasksArray,
+    sortProject
   }
 }
 
-export const rearrangeTasksStart = (tasksArray) => {
+export const rearrangeTasksStart = (tasksArray, sortProject) => {
   return {
     type: actionTypes.REARRANGE_TASKS_START,
-    tasksArray
+    tasksArray,
+    sortProject
   }
 }
 

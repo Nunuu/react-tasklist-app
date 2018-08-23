@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import styles from '../Forms.scss';
 import icons from '../../../assets/styles/linearicons.scss';
 
-import Dropdown from '../../../components/ui/Dropdown/Dropdown';
 import Button from '../../../components/ui/Button/Button';
+import Dropdown from '../../../components/ui/Dropdown/Dropdown';
 import { renderField, required, minLength5 } from '../../../shared/helpers';
 
 const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
@@ -24,17 +24,12 @@ const renderDateTimePicker = ({ input: { onChange, value }, formType }) => (
     }} />
 );
 
-const renderDropdown = ({ input: {onChange, value} }) => {
-  const options = [
-    {value: 'low', label: 'Low'},
-    {value: 'normal', label: 'Normal'},
-    {value: 'high', label: 'High'}
-  ]
+const renderDropdown = ({ input: {onChange, value}, options, placeholder }) => {
   return <Dropdown 
     options={options} 
     onChange={(option) => onChange(option.value)} 
     value={value ? value : ''} 
-    placeholder="Priority"
+    placeholder={placeholder}
     placeholderClassName={styles.dropdownPlaceholder}
     arrowClassName={icons.lnr} />
 };
@@ -51,6 +46,11 @@ let editTaskForm = props => {
     </div>
   }
   
+  const projectOptions = Object.keys(props.projects).map(key => {
+    return {"value": key, "label": props.projects[key].title};
+  });
+  projectOptions.unshift({"value": "", "label": "Select Project"})
+
   return (
     <form>
       <div className={styles.formRow}>
@@ -62,6 +62,15 @@ let editTaskForm = props => {
           label="Task Title"
           validate={[required, minLength5]}
           autoFocus={props.formType === 'add'} />
+      </div>
+      <div className={styles.formRow}>
+        <label htmlFor="project">Project</label>
+        <Field 
+          id="project"
+          name="project" 
+          component={renderDropdown}
+          placeholder="Select Project"
+          options={projectOptions} />
       </div>
       <div className={styles.formRow}>
         <label htmlFor="dueDate">Due Date</label>
@@ -76,7 +85,13 @@ let editTaskForm = props => {
         <Field 
           id="priority"
           name="priority" 
-          component={renderDropdown} />
+          component={renderDropdown}
+          placeholder="Priority"
+          options={[
+            {value: 'low', label: 'Low'},
+            {value: 'normal', label: 'Normal'},
+            {value: 'high', label: 'High'}
+          ]} />
       </div>
       {completedField}
       <Button 
@@ -92,7 +107,8 @@ let editTaskForm = props => {
 
 const mapStateToProps = state => {
   return {
-    initialValues: state.tasks.showAdd ? state.tasks.newTaskData : state.tasks.taskData
+    initialValues: state.tasks.showAdd ? state.tasks.newTaskData : state.tasks.taskData,
+    projects: state.projects.projects
   }
 }
 

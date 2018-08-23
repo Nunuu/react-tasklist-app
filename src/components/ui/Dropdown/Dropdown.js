@@ -10,11 +10,10 @@ const DEFAULT_PLACEHOLDER_STRING = 'Select...'
  * https://github.com/fraserxu/react-dropdown
  */
 class Dropdown extends Component {
-  
   constructor (props) {
     super(props)
     this.state = {
-      selected: props.value || {
+      selected: this.parseValue(props.value, props.options) || {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
@@ -23,13 +22,15 @@ class Dropdown extends Component {
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
-    this.buildMenu = this.buildMenu.bind(this)
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.value && newProps.value !== this.state.selected) {
-      this.setState({selected: newProps.value})
-    } else if (!newProps.value) {
+    if (newProps.value) {
+      var selected = this.parseValue(newProps.value, newProps.options)
+      if (selected !== this.state.selected) {
+        this.setState({selected: selected})
+      }
+    } else {
       this.setState({selected: {
         label: typeof newProps.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : newProps.placeholder,
         value: ''
@@ -63,12 +64,30 @@ class Dropdown extends Component {
     }
   }
 
+  parseValue (value, options) {
+    let option
+
+    if (typeof value === 'string') {
+      for (var i = 0, num = options.length; i < num; i++) {
+        if (options[i].type === 'group') {
+          const match = options[i].items.filter(item => item.value === value)
+          if (match.length) {
+            option = match[0]
+          }
+        } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
+          option = options[i]
+        }
+      }
+    }
+
+    return option || value
+  }
+
   setValue (value, label) {
     let newState = {
       selected: {
         value,
-        label
-      },
+        label},
       isOpen: false
     }
     this.fireChangeEvent(newState)
@@ -82,22 +101,22 @@ class Dropdown extends Component {
   }
 
   renderOption (option, hasEntered) {
+    let value = option.value
+    if (typeof value === 'undefined') {
+      value = option.label || option
+    }
+    let label = option.label || option.value || option
+
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': option === this.state.selected
+      'is-selected': value === this.state.selected.value || value === this.state.selected
     }
 
     const optionClass = classNames(
       classes, 
       hasEntered ? 'entered' : ''
     )
-
-    let value = option.value
-    if (typeof value === 'undefined') {
-      value = option.label || option
-    }
-    let label = option.label || option.value || option
 
     return (
       <div
@@ -114,7 +133,9 @@ class Dropdown extends Component {
     let { options, baseClassName } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
-        let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
+        let groupTitle = (<div className={`${baseClassName}-title`}>
+          {option.name}
+        </div>)
         let _options = option.items.map((item) => this.renderOption(item, hasEntered))
 
         return (
@@ -144,6 +165,10 @@ class Dropdown extends Component {
     }
   }
 
+  isValueSelected () {
+    return typeof this.state.selected === 'string' || this.state.selected.value !== ''
+  }
+
   render () {
     const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, className } = this.props
 
@@ -162,14 +187,17 @@ class Dropdown extends Component {
     })
     const placeholderClass = classNames({
       [`${baseClassName}-placeholder`]: true,
-      [placeholderClassName]: !!placeholderClassName
+      [placeholderClassName]: !!placeholderClassName,
+      'is-selected': this.isValueSelected()
     })
     const arrowClass = classNames({
       [`${baseClassName}-arrow`]: true,
       [arrowClassName]: !!arrowClassName
     })
 
-    const value = (<div className={placeholderClass}>{placeHolderValue}</div>)
+    const value = (<div className={placeholderClass}>
+      {placeHolderValue}
+    </div>)
 
     return (
       <div className={dropdownClass}>

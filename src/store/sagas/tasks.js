@@ -89,7 +89,7 @@ export function* patchTaskSaga(action) {
 
 // Reorder tasks
 export function* rearrangeTasksSaga(action) {
-  yield put(actions.rearrangeTasksStart(action.tasksArray));
+  yield put(actions.rearrangeTasksStart(action.tasksArray, action.sortProject));
   const newTasks = yield select(getTasks);
   try {
     const userId = yield select(getUserId);

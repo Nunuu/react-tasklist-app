@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 
 import styles from './ProjectList.scss';
 
@@ -9,9 +10,12 @@ import Loader from '../../components/ui/Loader/Loader';
 import Tasks from '../../components/lists/Tasks/Tasks';
 import * as actions from '../../store/actions/';
 import AddProject from '../Popups/Projects/AddProject';
+import { reorder, move } from '../../shared/helpers';
+
+let allProjects;
 
 class ProjectList extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -28,22 +32,25 @@ class ProjectList extends Component {
 
     if (!destination) { return; }
 
-    // let tasks = [];
-    // if (source.droppableId === destination.droppableId) {
-    //   tasks = reorder(
-    //     this.getList(source.droppableId).tasks,
-    //     result.source.index,
-    //     result.destination.index
-    //   );
-    // } else {
-    //   tasks = move(
-    //     this.getList(source.droppableId).tasks,
-    //     this.getList(destination.droppableId),
-    //     source,
-    //     destination
-    //   );
-    // }
-    // this.props.onReorderList(tasks);
+    let tasks = [];
+    const droppableId = source.droppableId;
+    const destId = destination.droppableId;
+    if (droppableId === destId) {
+      tasks = reorder(
+        allProjects[droppableId].tasks,
+        result.source.index,
+        result.destination.index
+      );
+    } else {
+      tasks = move(
+        allProjects[droppableId].tasks,
+        allProjects[destId],
+        source,
+        destination,
+        destId === "uncategorized" ? "" : destId
+      );
+    }
+    this.props.onReorderList(tasks);
   }
 
   render() {
@@ -51,13 +58,16 @@ class ProjectList extends Component {
     if (this.props.loading) {
       tasks = <Loader />;
     } else {
-      const allProjects = this.props.projects;
+      allProjects = Object.assign({}, this.props.projects);
       const allTasks = this.props.tasks;
       
+      // get all the tasks that are assigned to a project
       const taskContainers = Object.keys(allProjects)
-        .sort((a, b) => allProjects[a].projectSort - allProjects[b].projectSort)
+        .sort((a, b) => allProjects[a].order - allProjects[b].order)
         .map(projectKey => {
+          // get tasks that belongs to the project
           const sortedTasks = Object.keys(allTasks)
+            .sort((a, b) => allTasks[a].projectSort - allTasks[b].projectSort)
             .filter(taskKey => projectKey === allTasks[taskKey].project)
             .map(taskKey => {
               return {
@@ -65,7 +75,9 @@ class ProjectList extends Component {
                 ...allTasks[taskKey]
               }
             });
-          
+          // store the tasks
+          allProjects[projectKey].tasks = sortedTasks;
+          // return the jsx
           return <Tasks 
             key={projectKey}
             project={{
@@ -76,8 +88,10 @@ class ProjectList extends Component {
             tasks={sortedTasks}
             draggable />
         });
-
+      
+      // get all the tasks that are not assigned to a project
       const noProjectTasks = Object.keys(allTasks)
+        .sort((a, b) => allTasks[a].projectSort - allTasks[b].projectSort)
         .filter(taskKey => allTasks[taskKey].project === "")
         .map(taskKey => {
           return {
@@ -85,27 +99,33 @@ class ProjectList extends Component {
             ...allTasks[taskKey]
           }
         });
-      taskContainers.push(
-        <Tasks 
-          key="uncategorized"
-          title="Uncategorized"
-          color="#589aca"
-          tasks={noProjectTasks}
-          id="uncategorized"
-          draggable />
-      );
+      if (noProjectTasks.length > 0) {
+        allProjects.uncategorized = {};
+        allProjects.uncategorized.tasks = noProjectTasks;
+        taskContainers.push(
+          <Tasks 
+            key="uncategorized"
+            title="Uncategorized"
+            color="#589aca"
+            tasks={noProjectTasks}
+            id="uncategorized"
+            draggable />
+        );
+      }
 
-      taskContainers.unshift(
+      // empty list to add new project
+      taskContainers.push(
         <Tasks 
           key="empty"
           id="empty"
           title="New Project"
-          color="#000000"
+          color="#00c30e"
           hideAdd
           addProject
           onShowProjectAddForm={this.props.onShowProjectAddForm} />
       );
 
+      // display all the tasks
       tasks = <div className={styles.projectlist}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           {taskContainers}
@@ -134,8 +154,19 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetProjects: () => dispatch(actions.getProjects()),
     onGetTasks: () => dispatch(actions.getTasks()),
-    onShowProjectAddForm: () => dispatch(actions.showProjectAddForm())
+    onShowProjectAddForm: () => dispatch(actions.showProjectAddForm()),
+    onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray, true))
   }
+}
+
+ProjectList.propTypes = {
+  onGetProjects: PropTypes.func.isRequired,
+  onGetTasks: PropTypes.func.isRequired,
+  onShowProjectAddForm: PropTypes.func.isRequired,
+  onReorderList: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  tasks: PropTypes.object,
+  projects: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectList);

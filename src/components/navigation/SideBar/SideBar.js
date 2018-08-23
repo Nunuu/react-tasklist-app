@@ -23,10 +23,10 @@ const sideBar = props => {
 
   return (
     <aside className={classNames(styles.sidebar, props.shrinkHeader ? styles.high : '')}>
-      <div className={styles.heading}>Sort</div>
+      <div className={styles.heading}>View</div>
       <Link link="/" icon="lnr-alarm2" exact>Days</Link>
       <Link link="/projects" icon="lnr-document">Projects</Link>
-      <Link link="/completed" icon="lnr-file-check">Completed</Link>
+      <Link link="/completed" icon="lnr-file-check">Status</Link>
       <div className={styles.heading}>Other</div>
       <Link link="/analytics" icon="lnr-chart-bars">Analytics</Link>
       <Link link="/settings" icon="lnr-cog">Settings</Link>

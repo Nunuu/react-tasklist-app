@@ -32,6 +32,7 @@ class DaysList extends Component {
   }
 
   componentDidMount() {
+    this.props.onGetProjects();
     this.props.onGetTasks();
   }
 
@@ -187,18 +188,20 @@ class DaysList extends Component {
 const mapStateToProps = state => {
   return {
     tasks: state.tasks.tasks,
-    loading: state.tasks.loading
+    loading: state.projects.loading && state.tasks.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    onGetProjects: () => dispatch(actions.getProjects()),
     onGetTasks: () => dispatch(actions.getTasks()),
     onReorderList: (tasksArray) => dispatch(actions.rearrangeTasks(tasksArray))
   }
 }
 
 DaysList.propTypes = {
+  onGetProjects: PropTypes.func.isRequired,
   onGetTasks: PropTypes.func.isRequired,
   onReorderList: PropTypes.func.isRequired,
   loading: PropTypes.bool,

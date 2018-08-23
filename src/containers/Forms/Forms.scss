@@ -47,6 +47,13 @@ $red: rgb(255, 72, 0);
     clip: rect(0 0 0 0);
     clip: rect(0, 0, 0, 0);
     position: absolute;
+    // position: relative;
+    // margin-bottom: 0.4em;
+    // display: block;
+    // color: #999;
+    // backface-visibility: hidden;
+    // text-transform: uppercase;
+    // font-size: 0.9em;
     &.checkboxLabel {
       margin: 0;
       padding: 0;
@@ -55,8 +62,10 @@ $red: rgb(255, 72, 0);
       overflow: visible;
       clip: none;
       position: relative;
+      // font-weight: normal;
+      // display: inline;
       cursor: pointer;
-      backface-visibility: hidden;
+      color: black;
       &:before {
         content: '';
         position: absolute;
@@ -100,7 +109,6 @@ $red: rgb(255, 72, 0);
 }
 
 .dropdownPlaceholder {
-  text-transform: capitalize;
   color: black;
 }
 

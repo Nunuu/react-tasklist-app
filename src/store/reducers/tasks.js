@@ -108,11 +108,15 @@ const editTaskFailed = (state, action) => {
 const rearrangeTasksStart = (state, action) => {
   let updatedTasks = {...state.tasks};  
   action.tasksArray.forEach((task, index) => {
+    const updateProperty = action.sortProject ? {
+      projectSort: index + 1,
+      project: task.project
+    } : {
+      order: index + 1,
+      dueDate: task.dueDate
+    }
     updatedTasks = updateObject(updatedTasks, {
-      [task.id]: updateObject(state.tasks[task.id], {
-        order: index + 1,
-        dueDate: task.dueDate
-      })
+      [task.id]: updateObject(state.tasks[task.id], updateProperty)
     });
   });
   return updateObject(state, {
