@@ -26,7 +26,7 @@ const sideBar = props => {
       <div className={styles.heading}>View</div>
       <Link link="/" icon="lnr-alarm2" exact>Days</Link>
       <Link link="/projects" icon="lnr-document">Projects</Link>
-      <Link link="/completed" icon="lnr-file-check">Status</Link>
+      <Link link="/completed" icon="lnr-file-stats">Status</Link>
       <div className={styles.heading}>Other</div>
       <Link link="/analytics" icon="lnr-chart-bars">Analytics</Link>
       <Link link="/settings" icon="lnr-cog">Settings</Link>

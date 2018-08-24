@@ -18,31 +18,47 @@ const task = (props) => {
     </div>
   }
 
+  let status = null;
+  if (props.dueDate) {
+    status = <div className={styles.status}>
+      <span className={classNames(icons.lnr, icons['lnr-clock'])}></span>
+      {moment(props.dueDate[0]).format("MMM DD, YY")}
+    </div>
+  } else if (props.project) {
+    status = <div className={styles.status}>
+      <span className={classNames(icons.lnr, icons['lnr-document'])}></span>
+      {props.project}
+    </div>
+  }
+
   return (
     <div className={classNames(styles.task, styles[props.priority])}>
       <div className={classNames(styles.title, isComplete ? styles.completed : '')}>
         {props.title}
       </div>
       {completionDate}
-      <div className={styles.buttons}>
-        <Button 
-          clicked={props.completeTask} 
-          isHidden={isComplete} 
-          title="Complete">
-          <span className={classNames(icons.lnr, icons['lnr-calendar-check'])}></span>
-        </Button>
-        <Button 
-          clicked={props.unCompleteTask} 
-          isHidden={!isComplete} 
-          title="Incomplete">
-          <span className={classNames(icons.lnr, icons['lnr-calendar-cross'])}></span>
-        </Button>
-        <Button clicked={props.editTask} title="Edit">
-          <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
-        </Button>
-        <Button clicked={props.deleteTask} title="Delete">
-          <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
-        </Button>
+      <div className={status ? styles.bottom : styles.bottomRight}>
+        {status}
+        <div className={styles.buttons}>
+          <Button 
+            clicked={props.completeTask} 
+            isHidden={isComplete} 
+            title="Complete">
+            <span className={classNames(icons.lnr, icons['lnr-calendar-check'])}></span>
+          </Button>
+          <Button 
+            clicked={props.unCompleteTask} 
+            isHidden={!isComplete} 
+            title="Incomplete">
+            <span className={classNames(icons.lnr, icons['lnr-calendar-cross'])}></span>
+          </Button>
+          <Button clicked={props.editTask} title="Edit">
+            <span className={classNames(icons.lnr, icons['lnr-pencil5'])}></span>
+          </Button>
+          <Button clicked={props.deleteTask} title="Delete">
+            <span className={classNames(icons.lnr, icons['lnr-trash2'])}></span>
+          </Button>
+        </div>
       </div>
     </div>
   );

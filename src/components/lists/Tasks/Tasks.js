@@ -28,6 +28,8 @@ const getTask = (task, props) => (
   <Task key={task.id}
     title={task.title}
     priority={task.priority}
+    dueDate={props.showDate ? task.dueDate : null}
+    project={props.showProject ? (task.project ? props.projects[task.project].title : "") : null}
     completed={task.completed}
     completionDate={task.completionDate}
     completeTask={() => props.onCompleteTask(task.id)}
@@ -94,6 +96,12 @@ const tasks = props => {
   );
 }
 
+const mapStateToProps = state => {
+  return {
+    projects: state.projects.projects
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onShowDeleteConfirm: (id) => dispatch(actions.showDeleteConfirm(id)),
@@ -119,4 +127,4 @@ tasks.propTypes = {
   initDay: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.object])
 };
 
-export default connect(null, mapDispatchToProps)(tasks);
+export default connect(mapStateToProps, mapDispatchToProps)(tasks);

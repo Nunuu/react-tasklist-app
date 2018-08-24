@@ -1,3 +1,5 @@
+$blue: #589aca;
+
 .task {
   border: 1px solid #f0f0f0;
   background: rgba(white, 0.8);
@@ -35,13 +37,32 @@
 .completion {
   margin-top: 1em;
   font-size: 0.9em;
-  color: #589aca;
+  color: $blue;
 }
 
-.buttons {
+.bottom {
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+.bottomRight {
   margin-top: 2em;
   display: flex;
   justify-content: flex-end;
+}
+.status {
+  background: #f0f0f0;
+  font-size: 0.9em;
+  padding: 0.5em 1em;
+  display: flex;
+  align-items: center;
+  span {
+    margin-right: 0.5em;
+    color: $blue;
+  }
+}
+.buttons {
+  display: flex;
   button {
     width: 3em;
     height: 3em;

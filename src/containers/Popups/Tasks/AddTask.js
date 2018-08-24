@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseForm: (data) => dispatch(actions.hideAddForm(data)),
-    onAddTask: (data) => dispatch(actions.addTask(data))
+    onAddTask: (data) => dispatch(actions.addTask(data, data.project))
   }
 }
 

@@ -32,6 +32,8 @@ class DaysList extends Component {
   }
 
   componentDidMount() {
+    if (Object.keys(this.props.tasks).length && Object.keys(this.props.projects).length) { return; }
+
     this.props.onGetProjects();
     this.props.onGetTasks();
   }
@@ -134,7 +136,8 @@ class DaysList extends Component {
           tasks={overdueTasks}
           hideAdd
           id="overdueTasks"
-          draggable />
+          draggable
+          showProject />
         extraStyle = '';
       }
 
@@ -149,7 +152,8 @@ class DaysList extends Component {
             tasks={todayTasks}
             extraStyle={extraStyle}
             id="todayTasks"
-            draggable />
+            draggable
+            showProject />
           <Tasks 
             title="Tomorrow" 
             color="#ffc000"
@@ -157,7 +161,8 @@ class DaysList extends Component {
             tasks={tmrTasks}
             extraStyle={extraStyle}
             id="tmrTasks"
-            draggable />
+            draggable
+            showProject />
           <Tasks 
             title="Upcoming" 
             color="#00c30e"
@@ -165,14 +170,16 @@ class DaysList extends Component {
             tasks={upcomingTasks}
             extraStyle={extraStyle}
             id="upcomingTasks"
-            draggable />
+            draggable
+            showProject />
           <Tasks 
             title="Whenever" 
             tasks={noDateTasks}
             color="#589aca"
             extraStyle={extraStyle}
             id="noDateTasks"
-            draggable />
+            draggable
+            showProject />
         </DragDropContext>
       </div>
     }
@@ -187,6 +194,7 @@ class DaysList extends Component {
 
 const mapStateToProps = state => {
   return {
+    projects: state.projects.projects,
     tasks: state.tasks.tasks,
     loading: state.projects.loading && state.tasks.loading
   }

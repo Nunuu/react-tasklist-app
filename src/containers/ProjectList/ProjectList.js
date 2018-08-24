@@ -23,6 +23,8 @@ class ProjectList extends Component {
   }
 
   componentDidMount() {
+    if (Object.keys(this.props.tasks).length && Object.keys(this.props.projects).length) { return; }
+
     this.props.onGetProjects();
     this.props.onGetTasks();
   }
@@ -60,9 +62,12 @@ class ProjectList extends Component {
     } else {
       allProjects = Object.assign({}, this.props.projects);
       const allTasks = this.props.tasks;
+      const projectKeys = Object.keys(allProjects);
       
+      let extraStyle = projectKeys.length > 2 ? '' : 'reducedCol';
+
       // get all the tasks that are assigned to a project
-      const taskContainers = Object.keys(allProjects)
+      const taskContainers = projectKeys
         .sort((a, b) => allProjects[a].order - allProjects[b].order)
         .map(projectKey => {
           // get tasks that belongs to the project
@@ -86,7 +91,9 @@ class ProjectList extends Component {
             }}
             color="#589aca"
             tasks={sortedTasks}
-            draggable />
+            extraStyle={extraStyle}
+            draggable
+            showDate />
         });
       
       // get all the tasks that are not assigned to a project
@@ -106,10 +113,12 @@ class ProjectList extends Component {
           <Tasks 
             key="uncategorized"
             title="Uncategorized"
-            color="#589aca"
+            color="#ffc000"
             tasks={noProjectTasks}
             id="uncategorized"
-            draggable />
+            extraStyle={extraStyle}
+            draggable
+            showDate />
         );
       }
 
@@ -122,6 +131,7 @@ class ProjectList extends Component {
           color="#00c30e"
           hideAdd
           addProject
+          extraStyle={extraStyle}
           onShowProjectAddForm={this.props.onShowProjectAddForm} />
       );
 
