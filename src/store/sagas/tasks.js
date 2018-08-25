@@ -22,7 +22,7 @@ export function* getCompletedTasksSaga(action) {
   try {
     const userId = yield select(getUserId);
     const response = yield axios.get(`/users/${userId}/tasks.json?orderBy="completed"&equalTo=true`);
-    yield put(actions.getTasksComplete(response.data));
+    yield put(actions.getTasksComplete(response.data, true));
   } catch (error) {
     yield put(actions.getTasksFailed(error));
   }

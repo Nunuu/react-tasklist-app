@@ -64,6 +64,10 @@ export function* logoutSaga(action) {
   yield put(actions.hideProjectAddForm());
   yield put(actions.hideProjectEditForm());
   yield put(actions.hideProjectDeleteConfirm());
+
+  // Clear all the data
+  yield put(actions.clearTasks());
+  yield put(actions.clearProjects());
 }
 
 export function* checkAuthTimeoutSaga(action) {

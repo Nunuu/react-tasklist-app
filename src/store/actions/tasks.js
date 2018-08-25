@@ -106,10 +106,11 @@ export const getTasksStart = () => {
   }
 }
 
-export const getTasksComplete = (tasks) => {
+export const getTasksComplete = (tasks, isCompleted = false) => {
   return {
     type: actionTypes.GET_TASKS_COMPLETE,
-    tasks
+    tasks,
+    isCompleted
   }
 }
 
@@ -216,5 +217,12 @@ export const showDeleteConfirm = (taskId) => {
 export const hideDeleteConfirm = () => {
   return {
     type: actionTypes.HIDE_DELETE_CONFIRM
+  }
+}
+
+// Data
+export const clearTasks = () => {
+  return {
+    type: actionTypes.CLEAR_TASKS
   }
 }

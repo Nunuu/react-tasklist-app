@@ -124,6 +124,12 @@ const hideProjectDeleteConfirm = (state, action) => {
   });
 }
 
+const clearProjects = (state, action) => {
+  return updateObject(state, {
+    projects: {}
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.GET_PROJECTS_START: return getProjectsStart(state, action);
@@ -139,6 +145,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.HIDE_PROJECT_EDIT_FORM: return hideProjectEditForm(state, action);
     case actionTypes.SHOW_PROJECT_DELETE_CONFIRM: return showProjectDeleteConfirm(state, action);
     case actionTypes.HIDE_PROJECT_DELETE_CONFIRM: return hideProjectDeleteConfirm(state, action);
+    case actionTypes.CLEAR_PROJECTS: return clearProjects(state, action);
     default: return state;
   }
 };

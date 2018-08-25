@@ -11,6 +11,8 @@ import Loader from '../../components/ui/Loader/Loader';
 class CompletedList extends Component {
   
   componentDidMount() {
+    if (Object.keys(this.props.tasks).length) { return; }
+
     this.props.onGetTasks();
   }
 
@@ -58,7 +60,7 @@ class CompletedList extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks.tasks,
+    tasks: state.tasks.completedTasks,
     loading: state.tasks.loading
   }
 }

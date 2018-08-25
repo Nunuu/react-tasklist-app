@@ -3,6 +3,7 @@ import { updateObject } from '../../shared/helpers';
 
 const initialState = {
   tasks: {},
+  completedTasks: {},
   count: 0,
   loading: false,
   error: null,
@@ -46,11 +47,19 @@ const getTasksComplete = (state, action) => {
       [key]: allTasks[key]
     }), {});
 
-  return updateObject(state, {
-    tasks: sortedTasks,
-    loading: false,
-    error: null
-  });
+  if (action.isCompleted) {
+    return updateObject(state, {
+      completedTasks: sortedTasks,
+      loading: false,
+      error: null
+    });
+  } else {
+    return updateObject(state, {
+      tasks: sortedTasks,
+      loading: false,
+      error: null
+    });
+  }
 }
 
 const getTasksFailed = (state, action) => {
@@ -197,6 +206,13 @@ const hideDeleteConfirm = (state, action) => {
   });
 }
 
+const clearTasks = (state, action) => {
+  return updateObject(state, {
+    tasks: {},
+    completedTasks: {}
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GET_TASKS_START: return getTasksStart(state, action);
@@ -219,6 +235,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.HIDE_EDIT_FORM: return hideEditForm(state, action);
     case actionTypes.SHOW_DELETE_CONFIRM: return showDeleteConfirm(state, action);
     case actionTypes.HIDE_DELETE_CONFIRM: return hideDeleteConfirm(state, action);
+    case actionTypes.CLEAR_TASKS: return clearTasks(state, action); 
     default: return state;
   }
 };

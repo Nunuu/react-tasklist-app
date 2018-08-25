@@ -136,3 +136,10 @@ export const hideProjectDeleteConfirm = () => {
     type: actionTypes.HIDE_PROJECT_DELETE_CONFIRM
   }
 }
+
+// Data
+export const clearProjects = () => {
+  return {
+    type: actionTypes.CLEAR_PROJECTS
+  }
+}
