@@ -1,9 +1,11 @@
 $blue: #589aca;
+$iconBg: #f0f0f0;
+$borderColor: #eee;
 
 .task {
-  border: 1px solid #f0f0f0;
+  border: 1px solid $borderColor;
   background: rgba(white, 0.8);
-  padding: 1em;
+  padding: 0;
   line-height: 1.5;
   font-size: 0.9em;
   position: relative;
@@ -26,9 +28,25 @@ $blue: #589aca;
   background: green;
 }
 
+.status {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  border-bottom: 1px solid $borderColor;
+  font-weight: 600;
+  background: rgba($iconBg, 0.5);
+  span {
+    margin-right: 0.5em;
+    color: $blue;
+  }
+}
+
 .title {
   text-align: left;
   flex: 1;
+  padding: 0 1em;
+  margin-top: 1em;
   &.completed {
     text-decoration: line-through;
   }
@@ -37,29 +55,14 @@ $blue: #589aca;
 .completion {
   margin-top: 1em;
   font-size: 0.9em;
-  color: $blue;
+  color: darken($blue, 15%);
+  padding: 0 1em;
 }
 
-.bottom {
-  margin-top: 2em;
-  display: flex;
-  justify-content: space-between;
-}
 .bottomRight {
   margin-top: 2em;
   display: flex;
   justify-content: flex-end;
-}
-.status {
-  background: #f0f0f0;
-  font-size: 0.9em;
-  padding: 0.5em 1em;
-  display: flex;
-  align-items: center;
-  span {
-    margin-right: 0.5em;
-    color: $blue;
-  }
 }
 .buttons {
   display: flex;

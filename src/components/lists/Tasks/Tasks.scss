@@ -61,4 +61,10 @@
 
 .singleCol {
   max-width: 400px;
+  > div {
+    margin-bottom: 1em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

@@ -207,10 +207,11 @@ export const hideEditForm = (reset = false) => {
   }
 }
 
-export const showDeleteConfirm = (taskId) => {
+export const showDeleteConfirm = (taskId, taskTitle) => {
   return {
     type: actionTypes.SHOW_DELETE_CONFIRM,
-    taskId
+    taskId,
+    taskTitle
   }
 }
 

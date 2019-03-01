@@ -34,7 +34,7 @@ const getTask = (task, props) => (
     completionDate={task.completionDate}
     completeTask={() => props.onCompleteTask(task.id)}
     unCompleteTask={() => props.onUncompleteTask(task.id)}
-    deleteTask={() => props.onShowDeleteConfirm(task.id)}
+    deleteTask={() => props.onShowDeleteConfirm(task.id, task.title)}
     editTask={() => props.onShowEditForm(task.id)} />
 );
 
@@ -104,7 +104,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onShowDeleteConfirm: (id) => dispatch(actions.showDeleteConfirm(id)),
+    onShowDeleteConfirm: (id, title) => dispatch(actions.showDeleteConfirm(id, title)),
     onShowEditForm: (id) => dispatch(actions.showEditForm(id)),
     onShowAddForm: (initDay, project) => dispatch(actions.showAddForm(initDay, project)),
     onCompleteTask: (id) => dispatch(actions.completeTask(id)),

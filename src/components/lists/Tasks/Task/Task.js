@@ -33,12 +33,12 @@ const task = (props) => {
 
   return (
     <div className={classNames(styles.task, styles[props.priority])}>
+      {status}
       <div className={classNames(styles.title, isComplete ? styles.completed : '')}>
         {props.title}
       </div>
       {completionDate}
-      <div className={status ? styles.bottom : styles.bottomRight}>
-        {status}
+      <div className={styles.bottomRight}>
         <div className={styles.buttons}>
           <Button 
             clicked={props.completeTask} 

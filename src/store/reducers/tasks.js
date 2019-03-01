@@ -11,6 +11,7 @@ const initialState = {
   showEdit: false,
   showDelete: false,
   taskId: '',
+  taskTitle: '',
   taskData: null,
   newTaskData: null
 }
@@ -195,6 +196,7 @@ const hideEditForm = (state, action) => {
 const showDeleteConfirm = (state, action) => {
   return updateObject(state, {
     taskId: action.taskId,
+    taskTitle: action.taskTitle,
     showDelete: true
   });
 }
@@ -202,6 +204,7 @@ const showDeleteConfirm = (state, action) => {
 const hideDeleteConfirm = (state, action) => {
   return updateObject(state, {
     taskId: "",
+    taskTitle: "",
     showDelete: false
   });
 }

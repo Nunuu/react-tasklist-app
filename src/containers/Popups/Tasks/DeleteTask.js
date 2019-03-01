@@ -19,7 +19,8 @@ const deleteTask = props => {
         extraStyle="warn">
         <div className={styles.question}>
           <span className={classNames(icons.lnr, icons['lnr-warning'])}></span>
-          Are you sure you want to delete the task?
+          Are you sure you want to delete the following task?
+          <p>{props.taskTitle}</p>
         </div>
         <div className={styles.buttons}>
           <Button 
@@ -43,7 +44,8 @@ const deleteTask = props => {
 const mapStateToProps = state => {
   return {
     showDeleteConfirm: state.tasks.showDelete,
-    taskId: state.tasks.taskId
+    taskId: state.tasks.taskId,
+    taskTitle: state.tasks.taskTitle
   }
 }
 
